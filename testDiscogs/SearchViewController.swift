@@ -8,7 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ListViewController: UIViewController {
+    
+    let key = "KnbgEsaySyycOTssdHtb"
+    let secret = "fuMvCEACbnpWflLkrstXUSmjJUuUFHto"
+    let token = "tQXjBRZwRpShoMnbsfnLVIuMMGtjNnntRoDKDicF"
+    var userName = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
