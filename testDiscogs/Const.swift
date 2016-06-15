@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+struct constNotification {
+    static let  Search = "Search"
+}
