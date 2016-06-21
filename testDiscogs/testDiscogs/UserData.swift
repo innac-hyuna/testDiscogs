@@ -10,7 +10,6 @@ import Foundation
 
 class UserData {
   var profile: String!
-  var message: String!
   var wantlistUrl: String!
   var rank: Float!
   var numPending: String!
@@ -36,7 +35,6 @@ class UserData {
 
   init() {
     profile = ""
-    message = ""
     wantlistUrl = ""
     rank = 0.0
     numPending = ""

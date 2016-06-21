@@ -10,10 +10,10 @@ import Foundation
 import SwiftyJSON
 import MBProgressHUD
 
-class LoginDataManager {
+class UserDataManager {
     
     
-    func getLoginInfo(urlStr: String, controller: LoginedViewController) {
+    func getLoginInfo(urlStr: String, controller: BaseViewController, callback: ((UserData) -> ())?) {
         
         let progressHUD = MBProgressHUD.showHUDAddedTo(controller.view, animated: true)
         progressHUD.labelText = "Loading..."
@@ -29,10 +29,12 @@ class LoginDataManager {
             
             if let httpResponse = response as? NSHTTPURLResponse {// where httpResponse.statusCode == 200 {
                 print(httpResponse.statusCode)
-                if httpResponse.statusCode == 200 ||  httpResponse.statusCode == 404 {
+                if httpResponse.statusCode == 200  {
+                    
                     let parsedData = self.getDataFromJson(data!)
+ 
                     dispatch_async(dispatch_get_main_queue()) {
-                        NSNotificationCenter.defaultCenter().postNotificationName(constNotification.Login, object: parsedData, userInfo: nil)
+                       callback?(parsedData)
                         MBProgressHUD.hideAllHUDsForView(controller.view, animated: true)
                     }
                 }
@@ -46,9 +48,6 @@ class LoginDataManager {
         let UData = UserData()
         let json = JSON(data: data)
         
-        if let message = json["message"].string {
-            UData.message = message
-        }
         
         if let profile = json["profile"].string {
             UData.profile = profile

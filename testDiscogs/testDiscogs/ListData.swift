@@ -9,7 +9,6 @@
 import Foundation
 
 class ListData {
-    var message: String!
     var urlStr: String!
     var perpage: Int!
     var pages: Int!
@@ -22,7 +21,7 @@ class ListData {
     var itemsData: [ItemData]!
     
     init() {
-        message = ""
+
         urlStr = ""
         perpage = 0
         pages = 0

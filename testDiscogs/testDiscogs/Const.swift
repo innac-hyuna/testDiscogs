@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct constNotification {
-    static let  Search = "Search"
-    static let  Login = "Login"
+struct constApp {
+   static let key = "KnbgEsaySyycOTssdHtb"
+   static let secret = "fuMvCEACbnpWflLkrstXUSmjJUuUFHto"
+   static let token = "tQXjBRZwRpShoMnbsfnLVIuMMGtjNnntRoDKDicF"
 }

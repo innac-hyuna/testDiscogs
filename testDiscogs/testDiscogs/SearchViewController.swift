@@ -4,16 +4,13 @@
 //
 //  Created by FE Team TV on 6/13/16.
 //  Copyright © 2016 courses. All rights reserved.
-//https://itunes.apple.com/us/app/discogs/id1036449551?mt=8
+
 
 import UIKit
 import SMSwipeableTabView
 
-class SearchViewController: BaseViewController {
-    
-    let key = "KnbgEsaySyycOTssdHtb"
-    let secret = "fuMvCEACbnpWflLkrstXUSmjJUuUFHto"
-    let token = "tQXjBRZwRpShoMnbsfnLVIuMMGtjNnntRoDKDicF"
+class SearchViewController: BaseViewController {    
+
     var userName = ""
     var searchData: ListData!
     var searchDataManager: ListDataManager!
@@ -36,10 +33,10 @@ class SearchViewController: BaseViewController {
         
         
         searchData = ListData()
-        searchDataManager = ListDataManager()
+        searchDataManager = ListDataManager.sharedManager
         
+        setupLayoutSeachBar()  
         
-        setupLayoutSeachBar()
         
     }
   
@@ -97,36 +94,28 @@ class SearchViewController: BaseViewController {
                            constant: 0).active = true
         }
     
-    func loadData(urlStr: String) {
-        searchDataManager.getList(urlStr, controller: self)
-        setupObservers()
-    }
-    
-    private func setupObservers() {
-       
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchViewController.listData(_:)), name: constNotification.Search, object: nil)
-        
-    }
-    
-    func listData(notificaion: NSNotification) {
-        
-      guard let arrList = notificaion.object as? ListData else {
-            return
+  func loadData(urlStr: String) {
+        searchDataManager.getList(urlStr, controller: self) { (listData) in
+        self.searchData = listData
+        if self.searchActive {self.reloadSwipeableTabView()}
+        self.reloadPage()
         }
-        if arrList.message == "" {
-         searchData = arrList
-            if searchActive {reloadSwipeableTabView()}
-            reloadPage()
-        }
+  }
+ 
+  func userData(urlStr: String) {
+        let userDataManager = UserDataManager()
+        userDataManager.getLoginInfo(urlStr, controller: self) { (userData) in
+            self.userName = userData.name
+           }
     }
     
-    func reloadPage() {
+ func reloadPage() {
 
         listVC.dataSource = searchData.itemsData
         listVC.mainTableView?.reloadData()
     }
     
-    func reloadSwipeableTabView() {
+ func reloadSwipeableTabView() {
         swipeableView = SMSwipeableTabViewController()
         swipeableView.titleBarDataSource = Array(1 ... searchData.pages).map { iElement -> String in
             NSNumberFormatter.localizedStringFromNumber(iElement, numberStyle: .DecimalStyle) }
@@ -143,8 +132,8 @@ class SearchViewController: BaseViewController {
  
     }
     
-    func getUrlStr(searchText: String) -> String {
-        return "https://api.discogs.com/database/search?q=\(searchText)&token=\(token)"
+  func getUrlStr(searchText: String) -> String {
+         return "https://api.discogs.com/database/search?q=\(searchText)&token=\(constApp.token)"
     }
     
 }

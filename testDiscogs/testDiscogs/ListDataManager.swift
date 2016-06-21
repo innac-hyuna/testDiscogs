@@ -13,7 +13,9 @@ import MBProgressHUD
 
 class ListDataManager {
     
-    func getList(urlStr: String, controller: SearchViewController) {
+    static let sharedManager = ListDataManager()
+    
+    func getList(urlStr: String, controller: SearchViewController, callback: ((ListData) -> ())?) {
         
         let progressHUD = MBProgressHUD.showHUDAddedTo(controller.view, animated: true)
         progressHUD.labelText = "Loading..."
@@ -29,11 +31,11 @@ class ListDataManager {
             
             if let httpResponse = response as? NSHTTPURLResponse {// where httpResponse.statusCode == 200 {
                 
-                 if httpResponse.statusCode == 200 ||  httpResponse.statusCode == 404 {
+                 if httpResponse.statusCode == 200 {
                     let parsedData = self.getDataFromJson(data!)
                     
                     dispatch_async(dispatch_get_main_queue()) {
-                        NSNotificationCenter.defaultCenter().postNotificationName(constNotification.Search, object: parsedData, userInfo: nil)
+                        callback?(parsedData)
                         MBProgressHUD.hideAllHUDsForView(controller.view, animated: true)
                     }
                 }
@@ -48,8 +50,6 @@ class ListDataManager {
         let json = JSON(data: data)
         let list = ListData()
         
-        if let message = json["message"].string {
-            list.message = message }
         if let urlStr = json["pagination"]["urlStr"].string {
             list.urlStr = urlStr }
         if let perpage = json["pagination"]["perpage"].int {

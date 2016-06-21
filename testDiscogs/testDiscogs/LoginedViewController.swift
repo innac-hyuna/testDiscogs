@@ -6,92 +6,79 @@
 //  Copyright © 2016 courses. All rights reserved.
 //
 
-import UIKit
+import WebKit
+import OAuthSwift
 
 
-class LoginedViewController: UIViewController {
-    var mainView: UIView!
-    var iconImg: UIImageView!
-    var loginText: UITextField!
-    var passwordText: UITextField!
-    var loginButton: UIButton!
-    var topBar: UILayoutSupport!
+class LoginedViewController: OAuthWebViewController {
+    var mainView: UIWebView!  
     var urlStr: String!
-    var loginName: String!
-    var LManager: LoginDataManager!
-    var NavController: UINavigationController!
     var compactConstraint = [NSLayoutConstraint]()
-    var BarMenu: UIBarButtonItem!
+    var fmanager: FileManagerSourse!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let login =  NSUserDefaults.standardUserDefaults().stringForKey("loginname") {
-            if login != "" {
-                loadSearchViewController() }
-       
-        }
+        fmanager = FileManagerSourse()
+        let oauthSwift = OAuth1Swift(
+            consumerKey: constApp.key as String,
+            consumerSecret: constApp.secret as String,
+            requestTokenUrl: "https://api.discogs.com/oauth/request_token",
+            authorizeUrl: "https://www.discogs.com/oauth/authorize",
+            accessTokenUrl: "https://api.discogs.com/oauth/access_token"
+        )
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginedViewController.loginGotAction(_:)), name: constNotification.Login, object: nil)
+       oauthSwift.authorize_url_handler = SafariURLHandler(viewController: self)
         
-        urlStr = "https://api.discogs.com/users/"
-        loginName = ""
-        LManager = LoginDataManager()
-        
-        BarMenu = UIBarButtonItem()
-       
-        
-        mainView = UIView()
+       oauthSwift.authorizeWithCallbackURL(
+            NSURL(string: "testdiscogs://api.discogs.com")!,
+            success: { credential, response, parameters in
+                print(credential.oauth_token)
+                print(credential.oauth_token_secret)
+              
+                self.fmanager.saveServices(credential.oauth_token, consumerSecret: credential.oauth_token_secret)
+                self.loadSearchViewController()
+                
+                oauthSwift.client.get("https://api.discogs.com/oauth/identity", headers: ["Accept":"application/json"],
+                    success: {
+                        data, response in
+                        if let jsonDict = try? NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) , dico = jsonDict as? [String: AnyObject] {
+                            self.fmanager.saveUserName(dico["username"] as! String)
+                            print(self.fmanager.getUserName()) }
+                        else {
+                            print("no json response")
+                        }
+                        
+                        
+                    }, failure: { error in
+                        print(error)
+                })
+            },
+            failure: { error in
+                print(error.localizedDescription)
+            }             
+        )
+
+        mainView =  UIWebView()
+        mainView.delegate = self
+        mainView.scalesPageToFit = true
         mainView.userInteractionEnabled = true
         mainView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mainView)
-        
-        iconImg  = UIImageView()
-        iconImg.image = UIImage.bgIconImage()
-        iconImg.translatesAutoresizingMaskIntoConstraints = false
-        mainView.addSubview(iconImg)
-        
-        loginText = UITextField()
-        loginText.textColor = UIColor.textColor()
-        loginText.delegate = self
-        loginText.backgroundColor = UIColor.buttonColor()
-        loginText.autocapitalizationType = UITextAutocapitalizationType.None
-        loginText.translatesAutoresizingMaskIntoConstraints = false
-        mainView.addSubview(loginText)
-        
-        loginButton = UIButton(type: .Custom) as UIButton
-        loginButton.addTarget(self, action: #selector(LoginedViewController.loginButtonAction(_:)), forControlEvents: .TouchUpInside)
-        loginButton.setTitle("Sign into Discogs", forState: .Normal)
-        loginButton.titleLabel?.font = UIFont.HelTextFont(14)
-        loginButton.backgroundColor = UIColor.buttonColor()
-        loginButton.translatesAutoresizingMaskIntoConstraints = false
-        mainView.addSubview(loginButton)
         setapLayout()
-        
+
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func loginGotAction(notification: NSNotification) {
-            
-          guard let arrData = notification.object as? UserData else {
-            return     }
-        
-        if arrData.message == "" {
-            NSUserDefaults.standardUserDefaults().setValue(arrData.username, forKey: "loginname")
-            loadSearchViewController()
-        }
-        
-    }
+    
     
     func loadSearchViewController() {
         
-        NavController = UINavigationController(rootViewController: SearchViewController())
-        presentViewController(NavController, animated: true, completion: nil)
-     
-        
+        let SearchViewC = UINavigationController(rootViewController: SearchViewController())
+        presentViewController(SearchViewC, animated: true, completion: nil)
     }
 
     func loginButtonAction (sender: UIButton) {
@@ -99,9 +86,7 @@ class LoginedViewController: UIViewController {
     }
     
     func forLoginButtonAction() {
-        loginName = loginText.text
-        loginName = loginName.stringByReplacingOccurrencesOfString(" ", withString: "")
-        LManager.getLoginInfo(urlStr+loginName, controller: self)
+      
     }
     
     func setapLayout() {
@@ -110,132 +95,39 @@ class LoginedViewController: UIViewController {
         
         compactConstraint.append(NSLayoutConstraint(
             item: mainView,
-            attribute: NSLayoutAttribute.CenterY,
+            attribute: NSLayoutAttribute.Top,
             relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.CenterY,
+            toItem: topLayoutGuide,
+            attribute: NSLayoutAttribute.Bottom,
             multiplier: 1.0,
             constant: 20))
         compactConstraint.append(NSLayoutConstraint(
             item: mainView,
-            attribute: NSLayoutAttribute.CenterX,
+            attribute: NSLayoutAttribute.Height,
             relatedBy: NSLayoutRelation.Equal,
             toItem: view,
-            attribute: NSLayoutAttribute.CenterX,
-            multiplier: 1.0,
-            constant: 0))
-        compactConstraint.append(NSLayoutConstraint(
-            item: mainView,
             attribute: NSLayoutAttribute.Height,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
             multiplier: 1.0,
-            constant: 350 ))
+            constant: 0 ))
         compactConstraint.append(NSLayoutConstraint(
             item: mainView,
             attribute: NSLayoutAttribute.Width,
             relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: 300))
-        
-        compactConstraint.append(NSLayoutConstraint(
-            item: iconImg,
-            attribute: NSLayoutAttribute.TopMargin,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: mainView,
-            attribute: NSLayoutAttribute.TopMargin,
-            multiplier: 1.0,
-            constant: 15))
-        compactConstraint.append(NSLayoutConstraint(
-            item: iconImg,
-            attribute: NSLayoutAttribute.CenterX,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: mainView,
-            attribute: NSLayoutAttribute.CenterX,
-            multiplier: 1.0,
-            constant: 0))
-        
-        compactConstraint.append(NSLayoutConstraint(
-            item: loginText,
-            attribute: NSLayoutAttribute.CenterX,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: mainView,
-            attribute: NSLayoutAttribute.CenterX,
-            multiplier: 1.0,
-            constant: 0))
-        compactConstraint.append(NSLayoutConstraint(
-            item: loginText,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: iconImg,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 15))
-        compactConstraint.append(NSLayoutConstraint(
-            item: loginText,
+            toItem: view,
             attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: 250))
-        compactConstraint.append(NSLayoutConstraint(
-            item: loginText,
-            attribute: NSLayoutAttribute.Height,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: 30))
-        
-        compactConstraint.append(NSLayoutConstraint(
-            item: loginButton,
-            attribute: NSLayoutAttribute.CenterX,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: mainView,
-            attribute: NSLayoutAttribute.CenterX,
             multiplier: 1.0,
             constant: 0))
-        compactConstraint.append(NSLayoutConstraint(
-            item: loginButton,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: loginText,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 15))
-        compactConstraint.append(NSLayoutConstraint(
-            item: loginButton,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: 250))
-        compactConstraint.append(NSLayoutConstraint(
-            item: loginButton,
-            attribute: NSLayoutAttribute.Height,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: 30))
-        NSLayoutConstraint.activateConstraints(compactConstraint)
+        
+      NSLayoutConstraint.activateConstraints(compactConstraint)
     }
     
 }
 
-extension LoginedViewController: UITextFieldDelegate {
-    
-    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
-        forLoginButtonAction()
-        return true
-    }
+extension LoginedViewController: UIWebViewDelegate {
    
 }
+
+
 
 
 
