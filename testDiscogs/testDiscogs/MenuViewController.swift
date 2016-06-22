@@ -87,7 +87,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                            toItem: nil,
                            attribute: NSLayoutAttribute.NotAnAttribute,
                            multiplier: 1.0,
-                           constant: 20).active = true
+                           constant: 25).active = true
         NSLayoutConstraint(item: btnCloseMenuOverlay,
                            attribute: NSLayoutAttribute.Leading,
                            relatedBy: NSLayoutRelation.Equal,
@@ -138,7 +138,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func updateArrayMenuOptions(){
         arrayMenuOptions.append(["title":"Search", "icon":"Search-44"])
-     //   arrayMenuOptions.append(["title":"Play", "icon":"PlayIcon"])
+        arrayMenuOptions.append(["title":"User", "icon":"User"])
         
         tblMenuOptions.reloadData()
     }

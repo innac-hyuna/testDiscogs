@@ -14,12 +14,11 @@ class LoginedViewController: OAuthWebViewController {
     var mainView: UIWebView!  
     var urlStr: String!
     var compactConstraint = [NSLayoutConstraint]()
-    var fmanager: FileManagerSourse!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fmanager = FileManagerSourse()
+        
         let oauthSwift = OAuth1Swift(
             consumerKey: constApp.key as String,
             consumerSecret: constApp.secret as String,
@@ -36,15 +35,14 @@ class LoginedViewController: OAuthWebViewController {
                 print(credential.oauth_token)
                 print(credential.oauth_token_secret)
               
-                self.fmanager.saveServices(credential.oauth_token, consumerSecret: credential.oauth_token_secret)
+                FileManagerSourse.sharedManager.saveServices(credential.oauth_token, consumerSecret: credential.oauth_token_secret)
                 self.loadSearchViewController()
                 
                 oauthSwift.client.get("https://api.discogs.com/oauth/identity", headers: ["Accept":"application/json"],
                     success: {
                         data, response in
                         if let jsonDict = try? NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) , dico = jsonDict as? [String: AnyObject] {
-                            self.fmanager.saveUserName(dico["username"] as! String)
-                            print(self.fmanager.getUserName()) }
+                            FileManagerSourse.sharedManager.saveUserName(dico["username"] as! String)  }
                         else {
                             print("no json response")
                         }

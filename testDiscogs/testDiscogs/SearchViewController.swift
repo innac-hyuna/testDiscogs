@@ -13,7 +13,6 @@ class SearchViewController: BaseViewController {
 
     var userName = ""
     var searchData: ListData!
-    var searchDataManager: ListDataManager!
     var seachBar: UISearchBar!
     var swipeableView: SMSwipeableTabViewController!
     var listVC: SMSimpleListViewController!
@@ -25,16 +24,11 @@ class SearchViewController: BaseViewController {
         super.viewDidLoad()
         
         addSlideMenuButton()
-        
         seachBar = UISearchBar()
         seachBar.delegate = self
         seachBar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(seachBar)
-        
-        
         searchData = ListData()
-        searchDataManager = ListDataManager.sharedManager
-        
         setupLayoutSeachBar()  
         
         
@@ -95,19 +89,13 @@ class SearchViewController: BaseViewController {
         }
     
   func loadData(urlStr: String) {
-        searchDataManager.getList(urlStr, controller: self) { (listData) in
-        self.searchData = listData
+   
+        DataManager.sharedManager.getData(urlStr, controller: self) { (listData) in
+        self.searchData = listData as! ListData
         if self.searchActive {self.reloadSwipeableTabView()}
         self.reloadPage()
         }
   }
- 
-  func userData(urlStr: String) {
-        let userDataManager = UserDataManager()
-        userDataManager.getLoginInfo(urlStr, controller: self) { (userData) in
-            self.userName = userData.name
-           }
-    }
     
  func reloadPage() {
 

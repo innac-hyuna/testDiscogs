@@ -11,12 +11,12 @@ import SwiftyJSON
 import MBProgressHUD
 
 
-class ListDataManager {
+class DataManager {
+    static let sharedManager = DataManager()
     
-    static let sharedManager = ListDataManager()
-    
-    func getList(urlStr: String, controller: SearchViewController, callback: ((ListData) -> ())?) {
-        
+    func getData(urlStr: String, controller: BaseViewController, callback: ((AnyObject) -> ())?) {
+      
+       
         let progressHUD = MBProgressHUD.showHUDAddedTo(controller.view, animated: true)
         progressHUD.labelText = "Loading..."
         
@@ -32,10 +32,18 @@ class ListDataManager {
             if let httpResponse = response as? NSHTTPURLResponse {// where httpResponse.statusCode == 200 {
                 
                  if httpResponse.statusCode == 200 {
-                    let parsedData = self.getDataFromJson(data!)
+                    let nameControler = NSStringFromClass(controller.classForCoder).componentsSeparatedByString(".").last!
+                    var parsedData: AnyObject!
+                    if nameControler == "SearchViewController" {
+                        parsedData = self.getListDataFromJson(data!) as ListData
+                    } else {
+                        parsedData = self.getUserDataFromJson(data!) as UserData}
+                    
                     
                     dispatch_async(dispatch_get_main_queue()) {
-                        callback?(parsedData)
+                        
+                        callback?(parsedData)// UserData
+                        
                         MBProgressHUD.hideAllHUDsForView(controller.view, animated: true)
                     }
                 }
@@ -45,7 +53,7 @@ class ListDataManager {
         task.resume()
     }
     
-    func getDataFromJson(data: NSData) -> ListData {
+ private func getListDataFromJson(data: NSData) -> ListData {
         
         let json = JSON(data: data)
         let list = ListData()
@@ -111,5 +119,106 @@ class ListDataManager {
         
         
     }
+
+ private func getUserDataFromJson(data: NSData) -> UserData {
+        let UData = UserData()
+        let json = JSON(data: data)
+        
+        
+        if let profile = json["profile"].string {
+            UData.profile = profile
+        }
+        
+        if let wantlistUrl = json["wantlist_url"].string {
+            UData.wantlistUrl = wantlistUrl
+        }
+        
+        if let rank = json["rank"].float {
+            UData.rank = rank
+        }
+        
+        if let numPending = json["num_pending"].string {
+            UData.numPending = numPending
+        }
+        
+        if let idi = json["id"].int {
+            UData.id = idi
+        }
+        
+        if let numForsale = json["num_for_sale"].string {
+            UData.numForsale = numForsale
+        }
+        
+        if let homePage = json["home_page"].string {
+            UData.homePage = homePage
+        }
+       
+        if let location = json["location"].string {
+            UData.location = location
+        }
+      
+        if let collectionFoldersUrl = json["collection_folders_url"].string {
+            UData.collectionFoldersUrl = collectionFoldersUrl
+        }
+        
+        if let username = json["username"].string {
+            UData.username = username
+        }
+        
+        if let collectionFieldsUrl = json["collection_fields_url"].string {
+            UData.collectionFieldsUrl = collectionFieldsUrl
+        }
+        
+        if let releasesContributed = json["releases_contributed"].int {
+            UData.releasesContributed = releasesContributed
+        }
+        
+        if let registered = json["registered"].string {
+            UData.registered = registered
+        }
+        
+        if let ratingAvg = json["rating_avg"].float {
+            UData.ratingAvg = ratingAvg
+        }
+      
+        if let numCollection = json["num_collection"].int {
+            UData.numCollection = numCollection
+        }
+        
+        if let releasesRated = json["releases_rated"].int {
+            UData.releasesRated = releasesRated
+        }
+        
+        if let numLists = json["num_lists"].int {
+            UData.numLists = numLists
+        }
+        
+        if let name = json["name"].string {
+            UData.name = name
+        }
+        
+        if let numWantlist = json["num_wantlist"].int {
+            UData.numWantlist = numWantlist
+        }
+        
+        if let inventoryUrl = json["inventory_url"].string {
+            UData.inventoryUrl = inventoryUrl
+        }
+
+        if let uri = json["uri"].string {
+            UData.uri = uri
+        }
+        
+        if let avatarUrl = json["avatar_url"].string {
+            UData.avatarUrl = avatarUrl
+        }
+        
+        if let resourceUrl = json["resource_url"].string {
+            UData.resourceUrl = resourceUrl
+        }
+
+        return UData
+    }
+
 
 }

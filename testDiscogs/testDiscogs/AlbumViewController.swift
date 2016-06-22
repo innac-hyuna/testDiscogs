@@ -48,8 +48,9 @@ class AlbumViewController: UIViewController {
         
         titleLabel =  UILabel()
         titleLabel.text = albumData.title
-        titleLabel.textColor = UIColor.textColor()
-        titleLabel.font = UIFont.HelTextFont(16)
+        titleLabel.textColor = UIColor.titleColor()
+        titleLabel.font = UIFont.HelTextFont(18)
+        titleLabel.textAlignment = .Center
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .ByTruncatingTail
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -82,7 +83,7 @@ class AlbumViewController: UIViewController {
         view.addSubview(idLabel)
         
         styleLabel =  UILabel()
-        styleLabel.text = "Style:\(albumData.style.joinWithSeparator(", "))"
+        styleLabel.text = "Style: \(albumData.style.joinWithSeparator(", "))"
         styleLabel.textColor = UIColor.textColor()
         styleLabel.font = UIFont.HelTextFont(12)
         titleLabel.numberOfLines = 2
@@ -91,7 +92,7 @@ class AlbumViewController: UIViewController {
         view.addSubview(styleLabel)
         
         formatLabel =  UILabel()
-        formatLabel.text = "Format:\(albumData.format.joinWithSeparator(", "))"
+        formatLabel.text = "Format: \(albumData.format.joinWithSeparator(", "))"
         formatLabel.textColor = UIColor.textColor()
         formatLabel.font = UIFont.HelTextFont(12)
         formatLabel.numberOfLines = 2
@@ -100,7 +101,7 @@ class AlbumViewController: UIViewController {
         view.addSubview(formatLabel)
         
         countryLabel =  UILabel()
-        countryLabel.text = "Country:\(albumData.country)"
+        countryLabel.text = "Country: \(albumData.country)"
         countryLabel.textColor = UIColor.textColor()
         countryLabel.font = UIFont.HelTextFont(12)
         countryLabel.numberOfLines = 2
@@ -128,7 +129,7 @@ class AlbumViewController: UIViewController {
         view.addSubview(communityLabel)
         
         labelLabel =  UILabel()
-        labelLabel.text = "Label:\(albumData.label.joinWithSeparator(", "))"
+        labelLabel.text = "Label: \(albumData.label.joinWithSeparator(", "))"
         labelLabel.textColor = UIColor.textColor()
         labelLabel.font = UIFont.HelTextFont(12)
         labelLabel.numberOfLines = 2
@@ -155,7 +156,7 @@ class AlbumViewController: UIViewController {
         view.addSubview(yearLabel)
         
         genreLabel =  UILabel()
-        genreLabel.text = "Genre:\(albumData.genre.joinWithSeparator(", "))"
+        genreLabel.text = "Genre: \(albumData.genre.joinWithSeparator(", "))"
         genreLabel.textColor = UIColor.textColor()
         genreLabel.font = UIFont.HelTextFont(12)
         genreLabel.numberOfLines = 2
@@ -248,12 +249,12 @@ class AlbumViewController: UIViewController {
             constant: 10))
         compactConstraint.append(NSLayoutConstraint(
             item: titleLabel,
-            attribute: NSLayoutAttribute.Width,
+            attribute: NSLayoutAttribute.Trailing,
             relatedBy: NSLayoutRelation.Equal,
             toItem: view,
-            attribute: NSLayoutAttribute.Width,
+            attribute: NSLayoutAttribute.Trailing,
             multiplier: 1.0,
-            constant: 0))
+            constant: 10))
         
         compactConstraint.append(NSLayoutConstraint(
             item: labelLabel,

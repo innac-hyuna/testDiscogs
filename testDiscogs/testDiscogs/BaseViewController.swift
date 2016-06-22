@@ -26,15 +26,13 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
        // print("View Controller is : \(topViewController) \n", terminator: "")
         switch(index){
         case 0:
-            print("Home\n", terminator: "")
 
             self.openViewControllerBasedOnIdentifier(SearchViewController())
             
             break
         case 1:
-            print("Play\n", terminator: "")
             
-           // self.openViewControllerBasedOnIdentifier("PlayVC")
+            self.openViewControllerBasedOnIdentifier(UserViewController())
             
             break
         default:
@@ -121,5 +119,3 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             }, completion:nil)
     }
 }
-
-///Attempt to present <UINavigationController: 0x7faf20810a00> on <testDiscogs.LoginedViewController: 0x7faf20492ae0> whose view is not in the window hierarchy!

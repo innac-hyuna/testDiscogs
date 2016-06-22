@@ -10,6 +10,8 @@ import Foundation
 
 class FileManagerSourse {
     
+    static let sharedManager = FileManagerSourse()
+    
     func setManager() -> String {
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
         let path = paths.stringByAppendingString("/Services.plist")

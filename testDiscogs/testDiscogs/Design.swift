@@ -50,6 +50,10 @@ extension UIColor {
     static func textColor() -> UIColor {
         return UIColor.whiteColor()
     }
+    
+    static func titleColor() -> UIColor {
+        return UIColor.brownColor()
+    }
 }
 
 extension UIFont {
