@@ -18,7 +18,7 @@ class ListData {
     var urlfirst: String!
     var urlnext: String!
     var items: Int!
-    var itemsData: [ItemData]!
+    var itemsData: [AnyObject]!
     
     init() {
 
@@ -31,6 +31,6 @@ class ListData {
         urlfirst = ""
         urlprev = ""
         items = 0
-        itemsData = [ItemData]()
+        itemsData = [AnyObject]()
     }
 }

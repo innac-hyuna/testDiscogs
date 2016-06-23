@@ -9,8 +9,8 @@
 import UIKit
 import SMSwipeableTabView
 
-class SearchViewController: BaseViewController {    
-
+class SearchViewController: BaseViewController {
+    
     var userName = ""
     var searchData: ListData!
     var seachBar: UISearchBar!
@@ -18,8 +18,8 @@ class SearchViewController: BaseViewController {
     var listVC: SMSimpleListViewController!
     var searchQ = ""
     var searchActive = false
-
-        
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,17 +29,17 @@ class SearchViewController: BaseViewController {
         seachBar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(seachBar)
         searchData = ListData()
-        setupLayoutSeachBar()  
+        setupLayoutSeachBar()
         
         
     }
-  
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     func setupLayoutSeachBar() {
-      
+        
         
         NSLayoutConstraint(item: seachBar,
                            attribute: NSLayoutAttribute.Top,
@@ -62,8 +62,8 @@ class SearchViewController: BaseViewController {
                            attribute: NSLayoutAttribute.NotAnAttribute,
                            multiplier: 1.0,
                            constant: 44).active = true }
-        
-     func setupLayoutSwipeableView() {
+    
+    func setupLayoutSwipeableView() {
         
         NSLayoutConstraint(item: swipeableView.view,
                            attribute: NSLayoutAttribute.Top,
@@ -86,30 +86,30 @@ class SearchViewController: BaseViewController {
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
                            constant: 0).active = true
-        }
+    }
     
-  func loadData(urlStr: String) {
-   
+    func loadData(urlStr: String) {
+        
         DataManager.sharedManager.getData(urlStr, controller: self) { (listData) in
-        self.searchData = listData as! ListData
-        if self.searchActive {self.reloadSwipeableTabView()}
-        self.reloadPage()
+            self.searchData = listData as! ListData
+            if self.searchActive {self.reloadSwipeableTabView()}
+            self.reloadPage()
         }
-  }
+    }
     
- func reloadPage() {
-
-        listVC.dataSource = searchData.itemsData
+    func reloadPage() {
+        
+        listVC.dataSource = searchData.itemsData as? [ItemData]
         listVC.mainTableView?.reloadData()
     }
     
- func reloadSwipeableTabView() {
+    func reloadSwipeableTabView() {
         swipeableView = SMSwipeableTabViewController()
         swipeableView.titleBarDataSource = Array(1 ... searchData.pages).map { iElement -> String in
             NSNumberFormatter.localizedStringFromNumber(iElement, numberStyle: .DecimalStyle) }
-     
+        
         swipeableView.segmentBarAttributes = [SMBackgroundColorAttribute : UIColor.buttonColor()]
-       
+        
         swipeableView.delegate = self
         addChildViewController(swipeableView)
         view.addSubview(swipeableView.view)
@@ -117,41 +117,41 @@ class SearchViewController: BaseViewController {
         swipeableView.didMoveToParentViewController(self)
         
         setupLayoutSwipeableView()
- 
+        
     }
     
-  func getUrlStr(searchText: String) -> String {
-         return "https://api.discogs.com/database/search?q=\(searchText)&token=\(constApp.token)"
+    func getUrlStr(searchText: String) -> String {
+        return "https://api.discogs.com/database/search?q=\(searchText)&token=\(constApp.token)"
     }
     
 }
 
 extension SearchViewController: SMSwipeableTabViewControllerDelegate {
-       
+    
     func didLoadViewControllerAtIndex(index: Int) -> UIViewController {
-       listVC = SMSimpleListViewController()
-      
-       loadData("\(getUrlStr(searchQ))&page=\(index+1)")
-     
-       searchActive = false
-     
-       return listVC
+        listVC = SMSimpleListViewController()
+        
+        loadData("\(getUrlStr(searchQ))&page=\(index+1)")
+        
+        searchActive = false
+        
+        return listVC
     }
 }
 
 extension SearchViewController: UISearchBarDelegate {
-   
- 
+    
+    
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         
     }
     
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-       
+        
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-    
+        
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
@@ -163,7 +163,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-      
+        
     }
     
-   }
+}

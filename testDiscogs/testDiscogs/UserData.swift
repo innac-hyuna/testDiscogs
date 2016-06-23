@@ -10,11 +10,8 @@ import Foundation
 
 class UserData {
   var profile: String!
-  var wantlistUrl: String!
   var rank: Float!
-  var numPending: String!
   var id: Int!
-  var numForsale: String!
   var homePage: String!
   var location: String!
   var collectionFoldersUrl: String!
@@ -35,11 +32,8 @@ class UserData {
 
   init() {
     profile = ""
-    wantlistUrl = ""
     rank = 0.0
-    numPending = ""
     id = 0
-    numForsale = ""
     homePage = ""
     location = ""
     collectionFoldersUrl = ""

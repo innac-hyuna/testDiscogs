@@ -55,9 +55,11 @@ extension SMSimpleListViewController: UICollectionViewDataSource  {
         }
         return cell 
     }
+    
     public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
+    
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let nexController = AlbumViewController()
         if let data = dataSource {

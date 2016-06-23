@@ -34,6 +34,9 @@
 		DAE330731D1A7F61002595FA /* Extantion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE330721D1A7F61002595FA /* Extantion.swift */; };
 		DAE330781D1AB30E002595FA /* WantlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE330771D1AB30E002595FA /* WantlistViewController.swift */; };
 		DAE3307B1D1AB3E1002595FA /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3307A1D1AB3E1002595FA /* CollectionViewController.swift */; };
+		DAE3307D1D1ABC25002595FA /* WantlistData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3307C1D1ABC25002595FA /* WantlistData.swift */; };
+		DAE3307F1D1AD6FA002595FA /* WantlistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3307E1D1AD6FA002595FA /* WantlistTableViewCell.swift */; };
+		DAE330811D1ADBA7002595FA /* WantlistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE330801D1ADBA7002595FA /* WantlistTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +91,9 @@
 		DAE330721D1A7F61002595FA /* Extantion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extantion.swift; sourceTree = "<group>"; };
 		DAE330771D1AB30E002595FA /* WantlistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WantlistViewController.swift; sourceTree = "<group>"; };
 		DAE3307A1D1AB3E1002595FA /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		DAE3307C1D1ABC25002595FA /* WantlistData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WantlistData.swift; sourceTree = "<group>"; };
+		DAE3307E1D1AD6FA002595FA /* WantlistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WantlistTableViewCell.swift; sourceTree = "<group>"; };
+		DAE330801D1ADBA7002595FA /* WantlistTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WantlistTableViewController.swift; sourceTree = "<group>"; };
 		E0D96BA1FC46FE213323D4EF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -233,6 +239,7 @@
 				DAAEEE6E1D12FBF0005915DC /* ListData.swift */,
 				DAC904101D0F08AC0083774F /* ItemData.swift */,
 				DAA4D0F81D14428F00128979 /* UserData.swift */,
+				DAE3307C1D1ABC25002595FA /* WantlistData.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -240,6 +247,8 @@
 		DAE330761D1AB29A002595FA /* Wantlist */ = {
 			isa = PBXGroup;
 			children = (
+				DAE330801D1ADBA7002595FA /* WantlistTableViewController.swift */,
+				DAE3307E1D1AD6FA002595FA /* WantlistTableViewCell.swift */,
 				DAE330771D1AB30E002595FA /* WantlistViewController.swift */,
 			);
 			name = Wantlist;
@@ -445,9 +454,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAE3307D1D1ABC25002595FA /* WantlistData.swift in Sources */,
 				DAC9040B1D0F00800083774F /* DataManager.swift in Sources */,
 				DA8103A21D199E2700081503 /* UserViewController.swift in Sources */,
+				DAE3307F1D1AD6FA002595FA /* WantlistTableViewCell.swift in Sources */,
 				DA8D24DE1D17E50F00C02E60 /* MenuViewController.swift in Sources */,
+				DAE330811D1ADBA7002595FA /* WantlistTableViewController.swift in Sources */,
 				DAB4B6A11D102A5300F85ED1 /* Design.swift in Sources */,
 				DAC9040D1D0F017F0083774F /* Const.swift in Sources */,
 				DAC821CC1D11B89700C6F00C /* AlbumViewController.swift in Sources */,

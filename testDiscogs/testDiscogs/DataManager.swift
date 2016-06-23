@@ -8,20 +8,20 @@
 
 import Foundation
 import SwiftyJSON
+import Alamofire
 import MBProgressHUD
 
 
 class DataManager {
     static let sharedManager = DataManager()
-    
-    func getData(urlStr: String, controller: BaseViewController, callback: ((AnyObject) -> ())?) {
-      
+    private var progressHUD: MBProgressHUD!
+    func getData(urlStr: String, controller: BaseViewController , callback: ((AnyObject) -> ())?) {
+        
        
-        let progressHUD = MBProgressHUD.showHUDAddedTo(controller.view, animated: true)
+        progressHUD = MBProgressHUD.showHUDAddedTo(controller.view, animated: true)
         progressHUD.labelText = "Loading..."
         
         let url = NSURL(string: urlStr)
-        
         let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
         let task = session.dataTaskWithURL(url!) { [unowned self] (data, response, error) -> Void in
             if error != nil {
@@ -30,20 +30,20 @@ class DataManager {
             }
             
             if let httpResponse = response as? NSHTTPURLResponse {// where httpResponse.statusCode == 200 {
-                
+                print(httpResponse.statusCode)
                  if httpResponse.statusCode == 200 {
+                    
                     let nameControler = NSStringFromClass(controller.classForCoder).componentsSeparatedByString(".").last!
                     var parsedData: AnyObject!
                     if nameControler == "SearchViewController" {
                         parsedData = self.getListDataFromJson(data!) as ListData
-                    } else {
-                        parsedData = self.getUserDataFromJson(data!) as UserData}
-                    
-                    
+                    } else if nameControler == "UserViewController" {
+                        parsedData = self.getUserDataFromJson(data!) as UserData
+                    } else if nameControler == "WantlistViewController" {
+                        parsedData = self.getWantlistDataFromJson(data!) as ListData
+                    }
                     dispatch_async(dispatch_get_main_queue()) {
-                        
-                        callback?(parsedData)// UserData
-                        
+                        callback?(parsedData)
                         MBProgressHUD.hideAllHUDsForView(controller.view, animated: true)
                     }
                 }
@@ -53,29 +53,20 @@ class DataManager {
         task.resume()
     }
     
+    func delData(urlStr: String) {
+        Alamofire.request(.DELETE, urlStr)
+            .response { (request, response, data, error) in
+                print(request)
+                print(response)
+                print(error)
+        }
+    }
+    
  private func getListDataFromJson(data: NSData) -> ListData {
         
         let json = JSON(data: data)
         let list = ListData()
-        
-        if let urlStr = json["pagination"]["urlStr"].string {
-            list.urlStr = urlStr }
-        if let perpage = json["pagination"]["perpage"].int {
-            list.perpage = perpage }
-        if let pages = json["pagination"]["pages"].int {
-            list.pages = pages}
-        if let page = json["pagination"]["page"].int {
-            list.page = page}
-        if let urlprev = json["pagination"]["urls"]["prev"].string {
-            list.urlprev = urlprev}
-        if let urlnext = json["pagination"]["urls"]["next"].string {
-            list.urlnext = urlnext}
-        if let urllast = json["pagination"]["urls"]["last"].string {
-            list.urllast = urllast}
-        if let urlfirst = json["pagination"]["urls"]["first"].string {
-            list.urlfirst = urlfirst}
-        if let items = json["pagination"]["items"].int {
-            list.items = items}
+        getPagenation(list, json: json)
         if let itemArr = json["results"].array {
             var iDataArr = [ItemData]()
             for item in itemArr {
@@ -117,108 +108,124 @@ class DataManager {
         }
         return list
         
-        
     }
 
  private func getUserDataFromJson(data: NSData) -> UserData {
         let UData = UserData()
         let json = JSON(data: data)
         
-        
         if let profile = json["profile"].string {
-            UData.profile = profile
-        }
-        
-        if let wantlistUrl = json["wantlist_url"].string {
-            UData.wantlistUrl = wantlistUrl
-        }
-        
+            UData.profile = profile }
         if let rank = json["rank"].float {
-            UData.rank = rank
-        }
-        
-        if let numPending = json["num_pending"].string {
-            UData.numPending = numPending
-        }
-        
+            UData.rank = rank  }
         if let idi = json["id"].int {
-            UData.id = idi
-        }
-        
-        if let numForsale = json["num_for_sale"].string {
-            UData.numForsale = numForsale
-        }
-        
+            UData.id = idi }
         if let homePage = json["home_page"].string {
-            UData.homePage = homePage
-        }
-       
+            UData.homePage = homePage }
         if let location = json["location"].string {
-            UData.location = location
-        }
-      
+            UData.location = location }
         if let collectionFoldersUrl = json["collection_folders_url"].string {
-            UData.collectionFoldersUrl = collectionFoldersUrl
-        }
-        
+            UData.collectionFoldersUrl = collectionFoldersUrl  }
         if let username = json["username"].string {
-            UData.username = username
-        }
-        
+            UData.username = username }
         if let collectionFieldsUrl = json["collection_fields_url"].string {
-            UData.collectionFieldsUrl = collectionFieldsUrl
-        }
-        
+            UData.collectionFieldsUrl = collectionFieldsUrl }
         if let releasesContributed = json["releases_contributed"].int {
-            UData.releasesContributed = releasesContributed
-        }
-        
+            UData.releasesContributed = releasesContributed }
         if let registered = json["registered"].string {
-            UData.registered = registered
-        }
-        
+            UData.registered = registered }
         if let ratingAvg = json["rating_avg"].float {
-            UData.ratingAvg = ratingAvg
-        }
-      
+            UData.ratingAvg = ratingAvg   }
         if let numCollection = json["num_collection"].int {
-            UData.numCollection = numCollection
-        }
-        
+            UData.numCollection = numCollection  }
         if let releasesRated = json["releases_rated"].int {
-            UData.releasesRated = releasesRated
-        }
-        
+            UData.releasesRated = releasesRated  }
         if let numLists = json["num_lists"].int {
-            UData.numLists = numLists
-        }
-        
+            UData.numLists = numLists }
         if let name = json["name"].string {
-            UData.name = name
-        }
-        
+            UData.name = name }
         if let numWantlist = json["num_wantlist"].int {
-            UData.numWantlist = numWantlist
-        }
-        
+            UData.numWantlist = numWantlist }
         if let inventoryUrl = json["inventory_url"].string {
-            UData.inventoryUrl = inventoryUrl
-        }
-
+            UData.inventoryUrl = inventoryUrl }
         if let uri = json["uri"].string {
-            UData.uri = uri
-        }
-        
+            UData.uri = uri  }
         if let avatarUrl = json["avatar_url"].string {
-            UData.avatarUrl = avatarUrl
-        }
-        
+            UData.avatarUrl = avatarUrl }
         if let resourceUrl = json["resource_url"].string {
-            UData.resourceUrl = resourceUrl
-        }
+            UData.resourceUrl = resourceUrl  }
 
         return UData
     }
 
+    func getWantlistDataFromJson(data: NSData) -> ListData {
+        let WData = ListData()
+        let json = JSON(data: data)
+        getPagenation(WData, json: json)
+        if let itemArr = json["wants"].array {
+            var iDataArr = [WantlistData]()
+            for item in itemArr {
+                let iData = WantlistData()
+                if let idi = item["id"].int {
+                    iData.id = idi}
+                if let resourceUrl = item["resourceUrl"].string {
+                    iData.resourceUrl = resourceUrl }
+                if let thumb = item["basic_information"]["thumb"].string {
+                    iData.thumb = thumb }
+                if let catno = item["basic_information"]["labels"][0]["catno"].string {
+                    iData.catno = catno }
+                if let id = item["id"].int {
+                    iData.id = id }
+                if let year = item["year"].int {
+                    iData.year = year }
+                if let nameLabels = item["basic_information"]["labels"][0]["name"].string {
+                    iData.name = nameLabels }
+                if let title = item["basic_information"]["title"].string {
+                    iData.title = title }
+                if let rating = item["rating"].int {
+                    iData.rating = rating }
+                if let descriptionsFormat = item["basic_information"]["formats"][0]["descriptions"].arrayObject {
+                    let des = descriptionsFormat as! [String]
+                    iData.descriptionsFormat = des.joinWithSeparator(", ")
+                }
+                if let qtyFormat = item["basic_information"]["formats"][0]["qty"].string {
+                    iData.qtyFormat = qtyFormat }
+                if let nameFormat = item["basic_information"]["formats"][0]["name"].string {
+                    iData.nameFormat = nameFormat }
+                if let textFormat = item["basic_information"]["formats"][0]["text"].string {
+                    iData.textFormat = textFormat }
+                if let nameArtists = item["basic_information"]["artists"][0]["name"].string {
+                    iData.nameArtists = nameArtists }               
+                
+                iDataArr.append(iData) }
+            
+            WData.itemsData = iDataArr
+        }
+        return WData
+
+        
+    }
+    
+    func getPagenation(WData: ListData, json: JSON) {
+        
+        if let urlStr = json["pagination"]["urlStr"].string {
+            WData.urlStr = urlStr }
+        if let perpage = json["pagination"]["perpage"].int {
+            WData.perpage = perpage }
+        if let pages = json["pagination"]["pages"].int {
+            WData.pages = pages}
+        if let page = json["pagination"]["page"].int {
+            WData.page = page}
+        if let urlprev = json["pagination"]["urls"]["prev"].string {
+            WData.urlprev = urlprev}
+        if let urlnext = json["pagination"]["urls"]["next"].string {
+            WData.urlnext = urlnext}
+        if let urllast = json["pagination"]["urls"]["last"].string {
+            WData.urllast = urllast}
+        if let urlfirst = json["pagination"]["urls"]["first"].string {
+            WData.urlfirst = urlfirst}
+        if let items = json["pagination"]["items"].int {
+            WData.items = items}
+    }
 
 }

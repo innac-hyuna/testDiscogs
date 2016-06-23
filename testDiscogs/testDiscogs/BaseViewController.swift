@@ -26,14 +26,16 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
        // print("View Controller is : \(topViewController) \n", terminator: "")
         switch(index){
         case 0:
-
             self.openViewControllerBasedOnIdentifier(SearchViewController())
-            
             break
         case 1:
-            
             self.openViewControllerBasedOnIdentifier(UserViewController())
-            
+            break
+        case 2:
+            self.openViewControllerBasedOnIdentifier(CollectionViewController())
+            break
+        case 3:
+            self.openViewControllerBasedOnIdentifier(WantlistViewController())
             break
         default:
             print("default\n", terminator: "")

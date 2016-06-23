@@ -7,29 +7,102 @@
 //
 
 import UIKit
+import SMSwipeableTabView
 
-class WantlistViewController: UIViewController {
-
+class WantlistViewController: BaseViewController {
+    
+    var tableView: UITableView!
+    var cellInd: String!
+    var wData: ListData!
+    var swipeableView: SMSwipeableTabViewController!
+    var listVC: WantlistTableViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
+        addSlideMenuButton()
+        loadData("\(getUrlStr())")
+       
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+    }
+    
+    func setupLayoutSwipeableView() {
+        
+        NSLayoutConstraint(item: swipeableView.view,
+                           attribute: NSLayoutAttribute.Top,
+                           relatedBy: NSLayoutRelation.Equal,
+                           toItem: topLayoutGuide,
+                           attribute: NSLayoutAttribute.Bottom,
+                           multiplier: 1.0,
+                           constant: 10).active = true
+        NSLayoutConstraint(item: swipeableView.view,
+                           attribute: NSLayoutAttribute.Width,
+                           relatedBy: NSLayoutRelation.Equal,
+                           toItem: view,
+                           attribute: NSLayoutAttribute.Width,
+                           multiplier: 1.0,
+                           constant: 0).active = true
+        NSLayoutConstraint(item: swipeableView.view,
+                           attribute: NSLayoutAttribute.Bottom,
+                           relatedBy: NSLayoutRelation.Equal,
+                           toItem: view,
+                           attribute: NSLayoutAttribute.Bottom,
+                           multiplier: 1.0,
+                           constant: 0).active = true
+    }
+    
+    func loadData(urlStr: String) {   
+        
+        DataManager.sharedManager.getData(urlStr, controller: self) { (ListD) in
+            self.wData =  ListD as! ListData
+            self.listVC = WantlistTableViewController()
+            self.reloadSwipeableTabView()
+            self.reloadPage()
+        }
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+   
+    func reloadPage() {
+        listVC.dataSource = wData.itemsData as? [WantlistData]
+        listVC.tableView.reloadData()
     }
-    */
-
+    
+    func reloadSwipeableTabView() {
+        swipeableView = SMSwipeableTabViewController()
+        swipeableView.titleBarDataSource = Array(1 ... wData.pages).map { iElement -> String in
+            NSNumberFormatter.localizedStringFromNumber(iElement, numberStyle: .DecimalStyle) }
+        
+        swipeableView.segmentBarAttributes = [SMBackgroundColorAttribute : UIColor.buttonColor()]
+        
+        swipeableView.delegate = self
+        addChildViewController(swipeableView)
+        view.addSubview(swipeableView.view)
+        swipeableView.view.translatesAutoresizingMaskIntoConstraints = false
+        swipeableView.didMoveToParentViewController(self)
+        
+        setupLayoutSwipeableView()
+        
+    }
+    
+    func getUrlStr() -> String {
+        return "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/wants"
+    }
 }
+
+extension WantlistViewController: SMSwipeableTabViewControllerDelegate {
+    
+    func didLoadViewControllerAtIndex(index: Int) -> UIViewController {
+        
+        
+        loadData("\(getUrlStr())&page=\(index+1)")
+        
+        
+        return listVC
+    }
+}
+
+
