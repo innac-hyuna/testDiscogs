@@ -64,8 +64,6 @@ class WantlistViewController: BaseViewController {
         }
     }
     
-
-   
     func reloadPage() {
         listVC.dataSource = wData.itemsData as? [WantlistData]
         listVC.tableView.reloadData()

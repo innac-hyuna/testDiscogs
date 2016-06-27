@@ -12,6 +12,9 @@
 		DA81039C1D19760C00081503 /* Services.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA81039B1D19760C00081503 /* Services.plist */; };
 		DA81039E1D1983A500081503 /* FileManagerSourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA81039D1D1983A500081503 /* FileManagerSourse.swift */; };
 		DA8103A21D199E2700081503 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8103A11D199E2700081503 /* UserViewController.swift */; };
+		DA838E341D1C4592004E1A01 /* CollectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA838E331D1C4592004E1A01 /* CollectionTableViewController.swift */; };
+		DA838E361D1C45DD004E1A01 /* CollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA838E351D1C45DC004E1A01 /* CollectionTableViewCell.swift */; };
+		DA838E381D1C477B004E1A01 /* CollectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA838E371D1C477B004E1A01 /* CollectionData.swift */; };
 		DA8D24DA1D17E4AC00C02E60 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D24D91D17E4AC00C02E60 /* BaseViewController.swift */; };
 		DA8D24DE1D17E50F00C02E60 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D24DD1D17E50F00C02E60 /* MenuViewController.swift */; };
 		DA8D24E01D17F52E00C02E60 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D24DF1D17F52E00C02E60 /* MenuTableViewCell.swift */; };
@@ -31,6 +34,8 @@
 		DAC904111D0F08AC0083774F /* ItemData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC904101D0F08AC0083774F /* ItemData.swift */; };
 		DAC904131D0F111F0083774F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAC904121D0F111F0083774F /* Default-568h@2x.png */; };
 		DAC904151D0F1D000083774F /* SMSimpleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC904141D0F1D000083774F /* SMSimpleListViewController.swift */; };
+		DAD4AE6A1D2117A500903E78 /* CollectionFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4AE691D2117A500903E78 /* CollectionFolderViewController.swift */; };
+		DAD4AE6C1D211A1200903E78 /* CollectionFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4AE6B1D211A1200903E78 /* CollectionFolder.swift */; };
 		DAE330731D1A7F61002595FA /* Extantion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE330721D1A7F61002595FA /* Extantion.swift */; };
 		DAE330781D1AB30E002595FA /* WantlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE330771D1AB30E002595FA /* WantlistViewController.swift */; };
 		DAE3307B1D1AB3E1002595FA /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3307A1D1AB3E1002595FA /* CollectionViewController.swift */; };
@@ -63,6 +68,9 @@
 		DA81039B1D19760C00081503 /* Services.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Services.plist; sourceTree = "<group>"; };
 		DA81039D1D1983A500081503 /* FileManagerSourse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerSourse.swift; sourceTree = "<group>"; };
 		DA8103A11D199E2700081503 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		DA838E331D1C4592004E1A01 /* CollectionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionTableViewController.swift; sourceTree = "<group>"; };
+		DA838E351D1C45DC004E1A01 /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
+		DA838E371D1C477B004E1A01 /* CollectionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionData.swift; sourceTree = "<group>"; };
 		DA8D24D91D17E4AC00C02E60 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DA8D24DD1D17E50F00C02E60 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		DA8D24DF1D17F52E00C02E60 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
@@ -88,6 +96,8 @@
 		DAC904101D0F08AC0083774F /* ItemData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemData.swift; sourceTree = "<group>"; };
 		DAC904121D0F111F0083774F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		DAC904141D0F1D000083774F /* SMSimpleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSimpleListViewController.swift; sourceTree = "<group>"; };
+		DAD4AE691D2117A500903E78 /* CollectionFolderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionFolderViewController.swift; sourceTree = "<group>"; };
+		DAD4AE6B1D211A1200903E78 /* CollectionFolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionFolder.swift; sourceTree = "<group>"; };
 		DAE330721D1A7F61002595FA /* Extantion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extantion.swift; sourceTree = "<group>"; };
 		DAE330771D1AB30E002595FA /* WantlistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WantlistViewController.swift; sourceTree = "<group>"; };
 		DAE3307A1D1AB3E1002595FA /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
@@ -240,6 +250,8 @@
 				DAC904101D0F08AC0083774F /* ItemData.swift */,
 				DAA4D0F81D14428F00128979 /* UserData.swift */,
 				DAE3307C1D1ABC25002595FA /* WantlistData.swift */,
+				DA838E371D1C477B004E1A01 /* CollectionData.swift */,
+				DAD4AE6B1D211A1200903E78 /* CollectionFolder.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -258,6 +270,9 @@
 			isa = PBXGroup;
 			children = (
 				DAE3307A1D1AB3E1002595FA /* CollectionViewController.swift */,
+				DAD4AE691D2117A500903E78 /* CollectionFolderViewController.swift */,
+				DA838E331D1C4592004E1A01 /* CollectionTableViewController.swift */,
+				DA838E351D1C45DC004E1A01 /* CollectionTableViewCell.swift */,
 			);
 			name = Collection;
 			sourceTree = "<group>";
@@ -455,6 +470,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAE3307D1D1ABC25002595FA /* WantlistData.swift in Sources */,
+				DAD4AE6C1D211A1200903E78 /* CollectionFolder.swift in Sources */,
+				DA838E341D1C4592004E1A01 /* CollectionTableViewController.swift in Sources */,
 				DAC9040B1D0F00800083774F /* DataManager.swift in Sources */,
 				DA8103A21D199E2700081503 /* UserViewController.swift in Sources */,
 				DAE3307F1D1AD6FA002595FA /* WantlistTableViewCell.swift in Sources */,
@@ -463,6 +480,8 @@
 				DAB4B6A11D102A5300F85ED1 /* Design.swift in Sources */,
 				DAC9040D1D0F017F0083774F /* Const.swift in Sources */,
 				DAC821CC1D11B89700C6F00C /* AlbumViewController.swift in Sources */,
+				DA838E361D1C45DD004E1A01 /* CollectionTableViewCell.swift in Sources */,
+				DA838E381D1C477B004E1A01 /* CollectionData.swift in Sources */,
 				DA81039E1D1983A500081503 /* FileManagerSourse.swift in Sources */,
 				DAC904151D0F1D000083774F /* SMSimpleListViewController.swift in Sources */,
 				DA8D24DA1D17E4AC00C02E60 /* BaseViewController.swift in Sources */,
@@ -472,6 +491,7 @@
 				DAE3307B1D1AB3E1002595FA /* CollectionViewController.swift in Sources */,
 				DAE330731D1A7F61002595FA /* Extantion.swift in Sources */,
 				DAE330781D1AB30E002595FA /* WantlistViewController.swift in Sources */,
+				DAD4AE6A1D2117A500903E78 /* CollectionFolderViewController.swift in Sources */,
 				DAA4D0F91D14428F00128979 /* UserData.swift in Sources */,
 				DAC903DE1D0EE52C0083774F /* SearchViewController.swift in Sources */,
 				DAC903DC1D0EE52C0083774F /* AppDelegate.swift in Sources */,

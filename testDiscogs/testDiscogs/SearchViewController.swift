@@ -89,21 +89,31 @@ class SearchViewController: BaseViewController {
     }
     
     func loadData(urlStr: String) {
-        
-        DataManager.sharedManager.getData(urlStr, controller: self) { (listData) in
+       
+        DataManager.sharedManager.getData(urlStr, controller: self) {  (listData) in
+          
             self.searchData = listData as! ListData
-            if self.searchActive {self.reloadSwipeableTabView()}
-            self.reloadPage()
+            if self.searchActive {
+                self.reloadSwipeableTabView()}
+                self.reloadPage()
+
         }
     }
     
+    
     func reloadPage() {
-        
-        listVC.dataSource = searchData.itemsData as? [ItemData]
-        listVC.mainTableView?.reloadData()
+       
+            listVC.dSource = searchData.itemsData as? [ItemData]
+            listVC.mainTableView.reloadData()
+       
     }
     
     func reloadSwipeableTabView() {
+        
+        
+        swipeableView?.removeFromParentViewController()
+        swipeableView?.view.removeFromSuperview()
+        
         swipeableView = SMSwipeableTabViewController()
         swipeableView.titleBarDataSource = Array(1 ... searchData.pages).map { iElement -> String in
             NSNumberFormatter.localizedStringFromNumber(iElement, numberStyle: .DecimalStyle) }
@@ -111,6 +121,7 @@ class SearchViewController: BaseViewController {
         swipeableView.segmentBarAttributes = [SMBackgroundColorAttribute : UIColor.buttonColor()]
         
         swipeableView.delegate = self
+        
         addChildViewController(swipeableView)
         view.addSubview(swipeableView.view)
         swipeableView.view.translatesAutoresizingMaskIntoConstraints = false

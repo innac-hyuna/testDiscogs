@@ -198,6 +198,7 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
             selectionBar.frame = CGRectMake(previousButtonX + previousButtonW + buttonPadding, segementBarHeight - selectionBarHeight, buttonsFrameArray[index].size.width, selectionBarHeight)
         }
     }
+   
     
     private func getWidthForText(text: String) -> CGFloat {
         return buttonWidth ?? ceil((text as NSString).sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(17.0)]).width)
@@ -248,19 +249,23 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
     }
     
     public func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        
         if completed {
+            
             if let lastVC = pageViewController.viewControllers?.last {
-                currentPageIndex = lastVC.view.tag
+             
+                self.currentPageIndex = lastVC.view.tag
             }
             setupSelectionBarFrame(currentPageIndex)
             segmentBarView.scrollRectToVisible(CGRectMake(buttonsFrameArray[currentPageIndex].origin.x, 0.0,  buttonsFrameArray[currentPageIndex].size.width, 44.0), animated: true)
         }
     }
-    
+   
+  
     //MARK : Segment Button
     func didSegmentButtonTap(sender: UIButton) {
         let tempIndex = currentPageIndex
-        if sender.tag == tempIndex { return }
+       // if sender.tag == tempIndex { return }
         let scrollDirection: UIPageViewControllerNavigationDirection = sender.tag > tempIndex ? .Forward : .Reverse
         pageViewController?.setViewControllers([viewControllerAtIndex(sender.tag)!], direction: scrollDirection, animated: true, completion: { (complete) -> Void in
             if complete {
@@ -274,6 +279,6 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
         let xFromCenter:CGFloat = self.view.frame.size.width-scrollView.contentOffset.x
         let xCoor = buttonsFrameArray[currentPageIndex].origin.x;
         selectionBar.frame = CGRectMake(xCoor-xFromCenter/CGFloat(titleBarDataSource?.count ?? 0), selectionBar.frame.origin.y, buttonsFrameArray[currentPageIndex].size.width, selectionBar.frame.size.height)
-//        setupSelectionBarFrame(currentPageIndex)
+       // setupSelectionBarFrame(currentPageIndex)
     }
 }

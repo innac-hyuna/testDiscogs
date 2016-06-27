@@ -11,7 +11,7 @@ import Kingfisher
 
 public class SMSimpleListViewController: UIViewController {
 
-    var dataSource: [ItemData]?
+    var dSource: [ItemData]?
     var pageIndex = 0
     var buttonDataSource: [String]?
     var cellInd = "Cell"
@@ -24,11 +24,13 @@ public class SMSimpleListViewController: UIViewController {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.itemSize = CGSize(width: 100,height: 100)
         mainTableView = UICollectionView(frame: UIScreen.mainScreen().bounds, collectionViewLayout: flowLayout)
-        mainTableView?.delegate = self
-        mainTableView?.dataSource = self
-        mainTableView?.registerClass(ItemCollectionViewCell.self, forCellWithReuseIdentifier: cellInd)
+        mainTableView.delegate = self
+        mainTableView.dataSource = self
+        mainTableView.registerClass(ItemCollectionViewCell.self, forCellWithReuseIdentifier: cellInd)
+        mainTableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(mainTableView)
-        mainTableView?.reloadData()
+        mainTableView.reloadData()
+        setupLayout()
     }
 
     public override func didReceiveMemoryWarning() {
@@ -36,16 +38,45 @@ public class SMSimpleListViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func setupLayout() {
+        
+        NSLayoutConstraint(item: mainTableView,
+                           attribute: NSLayoutAttribute.Top,
+                           relatedBy:  NSLayoutRelation.Equal,
+                           toItem: topLayoutGuide,
+                           attribute: NSLayoutAttribute.Bottom,
+                           multiplier: 1.0,
+                           constant: 0).active = true
+        NSLayoutConstraint(item: mainTableView,
+                           attribute: NSLayoutAttribute.Height,
+                           relatedBy:  NSLayoutRelation.Equal,
+                           toItem: view,
+                           attribute: NSLayoutAttribute.Height,
+                           multiplier: 1.0,
+                           constant: 150).active = true
+        NSLayoutConstraint(item: mainTableView,
+                           attribute: NSLayoutAttribute.Width,
+                           relatedBy:  NSLayoutRelation.Equal,
+                           toItem: view,
+                           attribute: NSLayoutAttribute.Width,
+                           multiplier: 1.0,
+                           constant: 0).active = true
+        
+    }
+
+    
 }
 extension SMSimpleListViewController: UICollectionViewDataSource  {
     public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource?.count ?? 0
+        print(dSource?.count )
+        
+        return dSource?.count ?? 0
     }
     
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell: ItemCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(cellInd, forIndexPath: indexPath) as! ItemCollectionViewCell
         
-        if let data = dataSource {
+        if let data = dSource {
             cell.titLabel.text = data[indexPath.row].title
                      
             if let URL = NSURL(string: data[indexPath.row].thumb) {
@@ -62,14 +93,17 @@ extension SMSimpleListViewController: UICollectionViewDataSource  {
     
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let nexController = AlbumViewController()
-        if let data = dataSource {
+        if let data = dSource {
             nexController.albumData = data[indexPath.row]}
         navigationController?.pushViewController(nexController, animated: true)
     }
 }
 
 extension SMSimpleListViewController: UICollectionViewDelegate {
-
+    
+        
+    
+   
 }
 
 

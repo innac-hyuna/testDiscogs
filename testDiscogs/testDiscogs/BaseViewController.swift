@@ -32,7 +32,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             self.openViewControllerBasedOnIdentifier(UserViewController())
             break
         case 2:
-            self.openViewControllerBasedOnIdentifier(CollectionViewController())
+            self.openViewControllerBasedOnIdentifier(CollectionFolderViewController())
             break
         case 3:
             self.openViewControllerBasedOnIdentifier(WantlistViewController())

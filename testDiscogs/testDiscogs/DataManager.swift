@@ -22,8 +22,9 @@ class DataManager {
         progressHUD.labelText = "Loading..."
         
         let url = NSURL(string: urlStr)
+        if let ul = url {
         let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-        let task = session.dataTaskWithURL(url!) { [unowned self] (data, response, error) -> Void in
+        let task = session.dataTaskWithURL(ul) { [unowned self] (data, response, error) -> Void in
             if error != nil {
                 print("Error: \(error?.localizedDescription)")
                 return
@@ -41,7 +42,12 @@ class DataManager {
                         parsedData = self.getUserDataFromJson(data!) as UserData
                     } else if nameControler == "WantlistViewController" {
                         parsedData = self.getWantlistDataFromJson(data!) as ListData
+                    } else if nameControler == "CollectionViewController" {
+                        parsedData = self.getCollectionDataFromJson(data!) as ListData
+                    } else if nameControler == "CollectionFolderViewController" {
+                        parsedData = self.getCollectionFolderFromJson(data!) as [CollectionFolder]
                     }
+
                     dispatch_async(dispatch_get_main_queue()) {
                         callback?(parsedData)
                         MBProgressHUD.hideAllHUDsForView(controller.view, animated: true)
@@ -50,7 +56,7 @@ class DataManager {
             }
         }
         
-        task.resume()
+            task.resume()}
     }
     
     func delData(urlStr: String) {
@@ -176,7 +182,7 @@ class DataManager {
                     iData.catno = catno }
                 if let id = item["id"].int {
                     iData.id = id }
-                if let year = item["year"].int {
+                if let year = item["year"].string {
                     iData.year = year }
                 if let nameLabels = item["basic_information"]["labels"][0]["name"].string {
                     iData.name = nameLabels }
@@ -205,6 +211,78 @@ class DataManager {
 
         
     }
+    
+    func getCollectionDataFromJson(data: NSData) -> ListData {
+        let WData = ListData()
+        let json = JSON(data: data)
+        getPagenation(WData, json: json)
+        if let itemArr = json["releases"].array {
+            var iDataArr = [CollectionData]()
+            for item in itemArr {
+                let iData = CollectionData()
+                if let idi = item["id"].int {
+                    iData.id = idi}
+                if let resourceUrl = item["resourceUrl"].string {
+                    iData.resourceUrl = resourceUrl }
+                if let thumb = item["basic_information"]["thumb"].string {
+                    iData.thumb = thumb }
+                if let catno = item["basic_information"]["labels"][0]["catno"].string {
+                    iData.catno = catno }
+                if let id = item["id"].int {
+                    iData.id = id }
+                if let year = item["year"].string {
+                    iData.year = year }
+                if let nameLabels = item["basic_information"]["labels"][0]["name"].string {
+                    iData.name = nameLabels }
+                if let title = item["basic_information"]["title"].string {
+                    iData.title = title }
+                if let rating = item["rating"].int {
+                    iData.rating = rating }
+                if let descriptionsFormat = item["basic_information"]["formats"][0]["descriptions"].arrayObject {
+                    let des = descriptionsFormat as! [String]
+                    iData.descriptionsFormat = des.joinWithSeparator(", ")
+                }
+                if let qtyFormat = item["basic_information"]["formats"][0]["qty"].string {
+                    iData.qtyFormat = qtyFormat }
+                if let nameFormat = item["basic_information"]["formats"][0]["name"].string {
+                    iData.nameFormat = nameFormat }
+                if let textFormat = item["basic_information"]["formats"][0]["text"].string {
+                    iData.textFormat = textFormat }
+                if let nameArtists = item["basic_information"]["artists"][0]["name"].string {
+                    iData.nameArtists = nameArtists }
+                
+                iDataArr.append(iData) }
+            
+            WData.itemsData = iDataArr
+        }
+        return WData
+        
+        
+    }
+
+    func getCollectionFolderFromJson(data: NSData) -> [CollectionFolder] {
+        var fData = [CollectionFolder]()
+        let json = JSON(data: data)
+     
+        if let itemArr = json["folders"].array {
+            for item in itemArr {
+                let folder = CollectionFolder()
+                if let fid = item["id"].int {
+                 folder.id = fid }
+                if let count = item["count"].int {
+                 folder.count = count }
+                if let name = item["count"].string{
+                 folder.name = name }
+                
+                
+                fData.append(folder)
+            }
+        
+        }
+    
+        return fData        
+    }
+
     
     func getPagenation(WData: ListData, json: JSON) {
         
