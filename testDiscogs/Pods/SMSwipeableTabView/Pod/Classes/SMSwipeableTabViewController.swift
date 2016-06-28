@@ -210,7 +210,7 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
         }
         let viewController = delegate?.didLoadViewControllerAtIndex(index)
         viewController?.view.tag = index
-        return viewController
+         return viewController
     }
     
     private func syncScrollView() {
@@ -225,36 +225,37 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
     
     //MARK: Page View Controller Data Source
     public func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        var index = viewController.view.tag
+       /* var index = viewController.view.tag
         if index == 0 || index == NSNotFound {
             return nil
-        }
-        
-        index--
-        return viewControllerAtIndex(index)
+        }        
+        index -= 1
+        return viewControllerAtIndex(index)*/
+        return nil
     }
     
     public func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        var index = viewController.view.tag
+      /*  var index = currentPageIndex
+         print("after1(\(index)")
         if index == NSNotFound {
             return nil
         }
-        
-        index++
+        index += 1
         if index == titleBarDataSource?.count {
             return nil
         }
-        
-        return viewControllerAtIndex(index)
+        print("after2(\(index)")
+        return viewControllerAtIndex(index)*/
+        return nil
     }
     
-    public func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    
+   public func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         if completed {
             
             if let lastVC = pageViewController.viewControllers?.last {
-             
-                self.currentPageIndex = lastVC.view.tag
+               self.currentPageIndex = lastVC.view.tag
             }
             setupSelectionBarFrame(currentPageIndex)
             segmentBarView.scrollRectToVisible(CGRectMake(buttonsFrameArray[currentPageIndex].origin.x, 0.0,  buttonsFrameArray[currentPageIndex].size.width, 44.0), animated: true)
@@ -275,10 +276,11 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
         })
     }
     
+    
     public func scrollViewDidScroll(scrollView: UIScrollView) {
         let xFromCenter:CGFloat = self.view.frame.size.width-scrollView.contentOffset.x
         let xCoor = buttonsFrameArray[currentPageIndex].origin.x;
         selectionBar.frame = CGRectMake(xCoor-xFromCenter/CGFloat(titleBarDataSource?.count ?? 0), selectionBar.frame.origin.y, buttonsFrameArray[currentPageIndex].size.width, selectionBar.frame.size.height)
-       // setupSelectionBarFrame(currentPageIndex)
+        setupSelectionBarFrame(currentPageIndex)
     }
 }

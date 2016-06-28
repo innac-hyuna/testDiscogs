@@ -46,6 +46,7 @@ class AlbumViewController: UIViewController {
         thumbImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(thumbImage)
         
+        
         titleLabel =  UILabel()
         titleLabel.text = albumData.title
         titleLabel.textColor = UIColor.titleColor()
@@ -627,4 +628,6 @@ class AlbumViewController: UIViewController {
         setupLayout()
 
     }
+    
+    
 }

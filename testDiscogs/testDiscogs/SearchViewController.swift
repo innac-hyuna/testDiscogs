@@ -18,6 +18,7 @@ class SearchViewController: BaseViewController {
     var listVC: SMSimpleListViewController!
     var searchQ = ""
     var searchActive = false
+    var activePage = 0
     
     
     override func viewDidLoad() {
@@ -31,15 +32,14 @@ class SearchViewController: BaseViewController {
         searchData = ListData()
         setupLayoutSeachBar()
         
-        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     func setupLayoutSeachBar() {
-        
         
         NSLayoutConstraint(item: seachBar,
                            attribute: NSLayoutAttribute.Top,
@@ -91,18 +91,17 @@ class SearchViewController: BaseViewController {
     func loadData(urlStr: String) {
        
         DataManager.sharedManager.getData(urlStr, controller: self) {  (listData) in
-          
+            
             self.searchData = listData as! ListData
             if self.searchActive {
                 self.reloadSwipeableTabView()}
                 self.reloadPage()
-
+                self.activePage = self.listVC.view.tag            
         }
     }
     
-    
     func reloadPage() {
-       
+        
             listVC.dSource = searchData.itemsData as? [ItemData]
             listVC.mainTableView.reloadData()
        
@@ -140,12 +139,11 @@ class SearchViewController: BaseViewController {
 extension SearchViewController: SMSwipeableTabViewControllerDelegate {
     
     func didLoadViewControllerAtIndex(index: Int) -> UIViewController {
+        
         listVC = SMSimpleListViewController()
-        
+        listVC.dSource = [ItemData]()
         loadData("\(getUrlStr(searchQ))&page=\(index+1)")
-        
         searchActive = false
-        
         return listVC
     }
 }
@@ -169,8 +167,8 @@ extension SearchViewController: UISearchBarDelegate {
         searchQ = searchBar.text!.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.LiteralSearch, range: nil)
         loadData(getUrlStr(searchQ))
         searchActive = true
-        
         view.endEditing(true)
+        
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {

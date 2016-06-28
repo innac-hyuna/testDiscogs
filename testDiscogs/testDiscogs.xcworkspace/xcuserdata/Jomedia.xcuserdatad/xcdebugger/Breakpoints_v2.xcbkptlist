@@ -214,47 +214,62 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "testDiscogs/SMSimpleListViewController.swift"
-            timestampString = "488726404.748788"
+            filePath = "testDiscogs/AlbumViewController.swift"
+            timestampString = "488812067.449163"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "collectionView(_:didSelectItemAtIndexPath:)"
-            landmarkType = "5">
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "AlbumViewController"
+            landmarkType = "3">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "testDiscogs.SMSimpleListViewController.collectionView (__ObjC.UICollectionView, didSelectItemAtIndexPath : __ObjC.NSIndexPath) -&gt; ()"
+                  symbolName = "testDiscogs.AlbumViewController.__deallocating_deinit"
                   moduleName = "testDiscogs"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Jomedia/Documents/testDiscogs/testDiscogs/SMSimpleListViewController.swift"
-                  timestampString = "488739325.003859"
+                  urlString = "file:///Users/Jomedia/Documents/testDiscogs/testDiscogs/AlbumViewController.swift"
+                  timestampString = "488812067.459667"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "96"
-                  endingLineNumber = "96"
-                  offsetFromSymbolStart = "59">
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "testDiscogs.SMSimpleListViewController.collectionView (__ObjC.UICollectionView, didSelectItemAtIndexPath : __ObjC.NSIndexPath) -&gt; ()"
+                  symbolName = "testDiscogs.AlbumViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.NSBundle&gt;) -&gt; testDiscogs.AlbumViewController"
                   moduleName = "testDiscogs"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Jomedia/Documents/testDiscogs/testDiscogs/SMSimpleListViewController.swift"
-                  timestampString = "488739325.004225"
+                  urlString = "file:///Users/Jomedia/Documents/testDiscogs/testDiscogs/AlbumViewController.swift"
+                  timestampString = "488812067.459856"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "96"
-                  endingLineNumber = "96"
-                  offsetFromSymbolStart = "107">
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "70">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "testDiscogs.AlbumViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;testDiscogs.AlbumViewController&gt;"
+                  moduleName = "testDiscogs"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Jomedia/Documents/testDiscogs/testDiscogs/AlbumViewController.swift"
+                  timestampString = "488812067.459995"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "31">
                </Location>
             </Locations>
          </BreakpointContent>

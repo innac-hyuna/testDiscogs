@@ -50,6 +50,7 @@ class DataManager {
 
                     dispatch_async(dispatch_get_main_queue()) {
                         callback?(parsedData)
+                        
                         MBProgressHUD.hideAllHUDsForView(controller.view, animated: true)
                     }
                 }
@@ -61,6 +62,15 @@ class DataManager {
     
     func delData(urlStr: String) {
         Alamofire.request(.DELETE, urlStr)
+            .response { (request, response, data, error) in
+                print(request)
+                print(response)
+                print(error)
+        }
+    }
+    
+    func updateData(urlStr: String) {
+        Alamofire.request(.POST, urlStr)
             .response { (request, response, data, error) in
                 print(request)
                 print(response)
@@ -222,6 +232,8 @@ class DataManager {
                 let iData = CollectionData()
                 if let idi = item["id"].int {
                     iData.id = idi}
+                if let instanceId = item["instance_id"].int {
+                    iData.instanceId = instanceId}
                 if let resourceUrl = item["resourceUrl"].string {
                     iData.resourceUrl = resourceUrl }
                 if let thumb = item["basic_information"]["thumb"].string {

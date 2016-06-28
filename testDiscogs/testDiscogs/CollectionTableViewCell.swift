@@ -8,15 +8,15 @@
 
 import UIKit
 
-class CollectionTableViewCell: UITableViewCell {
+class CollectionTableViewCell: UITableViewCell  {
     
     var titleLabel: UILabel!
     var thumbImg: UIImageView!
-    var rating: UILabel!
     var year: UILabel!
     var textFormat: UILabel!
     var deleteButton: UIButton!
-    
+    var floatRatingView: FloatRatingView!
+    var folderInd: String!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,6 +32,20 @@ class CollectionTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.backgroundColor = UIColor.bgColor()
+        folderInd = "cellFolder"
+        if self.reuseIdentifier != folderInd {
+            floatRatingView = FloatRatingView()
+            floatRatingView.emptyImage = UIImage(named: "StarEmpty")
+            floatRatingView.fullImage = UIImage(named: "StarFull")
+           
+            floatRatingView.contentMode = UIViewContentMode.ScaleAspectFit
+            floatRatingView.maxRating = 5
+            floatRatingView.minRating = 1
+            self.floatRatingView.editable = true
+            self.floatRatingView.halfRatings = false
+            self.floatRatingView.floatRatings = false
+            floatRatingView.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(floatRatingView)}
         
         titleLabel = UILabel()
         titleLabel.numberOfLines = 2
@@ -45,12 +59,6 @@ class CollectionTableViewCell: UITableViewCell {
         contentView.addSubview(thumbImg)
         thumbImg.contentMode = UIViewContentMode.ScaleAspectFit
         thumbImg.translatesAutoresizingMaskIntoConstraints = false
-        
-        rating = UILabel()
-        rating.textColor = UIColor.textColor()
-        rating.font =  UIFont.HelTextFont(16)
-        contentView.addSubview(rating)
-        rating.translatesAutoresizingMaskIntoConstraints = false
         
         year = UILabel()
         year.textColor = UIColor.textColor()
@@ -171,28 +179,36 @@ class CollectionTableViewCell: UITableViewCell {
                            multiplier: 1.0,
                            constant: 40).active = true
         
-        
-        NSLayoutConstraint(item: rating,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.Leading,
-                           multiplier: 1.0,
-                           constant: 10).active = true
-        NSLayoutConstraint(item: rating,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: year,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 10).active = true
-        NSLayoutConstraint(item: rating,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 20).active = true
+        if self.reuseIdentifier != folderInd {
+            NSLayoutConstraint(item: floatRatingView,
+                               attribute: NSLayoutAttribute.Leading,
+                               relatedBy: NSLayoutRelation.Equal,
+                               toItem: contentView,
+                               attribute: NSLayoutAttribute.Leading,
+                               multiplier: 1.0,
+                               constant: 10).active = true
+            NSLayoutConstraint(item: floatRatingView,
+                               attribute: NSLayoutAttribute.Top,
+                               relatedBy: NSLayoutRelation.Equal,
+                               toItem: year,
+                               attribute: NSLayoutAttribute.Bottom,
+                               multiplier: 1.0,
+                               constant: 10).active = true
+            NSLayoutConstraint(item: floatRatingView,
+                               attribute: NSLayoutAttribute.Height,
+                               relatedBy: NSLayoutRelation.Equal,
+                               toItem: nil,
+                               attribute: NSLayoutAttribute.NotAnAttribute,
+                               multiplier: 1.0,
+                               constant: 30).active = true
+            NSLayoutConstraint(item: floatRatingView,
+                               attribute: NSLayoutAttribute.Width,
+                               relatedBy: NSLayoutRelation.Equal,
+                               toItem: nil,
+                               attribute: NSLayoutAttribute.NotAnAttribute,
+                               multiplier: 1.0,
+                               constant: 60).active = true
+         }
         
         NSLayoutConstraint(item: deleteButton,
                            attribute: NSLayoutAttribute.Trailing,
@@ -210,7 +226,6 @@ class CollectionTableViewCell: UITableViewCell {
                            constant: 0).active = true
         
         
-        
-    }
+    }    
     
 }

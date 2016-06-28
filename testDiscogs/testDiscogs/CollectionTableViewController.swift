@@ -16,6 +16,8 @@ class CollectionTableViewController: UIViewController {
     var cellInd: String!
     var dataSource: [CollectionData]!
     var pageIndex = 0
+    var folderId = 0
+    var floatRatingView: FloatRatingView!
     var buttonDataSource: [String]?
     
     override func viewDidLoad() {
@@ -24,7 +26,7 @@ class CollectionTableViewController: UIViewController {
         cellInd = "CellCollection"
         tableView = UITableView()
         tableView?.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))
-        tableView?.registerClass(WantlistTableViewCell.self, forCellReuseIdentifier: cellInd)
+        tableView?.registerClass(CollectionTableViewCell.self, forCellReuseIdentifier: cellInd)
         tableView?.delegate = self
         tableView?.dataSource = self
         tableView?.translatesAutoresizingMaskIntoConstraints = false
@@ -68,7 +70,23 @@ class CollectionTableViewController: UIViewController {
         let refreshAlert = UIAlertController(title: "Delete", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            let urlStr = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/wants/\(sender.tag)"
+            let urlStr = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/releases/\(sender.tag)"
+            DataManager.sharedManager.delData(urlStr)
+        }))
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action: UIAlertAction!) in
+            print("Handle Cancel Logic here")
+        }))
+        
+        presentViewController(refreshAlert, animated: true, completion: nil)
+        
+    }
+    
+    func updateWantliast(index: Int) {
+        let refreshAlert = UIAlertController(title: "Save", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            let urlStr = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/\(self.folderId)/releases/\(self.dataSource[index].id)/instances/\(self.dataSource[index].instanceId)?rating=\(self.dataSource[index].rating)"
+            
             DataManager.sharedManager.delData(urlStr)
         }))
         refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action: UIAlertAction!) in
@@ -83,14 +101,14 @@ class CollectionTableViewController: UIViewController {
 
 extension CollectionTableViewController: UITableViewDelegate {
     func  tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 100
+        return 130
     }
 }
 
 extension CollectionTableViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: WantlistTableViewCell = tableView.dequeueReusableCellWithIdentifier(cellInd, forIndexPath: indexPath) as! WantlistTableViewCell
+        let cell: CollectionTableViewCell = tableView.dequeueReusableCellWithIdentifier(cellInd, forIndexPath: indexPath) as! CollectionTableViewCell
         
             cell.titleLabel.text = "\(dataSource[indexPath.row].nameArtists) \(dataSource[indexPath.row].title) \(dataSource[indexPath.row].nameLabel) \(dataSource[indexPath.row].catno)"
             
@@ -102,8 +120,9 @@ extension CollectionTableViewController: UITableViewDataSource {
             cell.deleteButton.addTarget(self, action: #selector(WantlistTableViewController.deleteWantliast(_:)), forControlEvents: .TouchUpInside)
             cell.year.text = String(dataSource[indexPath.row].year)
             cell.textFormat.text = "\(dataSource[indexPath.row].textFormat) \(dataSource[indexPath.row].descriptionsFormat)"
-            cell.rating.text = String(dataSource[indexPath.row].rating)
-        
+            cell.floatRatingView.rating = Float(dataSource[indexPath.row].rating)
+            cell.floatRatingView.delegate = self
+            cell.floatRatingView.tag = indexPath.row
         return cell
     }
     
@@ -119,5 +138,19 @@ extension CollectionTableViewController: UITableViewDataSource {
         return 1
     }
     
+    
+}
+
+extension CollectionTableViewController: FloatRatingViewDelegate {
+    
+    func floatRatingView(ratingView: FloatRatingView, isUpdating rating: Float) {
+        
+    }
+    
+    func floatRatingView(ratingView: FloatRatingView, didUpdate rating: Float) {
+        
+        dataSource[ratingView.tag].rating = Int(rating)
+        updateWantliast(ratingView.tag)
+    }
 }
 

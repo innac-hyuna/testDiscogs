@@ -61,6 +61,7 @@ class CollectionViewController: BaseViewController {
         DataManager.sharedManager.getData(urlStr, controller: self) { (ListD) in
             self.wData =  ListD as! ListData
             self.listVC = CollectionTableViewController()
+            self.listVC.folderId  = self.idFolder
             self.reloadSwipeableTabView()
             self.reloadPage()
         }

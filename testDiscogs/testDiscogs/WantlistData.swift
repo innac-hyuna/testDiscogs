@@ -17,11 +17,13 @@ class WantlistData: ItemData {
     var nameLabel: String!
     var qtyFormat: String!
     var nameArtists: String!
+    var instanceId: Int!
    
  
     override init() {
         super.init()
        rating = 0
+       instanceId = 0
        name = ""
        resourceUrl = ""
        descriptionsFormat = ""

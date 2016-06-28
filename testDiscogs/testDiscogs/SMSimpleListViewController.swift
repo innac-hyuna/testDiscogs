@@ -29,7 +29,7 @@ public class SMSimpleListViewController: UIViewController {
         mainTableView.registerClass(ItemCollectionViewCell.self, forCellWithReuseIdentifier: cellInd)
         mainTableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(mainTableView)
-        mainTableView.reloadData()
+       // mainTableView.reloadData()
         setupLayout()
     }
 
@@ -48,28 +48,33 @@ public class SMSimpleListViewController: UIViewController {
                            multiplier: 1.0,
                            constant: 0).active = true
         NSLayoutConstraint(item: mainTableView,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Height,
-                           multiplier: 1.0,
-                           constant: 150).active = true
-        NSLayoutConstraint(item: mainTableView,
                            attribute: NSLayoutAttribute.Width,
                            relatedBy:  NSLayoutRelation.Equal,
                            toItem: view,
                            attribute: NSLayoutAttribute.Width,
                            multiplier: 1.0,
                            constant: 0).active = true
+        NSLayoutConstraint(item: mainTableView,
+                           attribute: NSLayoutAttribute.Leading,
+                           relatedBy:  NSLayoutRelation.Equal,
+                           toItem: view,
+                           attribute: NSLayoutAttribute.Leading,
+                           multiplier: 1.0,
+                           constant: 0).active = true
+        NSLayoutConstraint(item: mainTableView,
+                           attribute: NSLayoutAttribute.Bottom,
+                           relatedBy:  NSLayoutRelation.Equal,
+                           toItem: view,
+                           attribute: NSLayoutAttribute.Bottom,
+                           multiplier: 1.0,
+                           constant: 0).active = true
         
     }
-
     
 }
+
 extension SMSimpleListViewController: UICollectionViewDataSource  {
-    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(dSource?.count )
-        
+    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {        
         return dSource?.count ?? 0
     }
     
@@ -99,9 +104,7 @@ extension SMSimpleListViewController: UICollectionViewDataSource  {
     }
 }
 
-extension SMSimpleListViewController: UICollectionViewDelegate {
-    
-        
+extension SMSimpleListViewController: UICollectionViewDelegate {        
     
    
 }
