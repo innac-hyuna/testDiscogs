@@ -32,11 +32,11 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
     
     public let defaultSegmentBarBgColor = UIColor.blueColor()
     public let defaultSelectionBarBgColor = UIColor.redColor()
-
+    
     public var buttonAttributes: [String : AnyObject]?
     public var segmentBarAttributes: [String : AnyObject]?
     public var selectionAttributes: [String : AnyObject]?
-
+    
     public var delegate: SMSwipeableTabViewControllerDelegate?
     
     private var pageViewController: UIPageViewController?
@@ -90,7 +90,7 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
         segmentBarView.scrollEnabled = true
         segmentBarView.showsHorizontalScrollIndicator = false
         segmentBarView.backgroundColor = defaultSegmentBarBgColor
-
+        
         if let attributes = segmentBarAttributes {
             if let bgColor = attributes[SMBackgroundColorAttribute] as? UIColor {
                 segmentBarView.backgroundColor = bgColor
@@ -100,7 +100,7 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
                 segmentBarView.backgroundColor = UIColor(patternImage: bgImage)
             }
         }
-       
+        
         setupSegmentBarButtons()
         self.view.addSubview(segmentBarView)
         setupSelectionBar()
@@ -198,7 +198,7 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
             selectionBar.frame = CGRectMake(previousButtonX + previousButtonW + buttonPadding, segementBarHeight - selectionBarHeight, buttonsFrameArray[index].size.width, selectionBarHeight)
         }
     }
-   
+    
     
     private func getWidthForText(text: String) -> CGFloat {
         return buttonWidth ?? ceil((text as NSString).sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(17.0)]).width)
@@ -210,7 +210,7 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
         }
         let viewController = delegate?.didLoadViewControllerAtIndex(index)
         viewController?.view.tag = index
-         return viewController
+        return viewController
     }
     
     private func syncScrollView() {
@@ -225,48 +225,46 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
     
     //MARK: Page View Controller Data Source
     public func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-       /* var index = viewController.view.tag
-        if index == 0 || index == NSNotFound {
-            return nil
-        }        
-        index -= 1
-        return viewControllerAtIndex(index)*/
-        return nil
+         var index = viewController.view.tag
+         if index == 0 || index == NSNotFound {
+         return nil
+         }
+         index--
+         return viewControllerAtIndex(index)
+      
     }
     
     public func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-      /*  var index = currentPageIndex
-         print("after1(\(index)")
+        var index = currentPageIndex
         if index == NSNotFound {
-            return nil
-        }
-        index += 1
-        if index == titleBarDataSource?.count {
-            return nil
-        }
-        print("after2(\(index)")
-        return viewControllerAtIndex(index)*/
-        return nil
+         return nil
+         }
+         index++
+         if index == titleBarDataSource?.count {
+         return nil
+         }
+        return viewControllerAtIndex(index)
+        
     }
     
     
-   public func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    public func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         if completed {
             
             if let lastVC = pageViewController.viewControllers?.last {
-               self.currentPageIndex = lastVC.view.tag
+                self.currentPageIndex = lastVC.view.tag
             }
             setupSelectionBarFrame(currentPageIndex)
             segmentBarView.scrollRectToVisible(CGRectMake(buttonsFrameArray[currentPageIndex].origin.x, 0.0,  buttonsFrameArray[currentPageIndex].size.width, 44.0), animated: true)
         }
     }
-   
-  
+    
+    
     //MARK : Segment Button
     func didSegmentButtonTap(sender: UIButton) {
         let tempIndex = currentPageIndex
-       // if sender.tag == tempIndex { return }
+        // if sender.tag == tempIndex { return }
         let scrollDirection: UIPageViewControllerNavigationDirection = sender.tag > tempIndex ? .Forward : .Reverse
         pageViewController?.setViewControllers([viewControllerAtIndex(sender.tag)!], direction: scrollDirection, animated: true, completion: { (complete) -> Void in
             if complete {

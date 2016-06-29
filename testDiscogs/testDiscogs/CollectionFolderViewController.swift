@@ -62,7 +62,7 @@ class CollectionFolderViewController: BaseViewController {
     
     func loadData(urlStr: String) {
         
-        DataManager.sharedManager.getData(urlStr, controller: self) { (ListF) in
+        DataManager.sharedManager.getData(urlStr, controller: control.CollectionFolderViewController) { (ListF) in
             self.fData =  ListF as! [CollectionFolder]
             self.listVC.reloadData()
            

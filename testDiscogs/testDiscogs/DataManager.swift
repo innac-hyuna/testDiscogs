@@ -9,17 +9,22 @@
 import Foundation
 import SwiftyJSON
 import Alamofire
-import MBProgressHUD
 
+
+enum control: String {
+    case SearchViewController = "SearchViewController"
+    case UserViewController = "UserViewController"
+    case WantlistViewController = "WantlistViewController"
+    case CollectionViewController =  "CollectionViewController"
+    case CollectionFolderViewController = "CollectionFolderViewController"
+}
 
 class DataManager {
     static let sharedManager = DataManager()
-    private var progressHUD: MBProgressHUD!
-    func getData(urlStr: String, controller: BaseViewController , callback: ((AnyObject) -> ())?) {
+    
+    func getData(urlStr: String, controller: control , callback: ((AnyObject) -> ())?) {
         
-       
-        progressHUD = MBProgressHUD.showHUDAddedTo(controller.view, animated: true)
-        progressHUD.labelText = "Loading..."
+   
         
         let url = NSURL(string: urlStr)
         if let ul = url {
@@ -33,31 +38,32 @@ class DataManager {
             if let httpResponse = response as? NSHTTPURLResponse {// where httpResponse.statusCode == 200 {
                 print(httpResponse.statusCode)
                  if httpResponse.statusCode == 200 {
-                    
-                    let nameControler = NSStringFromClass(controller.classForCoder).componentsSeparatedByString(".").last!
+                   
                     var parsedData: AnyObject!
-                    if nameControler == "SearchViewController" {
+                    
+                    switch (controller) {
+                    case .SearchViewController:
                         parsedData = self.getListDataFromJson(data!) as ListData
-                    } else if nameControler == "UserViewController" {
+                    case .UserViewController:
                         parsedData = self.getUserDataFromJson(data!) as UserData
-                    } else if nameControler == "WantlistViewController" {
+                    case .WantlistViewController:
                         parsedData = self.getWantlistDataFromJson(data!) as ListData
-                    } else if nameControler == "CollectionViewController" {
+                    case .CollectionViewController:
                         parsedData = self.getCollectionDataFromJson(data!) as ListData
-                    } else if nameControler == "CollectionFolderViewController" {
-                        parsedData = self.getCollectionFolderFromJson(data!) as [CollectionFolder]
+                    case .CollectionFolderViewController:
+                        parsedData = self.getCollectionFolderFromJson(data!)  as [CollectionFolder]
+                    default:
+                        print("none")
                     }
-
+                    
                     dispatch_async(dispatch_get_main_queue()) {
                         callback?(parsedData)
-                        
-                        MBProgressHUD.hideAllHUDsForView(controller.view, animated: true)
+                                             
                     }
                 }
             }
         }
-        
-            task.resume()}
+        task.resume()}
     }
     
     func delData(urlStr: String) {

@@ -56,7 +56,7 @@ class WantlistViewController: BaseViewController {
     
     func loadData(urlStr: String) {   
         
-        DataManager.sharedManager.getData(urlStr, controller: self) { (ListD) in
+        DataManager.sharedManager.getData(urlStr, controller: control.WantlistViewController) { (ListD) in
             self.wData =  ListD as! ListData
             self.listVC = WantlistTableViewController()
             self.reloadSwipeableTabView()

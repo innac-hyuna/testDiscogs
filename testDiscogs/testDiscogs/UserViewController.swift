@@ -47,7 +47,7 @@ class UserViewController: BaseViewController {
        
         let userUrl = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())"
       
-        DataManager.sharedManager.getData(userUrl, controller: self) { (UserD) in
+        DataManager.sharedManager.getData(userUrl, controller: control.UserViewController) { (UserD) in
              self.uData =  UserD as! UserData
             self.reloadData()
         }

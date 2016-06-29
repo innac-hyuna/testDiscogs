@@ -58,7 +58,7 @@ class CollectionViewController: BaseViewController {
     
     func loadData(urlStr: String) {
         
-        DataManager.sharedManager.getData(urlStr, controller: self) { (ListD) in
+        DataManager.sharedManager.getData(urlStr, controller: control.CollectionViewController) { (ListD) in
             self.wData =  ListD as! ListData
             self.listVC = CollectionTableViewController()
             self.listVC.folderId  = self.idFolder
