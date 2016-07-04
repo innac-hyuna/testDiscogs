@@ -22,7 +22,7 @@ class WantlistViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addSlideMenuButton()
-        loadData("\(getUrlStr())")
+        loadData("\(getUrlStr())", page: 0)
         title = "Wantlist"
        
     }
@@ -57,13 +57,15 @@ class WantlistViewController: BaseViewController {
                            constant: 0).active = true
     }
     
-    func loadData(urlStr: String) {   
+    func loadData(urlStr: String, page: Int) {
+        
         progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         progressHUD.labelText = "Loading..."
         DataManager.sharedManager.getData(urlStr, controller: control.WantlistViewController) { (ListD) in
+            
             self.wData =  ListD as! ListData
-            self.listVC = WantlistTableViewController()
-            self.reloadSwipeableTabView()
+            if page == 0 {
+                self.reloadSwipeableTabView()}
             self.reloadPage()
             MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
         }
@@ -75,20 +77,27 @@ class WantlistViewController: BaseViewController {
     }
     
     func reloadSwipeableTabView() {
-        swipeableView = SMSwipeableTabViewController()
+        
+        swipeableView?.removeFromParentViewController()
+        swipeableView?.view.removeFromSuperview()
+        
+        swipeableView?.delegate = nil
+        
+        swipeableView = SMSwipeableTabMyViewController()
+        
         swipeableView.titleBarDataSource = Array(1 ... wData.pages).map { iElement -> String in
             NSNumberFormatter.localizedStringFromNumber(iElement, numberStyle: .DecimalStyle) }
         
-        swipeableView.segmentBarAttributes = [SMBackgroundColorAttribute : UIColor.buttonColor()]
+        swipeableView.segmentBarAttributes = [SMBackgroundColorAttribute: UIColor.buttonColor()]
         
         swipeableView.delegate = self
+        
         addChildViewController(swipeableView)
         view.addSubview(swipeableView.view)
         swipeableView.view.translatesAutoresizingMaskIntoConstraints = false
         swipeableView.didMoveToParentViewController(self)
         
-        setupLayoutSwipeableView()
-        
+        setupLayoutSwipeableView()        
     }
     
     func getUrlStr() -> String {
@@ -105,9 +114,9 @@ class WantlistViewController: BaseViewController {
 extension WantlistViewController: SMSwipeableTabViewControllerDelegate {
     
     func didLoadViewControllerAtIndex(index: Int) -> UIViewController {
-        
+        listVC = WantlistTableViewController()
         if index != 0 {
-            loadData("\(getUrlStr())?per_page=50&page=\(index+1)") }        
+            loadData("\(getUrlStr())?per_page=50&page=\(index+1)", page: index) }
         
         return listVC
     }

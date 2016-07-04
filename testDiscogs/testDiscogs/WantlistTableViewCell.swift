@@ -38,7 +38,6 @@ class WantlistTableViewCell: UITableViewCell {
         titleLabel.lineBreakMode = .ByTruncatingTail
         titleLabel.textColor = UIColor.textColor()
         titleLabel.font =  UIFont.HelTextFontBold(17)
-        
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
     
@@ -50,7 +49,6 @@ class WantlistTableViewCell: UITableViewCell {
         floatRatingView = FloatRatingView()
         floatRatingView.emptyImage = UIImage.raitingImage("empty")
         floatRatingView.fullImage =  UIImage.raitingImage("full")
-    
         floatRatingView.contentMode = UIViewContentMode.ScaleAspectFit
         floatRatingView.maxRating = 5
         floatRatingView.minRating = 1
@@ -191,6 +189,13 @@ class WantlistTableViewCell: UITableViewCell {
                            attribute: NSLayoutAttribute.NotAnAttribute,
                            multiplier: 1.0,
                            constant: 20).active = true
+        NSLayoutConstraint(item: year,
+                           attribute: NSLayoutAttribute.Width,
+                           relatedBy: NSLayoutRelation.Equal,
+                           toItem: nil,
+                           attribute: NSLayoutAttribute.NotAnAttribute,
+                           multiplier: 1.0,
+                           constant: 40).active = true
         
         NSLayoutConstraint(item: floatRatingView,
                            attribute: NSLayoutAttribute.Leading,

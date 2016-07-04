@@ -9,6 +9,7 @@
 import Foundation
 
 class WantlistData: ItemData {
+    
     var rating: Int!
     var name: String!
     var descriptionsFormat: String!
@@ -17,8 +18,7 @@ class WantlistData: ItemData {
     var qtyFormat: String!
     var nameArtists: String!
     var instanceId: Int!
-   
- 
+    
     override init() {
         super.init()
        rating = 0

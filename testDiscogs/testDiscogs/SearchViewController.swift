@@ -97,8 +97,8 @@ class SearchViewController: BaseViewController {
         progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         progressHUD.labelText = "Loading..."
         DataManager.sharedManager.getData(urlStr, controller: control.SearchViewController) {  (listData) in
-            self.searchData = listData as! ListData
             
+            self.searchData = listData as! ListData
             if self.searchActive {
                 self.reloadSwipeableTabView()}
                 self.reloadPage()

@@ -103,7 +103,7 @@ extension WantlistTableViewController: UITableViewDataSource {
                 cell.thumbImg.kf_setImageWithResource(resource, placeholderImage: UIImage(named:"placeholder")) }
              cell.deleteButton.tag = data[indexPath.row].id
              cell.deleteButton.addTarget(self, action: #selector(WantlistTableViewController.deleteWantliast(_:)), forControlEvents: .TouchUpInside)
-             cell.year.text = String(data[indexPath.row].year)
+             cell.year.text = data[indexPath.row].year != 0 ? String(data[indexPath.row].year) : ""
              cell.textFormat.text = "\(data[indexPath.row].textFormat) \(data[indexPath.row].descriptionsFormat)"
              cell.floatRatingView.rating = Float(data[indexPath.row].rating)
 

@@ -26,7 +26,7 @@ class CollectionViewController: BaseViewController {
         super.viewDidLoad()
         
              addSlideMenuButton()
-        loadData("\(getUrlStr())")
+        loadData("\(getUrlStr())", page: 0)
         title = "Collection"
     }
     
@@ -60,15 +60,16 @@ class CollectionViewController: BaseViewController {
                            constant: 0).active = true
     }
     
-    func loadData(urlStr: String) {
+    func loadData(urlStr: String, page: Int) {
         progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         progressHUD.labelText = "Loading..."
         DataManager.sharedManager.getData(urlStr, controller: control.CollectionViewController) { (ListD) in
+            
             self.wData =  ListD as! ListData
-            self.listVC = CollectionTableViewController()
-            self.listVC.folderId  = self.idFolder
-            self.reloadSwipeableTabView()
+            if page == 0 {
+                self.reloadSwipeableTabView()}
             self.reloadPage()
+            self.listVC.folderId  = self.idFolder
             MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
         }
     }   
@@ -79,20 +80,27 @@ class CollectionViewController: BaseViewController {
     }
     
     func reloadSwipeableTabView() {
-        swipeableView = SMSwipeableTabViewController()
+        
+        swipeableView?.removeFromParentViewController()
+        swipeableView?.view.removeFromSuperview()
+        
+        swipeableView?.delegate = nil
+        
+        swipeableView = SMSwipeableTabMyViewController()
+        
         swipeableView.titleBarDataSource = Array(1 ... wData.pages).map { iElement -> String in
             NSNumberFormatter.localizedStringFromNumber(iElement, numberStyle: .DecimalStyle) }
         
-        swipeableView.segmentBarAttributes = [SMBackgroundColorAttribute : UIColor.buttonColor()]
+        swipeableView.segmentBarAttributes = [SMBackgroundColorAttribute: UIColor.buttonColor()]
         
         swipeableView.delegate = self
+        
         addChildViewController(swipeableView)
         view.addSubview(swipeableView.view)
         swipeableView.view.translatesAutoresizingMaskIntoConstraints = false
         swipeableView.didMoveToParentViewController(self)
         
         setupLayoutSwipeableView()
-        
     }
     
     func getUrlStr() -> String {
@@ -104,13 +112,14 @@ class CollectionViewController: BaseViewController {
         swipeableView?.viewDidLoad()
         
     }
-    
 }
 
 extension CollectionViewController: SMSwipeableTabViewControllerDelegate {
     
     func didLoadViewControllerAtIndex(index: Int) -> UIViewController {
-        if index != 0 { loadData("\(getUrlStr())&page=\(index+1)&per_page=1") }
+        listVC = CollectionTableViewController()
+        if index != 0 {
+            loadData("\(getUrlStr())?per_page=50&page=\(index+1)", page: index) }
         
         return listVC
     }

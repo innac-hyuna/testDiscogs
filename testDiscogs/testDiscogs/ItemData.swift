@@ -22,7 +22,7 @@ class ItemData {
     var community: [String: Int]!
     var label: [String]!
     var catno: String!
-    var year: String!
+    var year: Int!
     var genre: [String]!
 
     
@@ -40,7 +40,7 @@ class ItemData {
         community = [:]
         label = []
         catno = ""
-        year = ""
+        year = 0
         genre = []
     }
 }

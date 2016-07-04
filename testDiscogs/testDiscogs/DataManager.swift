@@ -108,7 +108,7 @@ class DataManager {
                     iData.country = country }
                 if let catno =  item["catno"].string {
                     iData.catno = catno}
-                if let year =  item["year"].string {
+                if let year =  item["year"].int {
                     iData.year = year}
                 if let iStyle = item["style"].arrayObject {
                     iData.style = iStyle as! [String] }
@@ -195,7 +195,7 @@ class DataManager {
                     iData.catno = catno }
                 if let id = item["id"].int {
                     iData.id = id }
-                if let year = item["year"].string {
+                if let year = item["year"].int {
                     iData.year = year }
                 if let nameLabels = item["basic_information"]["labels"][0]["name"].string {
                     iData.name = nameLabels }
@@ -243,7 +243,7 @@ class DataManager {
                     iData.catno = catno }
                 if let id = item["id"].int {
                     iData.id = id }
-                if let year = item["year"].string {
+                if let year = item["year"].int {
                     iData.year = year }
                 if let nameLabels = item["basic_information"]["labels"][0]["name"].string {
                     iData.name = nameLabels }
