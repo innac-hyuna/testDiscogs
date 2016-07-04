@@ -37,7 +37,7 @@ extension UIColor {
         return UIColor(hexString: "#8f8f8d")
     }
     static func buttonColor() -> UIColor {
-        return UIColor(hexString: "#7a7a7a")
+        return  UIColor(hexString: "#34495e")
     }
     static func tabBarColor() -> UIColor {
         return UIColor(hexString: "#34495e")
@@ -60,12 +60,35 @@ extension UIFont {
     static func HelTextFont(size: CGFloat) -> UIFont {
         return UIFont.init(name: "HelveticaNeue", size: size)!
     }
+    static func HelTextFontBold(size: CGFloat) -> UIFont {
+        return UIFont.init(name: "HelveticaNeue-Bold", size: size)!
+    }
 }
 
 extension UIImage {
     
     static func bgIconImage() -> UIImage {
         return UIImage(named: "bg")!
+    }
+    
+    static func menuImage() -> UIImage {
+        return UIImage(named: "Collection")!
+    }
+    
+    static func raitingImage(full: String) -> UIImage {
+       if full == "full" {
+        return UIImage(named: "StarFull")!
+       } else {
+        return UIImage(named: "StarEmpty")!
+        }
+    }
+    
+    static func addWishButton() -> UIImage {
+       return UIImage(named: "Wantlist")!
+    }
+    
+    static func addCollecButton() -> UIImage {
+        return UIImage(named: "Collection")!
     }
 
 }

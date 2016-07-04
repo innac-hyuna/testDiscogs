@@ -24,9 +24,10 @@ class DataManager {
     
     func getData(urlStr: String, controller: control , callback: ((AnyObject) -> ())?) {
         
-   
-        
         let url = NSURL(string: urlStr)
+        
+        print(urlStr)
+        
         if let ul = url {
         let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
         let task = session.dataTaskWithURL(ul) { [unowned self] (data, response, error) -> Void in
@@ -52,8 +53,6 @@ class DataManager {
                         parsedData = self.getCollectionDataFromJson(data!) as ListData
                     case .CollectionFolderViewController:
                         parsedData = self.getCollectionFolderFromJson(data!)  as [CollectionFolder]
-                    default:
-                        print("none")
                     }
                     
                     dispatch_async(dispatch_get_main_queue()) {
@@ -71,16 +70,16 @@ class DataManager {
             .response { (request, response, data, error) in
                 print(request)
                 print(response)
-                print(error)
+               
         }
     }
     
-    func updateData(urlStr: String) {
-        Alamofire.request(.POST, urlStr)
+    func updateData(urlStr: String, parameters: [String: String]) {
+        
+        Alamofire.request(.POST, urlStr, parameters: parameters)
             .response { (request, response, data, error) in
                 print(request)
                 print(response)
-                print(error)
         }
     }
     
@@ -123,13 +122,11 @@ class DataManager {
                     iData.label = iLabel as! [String] }
                 if let iGenre = item["genre"].arrayObject {
                     iData.genre = iGenre as! [String] }
-                
-                iDataArr.append(iData)
-            }
+                iDataArr.append(iData) }
+            
             list.itemsData = iDataArr
         }
         return list
-        
     }
 
  private func getUserDataFromJson(data: NSData) -> UserData {
@@ -208,8 +205,7 @@ class DataManager {
                     iData.rating = rating }
                 if let descriptionsFormat = item["basic_information"]["formats"][0]["descriptions"].arrayObject {
                     let des = descriptionsFormat as! [String]
-                    iData.descriptionsFormat = des.joinWithSeparator(", ")
-                }
+                    iData.descriptionsFormat = des.joinWithSeparator(", ")   }
                 if let qtyFormat = item["basic_information"]["formats"][0]["qty"].string {
                     iData.qtyFormat = qtyFormat }
                 if let nameFormat = item["basic_information"]["formats"][0]["name"].string {
@@ -224,7 +220,6 @@ class DataManager {
             WData.itemsData = iDataArr
         }
         return WData
-
         
     }
     
@@ -258,8 +253,7 @@ class DataManager {
                     iData.rating = rating }
                 if let descriptionsFormat = item["basic_information"]["formats"][0]["descriptions"].arrayObject {
                     let des = descriptionsFormat as! [String]
-                    iData.descriptionsFormat = des.joinWithSeparator(", ")
-                }
+                    iData.descriptionsFormat = des.joinWithSeparator(", ")  }
                 if let qtyFormat = item["basic_information"]["formats"][0]["qty"].string {
                     iData.qtyFormat = qtyFormat }
                 if let nameFormat = item["basic_information"]["formats"][0]["name"].string {
@@ -274,8 +268,6 @@ class DataManager {
             WData.itemsData = iDataArr
         }
         return WData
-        
-        
     }
 
     func getCollectionFolderFromJson(data: NSData) -> [CollectionFolder] {
@@ -292,15 +284,12 @@ class DataManager {
                 if let name = item["count"].string{
                  folder.name = name }
                 
-                
                 fData.append(folder)
-            }
-        
+            }        
         }
     
         return fData        
     }
-
     
     func getPagenation(WData: ListData, json: JSON) {
         

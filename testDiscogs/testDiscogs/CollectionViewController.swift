@@ -8,6 +8,7 @@
 
 import UIKit
 import SMSwipeableTabView
+import MBProgressHUD
 
 class CollectionViewController: BaseViewController {
 
@@ -15,15 +16,18 @@ class CollectionViewController: BaseViewController {
     var tableView: UITableView!
     var cellInd: String!
     var wData: ListData!
+    var progressHUD: MBProgressHUD!
+    var floatRatingView: FloatRatingView!
     var idFolder: Int!
     var swipeableView: SMSwipeableTabViewController!
     var listVC: CollectionTableViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addSlideMenuButton()
-        loadData("\(getUrlStr())")
         
+             addSlideMenuButton()
+        loadData("\(getUrlStr())")
+        title = "Collection"
     }
     
     override func didReceiveMemoryWarning() {
@@ -39,7 +43,7 @@ class CollectionViewController: BaseViewController {
                            toItem: topLayoutGuide,
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
-                           constant: 10).active = true
+                           constant: 0).active = true
         NSLayoutConstraint(item: swipeableView.view,
                            attribute: NSLayoutAttribute.Width,
                            relatedBy: NSLayoutRelation.Equal,
@@ -57,13 +61,15 @@ class CollectionViewController: BaseViewController {
     }
     
     func loadData(urlStr: String) {
-        
+        progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        progressHUD.labelText = "Loading..."
         DataManager.sharedManager.getData(urlStr, controller: control.CollectionViewController) { (ListD) in
             self.wData =  ListD as! ListData
             self.listVC = CollectionTableViewController()
             self.listVC.folderId  = self.idFolder
             self.reloadSwipeableTabView()
             self.reloadPage()
+            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
         }
     }   
     
@@ -91,6 +97,12 @@ class CollectionViewController: BaseViewController {
     
     func getUrlStr() -> String {
         return "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/\(idFolder)/releases"
+    }
+    
+    override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+        
+        swipeableView?.viewDidLoad()
+        
     }
     
 }

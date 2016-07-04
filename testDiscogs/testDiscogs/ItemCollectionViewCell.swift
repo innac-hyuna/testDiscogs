@@ -70,6 +70,13 @@ class ItemCollectionViewCell: UICollectionViewCell {
                            attribute: NSLayoutAttribute.BottomMargin,
                            multiplier: 1.0,
                            constant: -30 ).active = true
+        NSLayoutConstraint(item: thumbImg,
+                           attribute: NSLayoutAttribute.Width,
+                           relatedBy: NSLayoutRelation.Equal,
+                           toItem: nil,
+                           attribute: NSLayoutAttribute.NotAnAttribute,
+                           multiplier: 1.0,
+                           constant: 70 ).active = true
         
         NSLayoutConstraint(item: titLabel,
                            attribute: NSLayoutAttribute.Top,
@@ -91,8 +98,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
                            toItem: nil,
                            attribute: NSLayoutAttribute.NotAnAttribute,
                            multiplier: 1.0,
-                           constant: 80).active = true
-        
+                           constant: 80).active = true        
     }
 
 }

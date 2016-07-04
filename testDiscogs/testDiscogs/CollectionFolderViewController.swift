@@ -7,20 +7,25 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class CollectionFolderViewController: BaseViewController {
     
     var tableView: UITableView!
     var cellInd: String!
+    var progressHUD: MBProgressHUD!
     var fData: [CollectionFolder]!
     var listVC: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "CollectionFolder"
         cellInd = "cellFolder"
         addSlideMenuButton()
         loadData("\(getUrlStr())")
         listVC = UITableView()
+        listVC.backgroundColor = UIColor.bgColor()
         listVC?.registerClass(CollectionTableViewCell.self, forCellReuseIdentifier: cellInd)
         listVC.delegate = self
         listVC.dataSource = self
@@ -43,7 +48,7 @@ class CollectionFolderViewController: BaseViewController {
                            toItem: topLayoutGuide,
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
-                           constant: 10).active = true
+                           constant: 0).active = true
         NSLayoutConstraint(item: listVC,
                            attribute: NSLayoutAttribute.Width,
                            relatedBy: NSLayoutRelation.Equal,
@@ -61,10 +66,12 @@ class CollectionFolderViewController: BaseViewController {
     }
     
     func loadData(urlStr: String) {
-        
+        progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        progressHUD.labelText = "Loading..."
         DataManager.sharedManager.getData(urlStr, controller: control.CollectionFolderViewController) { (ListF) in
             self.fData =  ListF as! [CollectionFolder]
             self.listVC.reloadData()
+             MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
            
         }
     }

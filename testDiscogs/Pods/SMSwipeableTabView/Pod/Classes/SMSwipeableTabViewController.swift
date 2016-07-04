@@ -71,7 +71,6 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
             
             self.pageViewController!.didMoveToParentViewController(self)
             
-            // Add the page view controller's gesture recognizers to the book view controller's view so that the gestures are started more easily.
             self.view.gestureRecognizers = self.pageViewController!.gestureRecognizers
         }
         else {
@@ -95,10 +94,8 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
             if let bgColor = attributes[SMBackgroundColorAttribute] as? UIColor {
                 segmentBarView.backgroundColor = bgColor
             }
-            
             if let bgImage = attributes[SMBackgroundImageAttribute] as? UIImage {
-                segmentBarView.backgroundColor = UIColor(patternImage: bgImage)
-            }
+                segmentBarView.backgroundColor = UIColor(patternImage: bgImage) }
         }
         
         setupSegmentBarButtons()
@@ -247,7 +244,6 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
         
     }
     
-    
     public func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         if completed {
@@ -260,11 +256,10 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
         }
     }
     
-    
     //MARK : Segment Button
     func didSegmentButtonTap(sender: UIButton) {
         let tempIndex = currentPageIndex
-        // if sender.tag == tempIndex { return }
+        if sender.tag == tempIndex { return }
         let scrollDirection: UIPageViewControllerNavigationDirection = sender.tag > tempIndex ? .Forward : .Reverse
         pageViewController?.setViewControllers([viewControllerAtIndex(sender.tag)!], direction: scrollDirection, animated: true, completion: { (complete) -> Void in
             if complete {
@@ -273,7 +268,6 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
             }
         })
     }
-    
     
     public func scrollViewDidScroll(scrollView: UIScrollView) {
         let xFromCenter:CGFloat = self.view.frame.size.width-scrollView.contentOffset.x

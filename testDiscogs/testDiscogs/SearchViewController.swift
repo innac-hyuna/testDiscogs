@@ -26,6 +26,8 @@ class SearchViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Search"
+    
         addSlideMenuButton()
         seachBar = UISearchBar()
         seachBar.delegate = self
@@ -33,7 +35,6 @@ class SearchViewController: BaseViewController {
         view.addSubview(seachBar)
         searchData = ListData()
         setupLayoutSeachBar()
-    
         
     }
     
@@ -92,7 +93,7 @@ class SearchViewController: BaseViewController {
     }
     
     func loadData(urlStr: String) {
-        print("loadData")
+        
         progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         progressHUD.labelText = "Loading..."
         DataManager.sharedManager.getData(urlStr, controller: control.SearchViewController) {  (listData) in
@@ -110,8 +111,8 @@ class SearchViewController: BaseViewController {
     
     func reloadPage() {
         
-            listVC.dSource = searchData.itemsData as? [ItemData]
-            listVC.title = String(listVC.dSource?.count)
+         listVC.dSource = searchData.itemsData as? [ItemData]
+         listVC.title = String(listVC.dSource?.count)
             listVC.mainTableView.reloadData()
        
     }
@@ -145,6 +146,11 @@ class SearchViewController: BaseViewController {
         return "https://api.discogs.com/database/search?q=\(searchText)&token=\(constApp.token)"
     }
     
+    override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+        
+       swipeableView?.viewDidLoad()
+       
+    }
 }
 
 extension SearchViewController: SMSwipeableTabViewControllerDelegate {

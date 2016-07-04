@@ -62,8 +62,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         view.addSubview(btnCloseMenuOverlay)
         
         setupLayout()
-        
-        
     }
     
     func setupLayout() {
@@ -177,8 +175,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.lblTitle.text = arrayMenuOptions[indexPath.row]["title"]!
     
         return cell
-    }
-    
+    }    
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let btn = UIButton(type: UIButtonType.Custom)
@@ -191,6 +188,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1;
+        return 1
     }
 }

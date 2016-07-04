@@ -9,6 +9,7 @@
 import UIKit
 import Kingfisher
 
+
 class WantlistTableViewController: UIViewController {
    
     @IBOutlet var tableView: UITableView!
@@ -21,7 +22,9 @@ class WantlistTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         cellInd = "CellWantlist"
+               
         tableView = UITableView()
+        tableView?.backgroundColor = UIColor.bgColor()
         tableView?.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))
         tableView?.registerClass(WantlistTableViewCell.self, forCellReuseIdentifier: cellInd)
         tableView?.delegate = self
@@ -77,12 +80,14 @@ class WantlistTableViewController: UIViewController {
          presentViewController(refreshAlert, animated: true, completion: nil)
         
     }
-
+    
+   
 }
 
 extension WantlistTableViewController: UITableViewDelegate {
+    
     func  tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 100
+        return 90
     }
 }
 
@@ -92,18 +97,17 @@ extension WantlistTableViewController: UITableViewDataSource {
         let cell: WantlistTableViewCell = tableView.dequeueReusableCellWithIdentifier(cellInd, forIndexPath: indexPath) as! WantlistTableViewCell
         
         if let data = dataSource {
-            cell.titleLabel.text = "\(data[indexPath.row].nameArtists) \(data[indexPath.row].title) \(data[indexPath.row].nameLabel) \(data[indexPath.row].catno)"
-            
+            cell.titleLabel.text = "\(data[indexPath.row].nameArtists) \(data[indexPath.row].title)\(data[indexPath.row].catno)"
             if let URL = NSURL(string: data[indexPath.row].thumb) {
                 let resource = Resource(downloadURL: URL, cacheKey: data[indexPath.row].thumb)
                 cell.thumbImg.kf_setImageWithResource(resource, placeholderImage: UIImage(named:"placeholder")) }
-            
              cell.deleteButton.tag = data[indexPath.row].id
              cell.deleteButton.addTarget(self, action: #selector(WantlistTableViewController.deleteWantliast(_:)), forControlEvents: .TouchUpInside)
              cell.year.text = String(data[indexPath.row].year)
              cell.textFormat.text = "\(data[indexPath.row].textFormat) \(data[indexPath.row].descriptionsFormat)"
-             cell.rating.text = String(data[indexPath.row].rating)
-        }     
+             cell.floatRatingView.rating = Float(data[indexPath.row].rating)
+
+        }
        
         return cell
     }

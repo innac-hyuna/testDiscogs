@@ -8,11 +8,13 @@
 
 import UIKit
 import SMSwipeableTabView
+import MBProgressHUD
 
 class WantlistViewController: BaseViewController {
     
     var tableView: UITableView!
     var cellInd: String!
+    var progressHUD: MBProgressHUD!
     var wData: ListData!
     var swipeableView: SMSwipeableTabViewController!
     var listVC: WantlistTableViewController!
@@ -21,6 +23,7 @@ class WantlistViewController: BaseViewController {
         super.viewDidLoad()
         addSlideMenuButton()
         loadData("\(getUrlStr())")
+        title = "Wantlist"
        
     }
 
@@ -37,7 +40,7 @@ class WantlistViewController: BaseViewController {
                            toItem: topLayoutGuide,
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
-                           constant: 10).active = true
+                           constant: 0).active = true
         NSLayoutConstraint(item: swipeableView.view,
                            attribute: NSLayoutAttribute.Width,
                            relatedBy: NSLayoutRelation.Equal,
@@ -55,12 +58,14 @@ class WantlistViewController: BaseViewController {
     }
     
     func loadData(urlStr: String) {   
-        
+        progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        progressHUD.labelText = "Loading..."
         DataManager.sharedManager.getData(urlStr, controller: control.WantlistViewController) { (ListD) in
             self.wData =  ListD as! ListData
             self.listVC = WantlistTableViewController()
             self.reloadSwipeableTabView()
             self.reloadPage()
+            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
         }
     }
     
@@ -89,15 +94,20 @@ class WantlistViewController: BaseViewController {
     func getUrlStr() -> String {
         return "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/wants"
     }
+    
+    override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+        
+        swipeableView?.viewDidLoad()
+        
+    }
 }
 
 extension WantlistViewController: SMSwipeableTabViewControllerDelegate {
     
     func didLoadViewControllerAtIndex(index: Int) -> UIViewController {
         
-        
-        loadData("\(getUrlStr())&page=\(index+1)")
-        
+        if index != 0 {
+            loadData("\(getUrlStr())?per_page=50&page=\(index+1)") }        
         
         return listVC
     }

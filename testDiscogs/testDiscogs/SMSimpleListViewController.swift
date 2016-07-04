@@ -86,9 +86,9 @@ extension SMSimpleListViewController: UICollectionViewDataSource  {
                      
             if let URL = NSURL(string: data[indexPath.row].thumb) {
                 let resource = Resource(downloadURL: URL, cacheKey: data[indexPath.row].thumb)
-                cell.thumbImg.kf_setImageWithResource(resource, placeholderImage: UIImage(named:"placeholder")) }           
-            
+                cell.thumbImg.kf_setImageWithResource(resource, placeholderImage: UIImage(named:"placeholder")) }             
         }
+        
         return cell 
     }
     

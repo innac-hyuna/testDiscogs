@@ -20,13 +20,13 @@ class AlbumViewController: UIViewController {
     var styleLabel: UILabel!
     var formatLabel: UILabel!
     var countryLabel: UILabel!
-    var barcodeLabel: UILabel!
-    var communityLabel: UILabel!
     var labelLabel: UILabel!
     var catnoLabel: UILabel!
     var yearLabel: UILabel!
     var genreLabel: UILabel!
     var navigationBar: UINavigationBar!
+    var addCollectionButton: UIButton!
+    var addWishlistButton: UIButton!
     var compactConstraint: [NSLayoutConstraint] = []
     var regularConstraint: [NSLayoutConstraint] = []
     var topBar: UILayoutSupport!
@@ -46,6 +46,25 @@ class AlbumViewController: UIViewController {
         thumbImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(thumbImage)
         
+        
+        addWishlistButton = UIButton(type: .Custom) as UIButton
+       // addWishlistButton.setImage(UIImage.addWishButton(), forState: .Normal)
+        addWishlistButton.setTitle("Add to Wishlist", forState: UIControlState.Normal)
+        addWishlistButton.backgroundColor = UIColor.buttonColor()
+        addWishlistButton.layer.cornerRadius = 3
+        addWishlistButton.addTarget(self, action: #selector(AlbumViewController.addWishlistAction(_:)), forControlEvents: .TouchUpInside)
+        addWishlistButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(addWishlistButton)
+        
+     
+        addCollectionButton = UIButton(type: .Custom) as UIButton
+        addCollectionButton.setTitle("Add to Collection", forState: UIControlState.Normal)
+       // addCollectionButton.setImage(UIImage.addCollecButton(), forState: .Normal)
+        addCollectionButton.backgroundColor = UIColor.buttonColor()
+        addCollectionButton.layer.cornerRadius = 3
+        addCollectionButton.addTarget(self, action: #selector(AlbumViewController.addCollectionAction(_:)), forControlEvents: .TouchUpInside)
+        addCollectionButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(addCollectionButton)
         
         titleLabel =  UILabel()
         titleLabel.text = albumData.title
@@ -110,24 +129,6 @@ class AlbumViewController: UIViewController {
         countryLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(countryLabel)
         
-        barcodeLabel =  UILabel()
-        barcodeLabel.text = albumData.barcode.joinWithSeparator(", ")
-        barcodeLabel.textColor = UIColor.textColor()
-        barcodeLabel.font = UIFont.HelTextFont(12)
-        barcodeLabel.numberOfLines = 2
-        barcodeLabel.lineBreakMode = .ByTruncatingTail
-        barcodeLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(barcodeLabel)
-        
-        communityLabel =  UILabel()
-        let strCommunity = albumData.community.description
-        communityLabel.text = strCommunity
-        communityLabel.textColor = UIColor.textColor()
-        communityLabel.font = UIFont.HelTextFont(12)
-        communityLabel.numberOfLines = 2
-        communityLabel.lineBreakMode = .ByTruncatingTail
-        communityLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(communityLabel)
         
         labelLabel =  UILabel()
         labelLabel.text = "Label: \(albumData.label.joinWithSeparator(", "))"
@@ -148,7 +149,7 @@ class AlbumViewController: UIViewController {
         view.addSubview(catnoLabel)
         
         yearLabel =  UILabel()
-        yearLabel.text = albumData.year
+        yearLabel.text = "Year\(albumData.year)"
         yearLabel.textColor = UIColor.textColor()
         yearLabel.font = UIFont.HelTextFont(12)
         yearLabel.numberOfLines = 2
@@ -176,6 +177,24 @@ class AlbumViewController: UIViewController {
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         setupLayout()
+    }
+    
+    func addWishlistAction(sender: UIButton) {
+        
+        let param = [
+            "username": "innablack" ]
+        
+        DataManager.sharedManager.updateData("https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/wants/\(albumData.id)", parameters: param )
+    }
+    
+    func addCollectionAction(sender: UIButton) {
+        
+        let param = [
+            "username": "innablack" ,
+            "folder_id": "1",
+            "release_id": String(albumData.id)]
+       
+        DataManager.sharedManager.updateData("https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/1/releases/\(albumData.id)", parameters: param )
     }
     
     func setupLayout()  {
@@ -407,6 +426,73 @@ class AlbumViewController: UIViewController {
             multiplier: 1.0,
             constant: 0))
         
+        compactConstraint.append(NSLayoutConstraint(
+            item: addCollectionButton,
+            attribute: NSLayoutAttribute.Top,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: yearLabel,
+            attribute: NSLayoutAttribute.Bottom,
+            multiplier: 1.0,
+            constant: 20))
+        compactConstraint.append(NSLayoutConstraint(
+            item: addCollectionButton,
+            attribute: NSLayoutAttribute.Left,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.Left,
+            multiplier: 1.0,
+            constant: 10))
+        compactConstraint.append(NSLayoutConstraint(
+            item: addCollectionButton,
+            attribute: NSLayoutAttribute.Width,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: nil,
+            attribute: NSLayoutAttribute.NotAnAttribute,
+            multiplier: 1.0,
+            constant: view.bounds.width/2 - 10))
+        compactConstraint.append(NSLayoutConstraint(
+            item: addCollectionButton,
+            attribute: NSLayoutAttribute.Height,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: nil,
+            attribute: NSLayoutAttribute.NotAnAttribute,
+            multiplier: 1.0,
+            constant: 44))
+        
+        
+        compactConstraint.append(NSLayoutConstraint(
+            item: addWishlistButton,
+            attribute: NSLayoutAttribute.Top,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: yearLabel,
+            attribute: NSLayoutAttribute.Bottom,
+            multiplier: 1.0,
+            constant: 20))
+        compactConstraint.append(NSLayoutConstraint(
+            item: addWishlistButton,
+            attribute: NSLayoutAttribute.Width,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: nil,
+            attribute: NSLayoutAttribute.NotAnAttribute,
+            multiplier: 1.0,
+            constant: view.bounds.width/2 - 10))
+        compactConstraint.append(NSLayoutConstraint(
+            item: addWishlistButton,
+            attribute: NSLayoutAttribute.Right,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.Right,
+            multiplier: 1.0,
+            constant: -10))
+        compactConstraint.append(NSLayoutConstraint(
+            item: addWishlistButton,
+            attribute: NSLayoutAttribute.Height,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: nil,
+            attribute: NSLayoutAttribute.NotAnAttribute,
+            multiplier: 1.0,
+            constant: 44))
+        
         //Regular
         
         regularConstraint.append(NSLayoutConstraint(
@@ -612,8 +698,8 @@ class AlbumViewController: UIViewController {
             item: yearLabel,
             attribute: NSLayoutAttribute.Leading,
             relatedBy: NSLayoutRelation.Equal,
-            toItem: thumbImage,
-            attribute: NSLayoutAttribute.Trailing,
+            toItem: view,
+            attribute: NSLayoutAttribute.Leading,
             multiplier: 1.0,
             constant: 10))
         regularConstraint.append(NSLayoutConstraint(
@@ -623,7 +709,73 @@ class AlbumViewController: UIViewController {
             toItem: view,
             attribute: NSLayoutAttribute.Width,
             multiplier: 1.0,
-            constant: -160))
+            constant: 0))
+        
+        regularConstraint.append(NSLayoutConstraint(
+            item: addCollectionButton,
+            attribute: NSLayoutAttribute.Top,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: yearLabel,
+            attribute: NSLayoutAttribute.Bottom,
+            multiplier: 1.0,
+            constant: 20))
+        regularConstraint.append(NSLayoutConstraint(
+            item: addCollectionButton,
+            attribute: NSLayoutAttribute.Left,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.Left,
+            multiplier: 1.0,
+            constant: 10))
+        regularConstraint.append(NSLayoutConstraint(
+            item: addCollectionButton,
+            attribute: NSLayoutAttribute.Width,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: nil,
+            attribute: NSLayoutAttribute.NotAnAttribute,
+            multiplier: 1.0,
+            constant: view.bounds.width/2-10))
+        regularConstraint.append(NSLayoutConstraint(
+            item: addCollectionButton,
+            attribute: NSLayoutAttribute.Height,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: nil,
+            attribute: NSLayoutAttribute.NotAnAttribute,
+            multiplier: 1.0,
+            constant: 44))
+        
+        regularConstraint.append(NSLayoutConstraint(
+            item: addWishlistButton,
+            attribute: NSLayoutAttribute.Top,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: yearLabel,
+            attribute: NSLayoutAttribute.Bottom,
+            multiplier: 1.0,
+            constant: 20))
+        regularConstraint.append(NSLayoutConstraint(
+            item: addWishlistButton,
+            attribute: NSLayoutAttribute.Width,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: nil,
+            attribute: NSLayoutAttribute.NotAnAttribute,
+            multiplier: 1.0,
+            constant: view.bounds.width/2 - 10))
+        regularConstraint.append(NSLayoutConstraint(
+            item: addWishlistButton,
+            attribute: NSLayoutAttribute.Right,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.Right,
+            multiplier: 1.0,
+            constant: -10))
+        regularConstraint.append(NSLayoutConstraint(
+            item: addWishlistButton,
+            attribute: NSLayoutAttribute.Height,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: nil,
+            attribute: NSLayoutAttribute.NotAnAttribute,
+            multiplier: 1.0,
+            constant: 44))
         
         setupLayout()
 

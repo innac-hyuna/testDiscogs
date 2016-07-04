@@ -14,7 +14,6 @@ class WantlistData: ItemData {
     var descriptionsFormat: String!
     var textFormat: String!
     var nameFormat: String!
-    var nameLabel: String!
     var qtyFormat: String!
     var nameArtists: String!
     var instanceId: Int!
