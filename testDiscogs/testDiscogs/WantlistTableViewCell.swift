@@ -37,7 +37,7 @@ class WantlistTableViewCell: UITableViewCell {
         titleLabel.numberOfLines = 2    
         titleLabel.lineBreakMode = .ByTruncatingTail
         titleLabel.textColor = UIColor.textColor()
-        titleLabel.font =  UIFont.HelTextFontBold(17)
+        titleLabel.font =  UIFont.HelTextFontBold(14)
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
     
@@ -60,7 +60,7 @@ class WantlistTableViewCell: UITableViewCell {
     
         year = UILabel()
         year.textColor = UIColor.textColor()
-        year.font =  UIFont.HelTextFont(16)
+        year.font =  UIFont.HelTextFont(14)
         contentView.addSubview(year)
         year.translatesAutoresizingMaskIntoConstraints = false
     
@@ -103,6 +103,13 @@ class WantlistTableViewCell: UITableViewCell {
                            multiplier: 1.0,
                            constant: 50).active = true
         NSLayoutConstraint(item: thumbImg,
+                           attribute: NSLayoutAttribute.Top,
+                           relatedBy: NSLayoutRelation.Equal,
+                           toItem: contentView,
+                           attribute: NSLayoutAttribute.Top,
+                           multiplier: 1.0,
+                           constant: 5).active = true
+        NSLayoutConstraint(item: thumbImg,
                            attribute: NSLayoutAttribute.Height,
                            relatedBy: NSLayoutRelation.Equal,
                            toItem: nil,
@@ -120,17 +127,10 @@ class WantlistTableViewCell: UITableViewCell {
         NSLayoutConstraint(item: titleLabel,
                            attribute: NSLayoutAttribute.Top,
                            relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView            ,
+                           toItem: thumbImg,
                            attribute: NSLayoutAttribute.Top,
                            multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: titleLabel,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 40).active = true
+                           constant: 5).active = true
         NSLayoutConstraint(item: titleLabel,
                            attribute: NSLayoutAttribute.Width,
                            relatedBy: NSLayoutRelation.Equal,
@@ -154,13 +154,6 @@ class WantlistTableViewCell: UITableViewCell {
                            multiplier: 1.0,
                            constant: 10).active = true
         NSLayoutConstraint(item: textFormat,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 20).active = true
-        NSLayoutConstraint(item: textFormat,
                            attribute: NSLayoutAttribute.Width,
                            relatedBy: NSLayoutRelation.Equal,
                            toItem: contentView,
@@ -171,24 +164,17 @@ class WantlistTableViewCell: UITableViewCell {
         NSLayoutConstraint(item: year,
                            attribute: NSLayoutAttribute.Leading,
                            relatedBy: NSLayoutRelation.Equal,
-                           toItem: titleLabel,
-                           attribute: NSLayoutAttribute.Trailing,
+                           toItem: contentView,
+                           attribute: NSLayoutAttribute.LeadingMargin,
                            multiplier: 1.0,
                            constant: 10).active = true
         NSLayoutConstraint(item: year,
-                           attribute: NSLayoutAttribute.Top,
+                           attribute: NSLayoutAttribute.Bottom,
                            relatedBy: NSLayoutRelation.Equal,
-                           toItem: titleLabel,
+                           toItem: contentView,
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
-                           constant: 5).active = true
-        NSLayoutConstraint(item: year,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 20).active = true
+                           constant: -5).active = true
         NSLayoutConstraint(item: year,
                            attribute: NSLayoutAttribute.Width,
                            relatedBy: NSLayoutRelation.Equal,
@@ -198,19 +184,19 @@ class WantlistTableViewCell: UITableViewCell {
                            constant: 40).active = true
         
         NSLayoutConstraint(item: floatRatingView,
-                           attribute: NSLayoutAttribute.Leading,
+                           attribute: NSLayoutAttribute.Trailing,
                            relatedBy: NSLayoutRelation.Equal,
                            toItem: contentView,
-                           attribute: NSLayoutAttribute.Leading,
+                           attribute: NSLayoutAttribute.Trailing,
                            multiplier: 1.0,
-                           constant: 10).active = true
+                           constant: -5).active = true
         NSLayoutConstraint(item: floatRatingView,
-                           attribute: NSLayoutAttribute.Top,
+                           attribute: NSLayoutAttribute.Bottom,
                            relatedBy: NSLayoutRelation.Equal,
-                           toItem: thumbImg,
+                           toItem: contentView,
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
-                           constant: 5).active = true
+                           constant: 10).active = true
         NSLayoutConstraint(item: floatRatingView,
                            attribute: NSLayoutAttribute.Height,
                            relatedBy: NSLayoutRelation.Equal,

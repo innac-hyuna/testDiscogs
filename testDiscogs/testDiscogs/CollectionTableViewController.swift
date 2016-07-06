@@ -92,7 +92,7 @@ class CollectionTableViewController: UIViewController {
             self.dataSource[index].rating = raiting
             let urlStr = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/\(self.folderId)/releases/\(self.dataSource[index].id)/instances/\(self.dataSource[index].instanceId)?rating=\(self.dataSource[index].rating)"
        
-            let param = [
+            let param: NSDictionary = [
                 "username": "innablack",
                 "folder_id": String(self.folderId),
                 "release_id": String(self.dataSource[index].id),

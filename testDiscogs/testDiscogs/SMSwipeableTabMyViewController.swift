@@ -13,8 +13,12 @@ class SMSwipeableTabMyViewController: SMSwipeableTabViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+    }
+    
+    func loadTab() {
+        
+        super.viewDidLoad()
     }
 
     override func didReceiveMemoryWarning() {

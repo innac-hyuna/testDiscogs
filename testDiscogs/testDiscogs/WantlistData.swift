@@ -30,6 +30,5 @@ class WantlistData: ItemData {
        nameFormat = ""
        qtyFormat  = ""
        nameArtists = ""
-    }
-     
+    }     
 }

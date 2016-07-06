@@ -54,7 +54,6 @@ class DataManager {
                     case .CollectionFolderViewController:
                         parsedData = self.getCollectionFolderFromJson(data!)  as [CollectionFolder]
                     }
-                    
                     dispatch_async(dispatch_get_main_queue()) {
                         callback?(parsedData)
                                              
@@ -69,14 +68,13 @@ class DataManager {
         Alamofire.request(.DELETE, urlStr)
             .response { (request, response, data, error) in
                 print(request)
-                print(response)
-               
+                print(response)               
         }
     }
     
-    func updateData(urlStr: String, parameters: [String: String]) {
+    func updateData(urlStr: String, parameters: NSDictionary) {
         
-        Alamofire.request(.POST, urlStr, parameters: parameters)
+       Alamofire.request(.POST, urlStr, parameters: parameters as? [String : AnyObject])
             .response { (request, response, data, error) in
                 print(request)
                 print(response)
@@ -195,7 +193,7 @@ class DataManager {
                     iData.catno = catno }
                 if let id = item["id"].int {
                     iData.id = id }
-                if let year = item["year"].int {
+                if let year = item["basic_information"]["year"].int {
                     iData.year = year }
                 if let nameLabels = item["basic_information"]["labels"][0]["name"].string {
                     iData.name = nameLabels }
@@ -243,7 +241,7 @@ class DataManager {
                     iData.catno = catno }
                 if let id = item["id"].int {
                     iData.id = id }
-                if let year = item["year"].int {
+                if let year = item["basic_information"]["year"].int {
                     iData.year = year }
                 if let nameLabels = item["basic_information"]["labels"][0]["name"].string {
                     iData.name = nameLabels }

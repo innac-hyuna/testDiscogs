@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseViewController: UIViewController, SlideMenuDelegate {
+class BaseViewController: UIViewController, SlideMenuDelegate, SlideSearchDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,8 +22,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
     }
     
     func slideMenuItemSelectedAtIndex(index: Int32) {
-      //  let topViewController : UIViewController = self.navigationController!.topViewController!
-       // print("View Controller is : \(topViewController) \n", terminator: "")
+      
         switch(index){
         case 0:
             self.openViewControllerBasedOnIdentifier(SearchViewController())
@@ -42,6 +41,10 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         }
     }
     
+    func slideSearchQuery(dicText: NSDictionary) {
+        
+    }
+    
     func openViewControllerBasedOnIdentifier(strIdentifier: BaseViewController){
         let destViewController : UIViewController = strIdentifier
         self.navigationController!.pushViewController(destViewController, animated: true)
@@ -55,6 +58,15 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         btnShowMenu.addTarget(self, action: #selector(BaseViewController.onSlideMenuButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         let customBarItem = UIBarButtonItem(customView: btnShowMenu)
         self.navigationItem.leftBarButtonItem = customBarItem;
+    }
+    
+    func addSlideSearchButton(){
+        let btnShowMenu = UIButton(type: UIButtonType.Custom) as UIButton
+        btnShowMenu.setImage(UIImage.addSearchButton(), forState: UIControlState.Normal)
+        btnShowMenu.frame = CGRectMake(0, 0, 30, 30)
+        btnShowMenu.addTarget(self, action: #selector(BaseViewController.onSlideSearchButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let customBarItem = UIBarButtonItem(customView: btnShowMenu)
+        self.navigationItem.rightBarButtonItem = customBarItem;
     }
 
     func defaultMenuImage() -> UIImage {
@@ -104,14 +116,12 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         
         sender.enabled = false
         sender.tag = 10
-        
         let menuVC : MenuViewController = MenuViewController() 
         menuVC.btnMenu = sender
         menuVC.delegate = self
         self.view.addSubview(menuVC.view)
         self.addChildViewController(menuVC)
-        menuVC.view.layoutIfNeeded()
-        
+        menuVC.view.layoutIfNeeded()        
         
         menuVC.view.frame=CGRectMake(0 - UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height);
         
@@ -120,4 +130,44 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             sender.enabled = true
             }, completion:nil)
     }
+    
+    func onSlideSearchButtonPressed(sender : UIButton){
+        if (sender.tag == 10)
+        {
+            sender.tag = 0;
+            
+            let viewMenuBack : UIView = view.subviews.last!
+            
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                var frameMenu : CGRect = viewMenuBack.frame
+                frameMenu.origin.x =  UIScreen.mainScreen().bounds.size.width
+                viewMenuBack.frame = frameMenu
+                viewMenuBack.layoutIfNeeded()
+                viewMenuBack.backgroundColor = UIColor.clearColor()
+                }, completion: { (finished) -> Void in
+                    viewMenuBack.removeFromSuperview()
+            })
+            
+            return
+        }
+        
+        sender.enabled = false
+        sender.tag = 10
+        
+        let searchVC : FullSearchViewController = FullSearchViewController()
+        searchVC.btnSearch = sender
+        searchVC.delegate = self
+        self.view.addSubview(searchVC.view)
+        self.addChildViewController(searchVC)
+        searchVC.view.layoutIfNeeded()
+        
+        
+        searchVC.view.frame=CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height);
+        
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            searchVC.view.frame=CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height);
+            sender.enabled = true
+            }, completion:nil)
+    }
+
 }

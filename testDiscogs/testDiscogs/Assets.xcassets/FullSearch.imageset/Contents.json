@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "placeholder.png",
+      "filename" : "FullSearch.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Full Image-47.png",
+      "filename" : "Search Property-74.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Full Image-80.png",
+      "filename" : "Search Property-100.png",
       "scale" : "3x"
     }
   ],

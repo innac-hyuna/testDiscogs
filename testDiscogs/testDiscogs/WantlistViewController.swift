@@ -16,13 +16,13 @@ class WantlistViewController: BaseViewController {
     var cellInd: String!
     var progressHUD: MBProgressHUD!
     var wData: ListData!
-    var swipeableView: SMSwipeableTabViewController!
+    var swipeableView: SMSwipeableTabMyViewController!
     var listVC: WantlistTableViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addSlideMenuButton()
-        loadData("\(getUrlStr())", page: 0)
+        loadData("\(getUrlStr())", lodFirst: true)
         title = "Wantlist"
        
     }
@@ -57,14 +57,14 @@ class WantlistViewController: BaseViewController {
                            constant: 0).active = true
     }
     
-    func loadData(urlStr: String, page: Int) {
+    func loadData(urlStr: String, lodFirst: Bool) {
         
         progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         progressHUD.labelText = "Loading..."
         DataManager.sharedManager.getData(urlStr, controller: control.WantlistViewController) { (ListD) in
             
             self.wData =  ListD as! ListData
-            if page == 0 {
+            if lodFirst {
                 self.reloadSwipeableTabView()}
             self.reloadPage()
             MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
@@ -106,7 +106,7 @@ class WantlistViewController: BaseViewController {
     
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         
-        swipeableView?.viewDidLoad()
+        swipeableView?.loadTab()
         
     }
 }
@@ -115,9 +115,7 @@ extension WantlistViewController: SMSwipeableTabViewControllerDelegate {
     
     func didLoadViewControllerAtIndex(index: Int) -> UIViewController {
         listVC = WantlistTableViewController()
-        if index != 0 {
-            loadData("\(getUrlStr())?per_page=50&page=\(index+1)", page: index) }
-        
+        loadData("\(getUrlStr())?per_page=50&page=\(index+1)", lodFirst: false)
         return listVC
     }
 }

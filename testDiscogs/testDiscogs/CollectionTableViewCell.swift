@@ -64,7 +64,7 @@ class CollectionTableViewCell: UITableViewCell  {
             
             year = UILabel()
             year.textColor = UIColor.textColor()
-            year.font =  UIFont.HelTextFont(16)
+            year.font =  UIFont.HelTextFont(14)
             contentView.addSubview(year)
             year.translatesAutoresizingMaskIntoConstraints = false
             
@@ -95,6 +95,13 @@ class CollectionTableViewCell: UITableViewCell  {
      if self.reuseIdentifier != folderInd {
         
         NSLayoutConstraint(item: thumbImg,
+                           attribute: NSLayoutAttribute.Top,
+                           relatedBy: NSLayoutRelation.Equal,
+                           toItem: contentView,
+                           attribute: NSLayoutAttribute.Top,
+                           multiplier: 1.0,
+                           constant: 5).active = true
+        NSLayoutConstraint(item: thumbImg,
                            attribute: NSLayoutAttribute.Leading,
                            relatedBy: NSLayoutRelation.Equal,
                            toItem: contentView,
@@ -124,12 +131,12 @@ class CollectionTableViewCell: UITableViewCell  {
                            multiplier: 1.0,
                            constant: 5).active = true
         NSLayoutConstraint(item: titleLabel,
-                           attribute: NSLayoutAttribute.Height,
+                           attribute: NSLayoutAttribute.Top,
                            relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
+                           toItem: contentView,
+                           attribute: NSLayoutAttribute.Top,
                            multiplier: 1.0,
-                           constant: 20).active = true
+                           constant: 5).active = true
         NSLayoutConstraint(item: titleLabel,
                            attribute: NSLayoutAttribute.Width,
                            relatedBy: NSLayoutRelation.Equal,
@@ -144,14 +151,14 @@ class CollectionTableViewCell: UITableViewCell  {
                            toItem: titleLabel,
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
-                           constant: 5).active = true
+                           constant: 0).active = true
         NSLayoutConstraint(item: textFormat,
                            attribute: NSLayoutAttribute.Leading,
                            relatedBy: NSLayoutRelation.Equal,
                            toItem: thumbImg,
                            attribute: NSLayoutAttribute.Trailing,
                            multiplier: 1.0,
-                           constant: 15).active = true
+                           constant: 5).active = true
         NSLayoutConstraint(item: textFormat,
                            attribute: NSLayoutAttribute.Width,
                            relatedBy: NSLayoutRelation.Equal,
@@ -159,47 +166,41 @@ class CollectionTableViewCell: UITableViewCell  {
                            attribute: NSLayoutAttribute.Width,
                            multiplier: 1.0,
                            constant: -70).active = true
-        NSLayoutConstraint(item: textFormat,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 20).active = true
+
         
         NSLayoutConstraint(item: year,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: titleLabel,
-                           attribute: NSLayoutAttribute.Trailing,
-                           multiplier: 1.0,
-                           constant: 10).active = true
-        NSLayoutConstraint(item: year,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: titleLabel,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 5).active = true
-        NSLayoutConstraint(item: year,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 20).active = true
-        
-        NSLayoutConstraint(item: floatRatingView,
                            attribute: NSLayoutAttribute.Leading,
                            relatedBy: NSLayoutRelation.Equal,
                            toItem: contentView,
-                           attribute: NSLayoutAttribute.Leading,
+                           attribute: NSLayoutAttribute.LeadingMargin,
                            multiplier: 1.0,
-                           constant: 10).active = true
-        NSLayoutConstraint(item: floatRatingView,
-                           attribute: NSLayoutAttribute.Top,
+                           constant: 5).active = true
+        NSLayoutConstraint(item: year,
+                           attribute: NSLayoutAttribute.Bottom,
                            relatedBy: NSLayoutRelation.Equal,
-                           toItem: thumbImg,
+                           toItem: contentView,
+                           attribute: NSLayoutAttribute.Bottom,
+                           multiplier: 1.0,
+                           constant: -10).active = true
+        NSLayoutConstraint(item: year,
+                           attribute: NSLayoutAttribute.Height,
+                           relatedBy: NSLayoutRelation.Equal,
+                           toItem: nil,
+                           attribute: NSLayoutAttribute.NotAnAttribute,
+                           multiplier: 1.0,
+                           constant: 20).active = true
+        
+        NSLayoutConstraint(item: floatRatingView,
+                           attribute: NSLayoutAttribute.Trailing,
+                           relatedBy: NSLayoutRelation.Equal,
+                           toItem: contentView,
+                           attribute: NSLayoutAttribute.Trailing,
+                           multiplier: 1.0,
+                           constant: -10).active = true
+        NSLayoutConstraint(item: floatRatingView,
+                           attribute: NSLayoutAttribute.Bottom,
+                           relatedBy: NSLayoutRelation.Equal,
+                           toItem: contentView,
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
                            constant: 5).active = true

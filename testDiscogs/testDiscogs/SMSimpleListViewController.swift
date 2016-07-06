@@ -29,7 +29,6 @@ public class SMSimpleListViewController: UIViewController {
         mainTableView.registerClass(ItemCollectionViewCell.self, forCellWithReuseIdentifier: cellInd)
         mainTableView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(mainTableView)
-       // mainTableView.reloadData()
         setupLayout()
     }
 
@@ -67,8 +66,7 @@ public class SMSimpleListViewController: UIViewController {
                            toItem: view,
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
-                           constant: 0).active = true
-        
+                           constant: 0).active = true        
     }
     
 }

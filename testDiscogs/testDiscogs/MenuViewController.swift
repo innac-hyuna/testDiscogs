@@ -12,7 +12,7 @@ protocol SlideMenuDelegate {
     func slideMenuItemSelectedAtIndex(index : Int32)
 }
 
-class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MenuViewController: UIViewController {
     
     /**
     *  Array to display menu options
@@ -85,7 +85,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                            toItem: nil,
                            attribute: NSLayoutAttribute.NotAnAttribute,
                            multiplier: 1.0,
-                           constant: 25).active = true
+                           constant: 30).active = true
         NSLayoutConstraint(item: btnCloseMenuOverlay,
                            attribute: NSLayoutAttribute.Leading,
                            relatedBy: NSLayoutRelation.Equal,
@@ -162,7 +162,8 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.removeFromParentViewController()
         })
     }
-    
+}
+extension MenuViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell : MenuTableViewCell = (tableView.dequeueReusableCellWithIdentifier("cellMenu") as? MenuTableViewCell)!
         
@@ -191,3 +192,9 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return 1
     }
 }
+
+extension MenuViewController: UITableViewDelegate {
+    
+}
+
+

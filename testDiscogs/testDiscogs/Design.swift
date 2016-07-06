@@ -90,6 +90,10 @@ extension UIImage {
     static func addCollecButton() -> UIImage {
         return UIImage(named: "Collection")!
     }
+    
+    static func addSearchButton() -> UIImage {
+        return UIImage(named: "FullSearch")!
+    }
 
 }
 
@@ -100,4 +104,14 @@ extension UIView {
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 5
     }
+}
+
+extension UITextField {
+     func setMyStyle() {
+        self.backgroundColor = UIColor.buttonColor()
+        self.layer.borderColor = UIColor.borderFildColor().CGColor
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 5
+    }
+
 }

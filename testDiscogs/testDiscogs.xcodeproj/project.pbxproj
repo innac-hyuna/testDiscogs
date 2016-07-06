@@ -21,6 +21,7 @@
 		DA8D24E01D17F52E00C02E60 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D24DF1D17F52E00C02E60 /* MenuTableViewCell.swift */; };
 		DAA4D0F51D141FCE00128979 /* LoginedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4D0F41D141FCE00128979 /* LoginedViewController.swift */; };
 		DAA4D0F91D14428F00128979 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4D0F81D14428F00128979 /* UserData.swift */; };
+		DAAD2F511D2C1DA70087CC01 /* FullSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAD2F501D2C1DA70087CC01 /* FullSearchViewController.swift */; };
 		DAAEEE6F1D12FBF0005915DC /* ListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAEEE6E1D12FBF0005915DC /* ListData.swift */; };
 		DAB4B6A11D102A5300F85ED1 /* Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB4B6A01D102A5300F85ED1 /* Design.swift */; };
 		DAC821CC1D11B89700C6F00C /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC821CB1D11B89700C6F00C /* AlbumViewController.swift */; };
@@ -79,6 +80,7 @@
 		DA8D24DF1D17F52E00C02E60 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		DAA4D0F41D141FCE00128979 /* LoginedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginedViewController.swift; sourceTree = "<group>"; };
 		DAA4D0F81D14428F00128979 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		DAAD2F501D2C1DA70087CC01 /* FullSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullSearchViewController.swift; sourceTree = "<group>"; };
 		DAAEEE6E1D12FBF0005915DC /* ListData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListData.swift; sourceTree = "<group>"; };
 		DAB4B6A01D102A5300F85ED1 /* Design.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Design.swift; sourceTree = "<group>"; };
 		DAC821CB1D11B89700C6F00C /* AlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
@@ -148,7 +150,6 @@
 		DA81039F1D199CA800081503 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				DA8D24D91D17E4AC00C02E60 /* BaseViewController.swift */,
 				DA8D24DD1D17E50F00C02E60 /* MenuViewController.swift */,
 				DA8D24DF1D17F52E00C02E60 /* MenuTableViewCell.swift */,
 			);
@@ -179,6 +180,7 @@
 				DAC903DD1D0EE52C0083774F /* SearchViewController.swift */,
 				DAC821CB1D11B89700C6F00C /* AlbumViewController.swift */,
 				DAD1ACA81D23FFBA000C992A /* SMSwipeableTabMyViewController.swift */,
+				DAAD2F501D2C1DA70087CC01 /* FullSearchViewController.swift */,
 			);
 			name = SearchViewController;
 			sourceTree = "<group>";
@@ -210,6 +212,7 @@
 		DAC903DA1D0EE52C0083774F /* testDiscogs */ = {
 			isa = PBXGroup;
 			children = (
+				DA8D24D91D17E4AC00C02E60 /* BaseViewController.swift */,
 				DA81039F1D199CA800081503 /* Menu */,
 				DAA4D0F31D141F4700128979 /* Logined */,
 				DAE330761D1AB29A002595FA /* Wantlist */,
@@ -499,6 +502,7 @@
 				DAE330781D1AB30E002595FA /* WantlistViewController.swift in Sources */,
 				DAD4AE6A1D2117A500903E78 /* CollectionFolderViewController.swift in Sources */,
 				DA4115A61D22AC88003E49D9 /* FloatRatingView.swift in Sources */,
+				DAAD2F511D2C1DA70087CC01 /* FullSearchViewController.swift in Sources */,
 				DAA4D0F91D14428F00128979 /* UserData.swift in Sources */,
 				DAD1ACA91D23FFBA000C992A /* SMSwipeableTabMyViewController.swift in Sources */,
 				DAC903DE1D0EE52C0083774F /* SearchViewController.swift in Sources */,

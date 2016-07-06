@@ -16,18 +16,19 @@ class SearchViewController: BaseViewController {
     var progressHUD: MBProgressHUD!
     var searchData: ListData!
     var seachBar: UISearchBar!
-    var swipeableView: SMSwipeableTabViewController!
+    var swipeableView: SMSwipeableTabMyViewController!
     var listVC: SMSimpleListViewController!
     var searchQ = ""
     var searchActive = false
     var activePage = 0
+    var fullSearchText: String!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        fullSearchText = ""
         title = "Search"
-    
+        addSlideSearchButton()
         addSlideMenuButton()
         seachBar = UISearchBar()
         seachBar.delegate = self
@@ -113,7 +114,7 @@ class SearchViewController: BaseViewController {
         
          listVC.dSource = searchData.itemsData as? [ItemData]
          listVC.title = String(listVC.dSource?.count)
-            listVC.mainTableView.reloadData()
+         listVC.mainTableView.reloadData()
        
     }
     
@@ -142,13 +143,22 @@ class SearchViewController: BaseViewController {
         
     }
     
+    override func slideSearchQuery(dic: NSDictionary) {
+        fullSearchText = ""
+        for tex in dic {
+            fullSearchText.appendContentsOf((tex.value as! String) != "" ? "&\(tex.key)=\(tex.value)" : "")
+        }
+    }
+    
     func getUrlStr(searchText: String) -> String {
-        return "https://api.discogs.com/database/search?q=\(searchText)&token=\(constApp.token)"
+        
+      return "https://api.discogs.com/database/search?q=\(searchText)\(fullSearchText)&token=\(constApp.token)"
+        
     }
     
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         
-       swipeableView?.viewDidLoad()
+       swipeableView?.loadTab()
        
     }
 }

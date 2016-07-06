@@ -19,14 +19,14 @@ class CollectionViewController: BaseViewController {
     var progressHUD: MBProgressHUD!
     var floatRatingView: FloatRatingView!
     var idFolder: Int!
-    var swipeableView: SMSwipeableTabViewController!
+    var swipeableView: SMSwipeableTabMyViewController!
     var listVC: CollectionTableViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
              addSlideMenuButton()
-        loadData("\(getUrlStr())", page: 0)
+        loadData("\(getUrlStr())", loadFirst: true)
         title = "Collection"
     }
     
@@ -60,14 +60,13 @@ class CollectionViewController: BaseViewController {
                            constant: 0).active = true
     }
     
-    func loadData(urlStr: String, page: Int) {
+    func loadData(urlStr: String, loadFirst: Bool) {
         progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         progressHUD.labelText = "Loading..."
         DataManager.sharedManager.getData(urlStr, controller: control.CollectionViewController) { (ListD) in
             
             self.wData =  ListD as! ListData
-            if page == 0 {
-                self.reloadSwipeableTabView()}
+            if loadFirst { self.reloadSwipeableTabView() }
             self.reloadPage()
             self.listVC.folderId  = self.idFolder
             MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
@@ -109,7 +108,7 @@ class CollectionViewController: BaseViewController {
     
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         
-        swipeableView?.viewDidLoad()
+        swipeableView?.loadTab()
         
     }
 }
@@ -118,9 +117,7 @@ extension CollectionViewController: SMSwipeableTabViewControllerDelegate {
     
     func didLoadViewControllerAtIndex(index: Int) -> UIViewController {
         listVC = CollectionTableViewController()
-        if index != 0 {
-            loadData("\(getUrlStr())?per_page=50&page=\(index+1)", page: index) }
-        
+        loadData("\(getUrlStr())?per_page=50&page=\(index+1)", loadFirst: false)        
         return listVC
     }
 }
