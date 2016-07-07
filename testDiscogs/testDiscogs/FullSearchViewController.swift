@@ -8,9 +8,6 @@
 
 import UIKit
 
-protocol SlideSearchDelegate {
-    func slideSearchQuery(dic : NSDictionary)
-}
 
 class FullSearchViewController: UIViewController {
 
@@ -51,20 +48,19 @@ class FullSearchViewController: UIViewController {
     var labSubmitter: UILabel!
     var labContributor: UILabel!
     var btnSearch : UIButton!
-    var userDef: NSUserDefaults!
     var scrollView: UIScrollView!
     var regularConstraint: [NSLayoutConstraint] = []
     var compactConstraint: [NSLayoutConstraint] = []
-    var delegate : SlideSearchDelegate?
+    var dicParam: NSDictionary!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userDef = NSUserDefaults.standardUserDefaults()
-        
+      
         scrollView = UIScrollView(frame: UIScreen.mainScreen().bounds)
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.backgroundColor = UIColor.bgColor()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
         
         btnCloseMenuOverlay = UIButton(type: .Custom) as UIButton
@@ -86,208 +82,298 @@ class FullSearchViewController: UIViewController {
         editType = UITextField()
         editType.setMyStyle()
         editType.delegate = self
-        editType.tag = 1
         editType.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editType)
         
         labType = UILabel()
         labType.text = "Type"
-        //labType.font = UIFont.HelTextFont(12)
-        //labType.textColor = UIColor.textColor()
+        labType.font = UIFont.HelTextFont(13)
+        labType.textColor = UIColor.textColor()
         labType.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labType)
         
         editTitle = UITextField()
         editTitle.setMyStyle()
+        editTitle.font = UIFont.HelTextFont(14)
+        editTitle.textColor = UIColor.textColor()
         editTitle.delegate = self
-        editTitle.tag = 2
         editTitle.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editTitle)
         
         labTitle = UILabel()
         labTitle.text = "Title"
+        labTitle.font = UIFont.HelTextFont(13)
+        labTitle.textColor = UIColor.textColor()
         labTitle.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labTitle)
         
         editReleaseTitle = UITextField()
         editReleaseTitle.setMyStyle()
+        editReleaseTitle.font = UIFont.HelTextFont(14)
+        editReleaseTitle.textColor = UIColor.textColor()
         editReleaseTitle.delegate = self
-        editReleaseTitle.tag = 3
         editReleaseTitle.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editReleaseTitle)
         
         labReleaseTitle = UILabel()
         labReleaseTitle.text = "Release_title"
+        labReleaseTitle.font = UIFont.HelTextFont(13)
+        labReleaseTitle.textColor = UIColor.textColor()
         labReleaseTitle.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labReleaseTitle)
         
         editCredit = UITextField()
         editCredit.setMyStyle()
+        editCredit.font = UIFont.HelTextFont(14)
+        editCredit.textColor = UIColor.textColor()
         editCredit.delegate = self
-        editCredit.tag = 4
         editCredit.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editCredit)
         
         labCredit = UILabel()
         labCredit.text = "Credit"
+        labCredit.font = UIFont.HelTextFont(13)
+        labCredit.textColor = UIColor.textColor()
         labCredit.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labCredit)
         
         editArtist = UITextField()
         editArtist.setMyStyle()
+        editArtist.font = UIFont.HelTextFont(14)
+        editArtist.textColor = UIColor.textColor()
         editArtist.delegate = self
-        editArtist.tag = 5
         editArtist.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editArtist)
         
         labArtist = UILabel()
         labArtist.text = "Artist"
+        labArtist.font = UIFont.HelTextFont(13)
+        labArtist.textColor = UIColor.textColor()
         labArtist.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labArtist)
         
         editAnv = UITextField()
         editAnv.setMyStyle()
+        editAnv.font = UIFont.HelTextFont(14)
+        editAnv.textColor = UIColor.textColor()
         editAnv.delegate = self
-        editAnv.tag = 6
         editAnv.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editAnv)
         
         labAnv = UILabel()
         labAnv.text = "Anv"
+        labAnv.font = UIFont.HelTextFont(13)
+        labAnv.textColor = UIColor.textColor()
         labAnv.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labAnv)
         
         editLabel = UITextField()
         editLabel.setMyStyle()
+        editLabel.font = UIFont.HelTextFont(14)
+        editLabel.textColor = UIColor.textColor()
         editLabel.delegate = self
-        editLabel.tag = 7
         editLabel.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editLabel)
         
         labLabel = UILabel()
         labLabel.text = "Label"
+        labLabel.font = UIFont.HelTextFont(13)
+        labLabel.textColor = UIColor.textColor()
         labLabel.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labLabel)
         
         editGenre = UITextField()
         editGenre.setMyStyle()
+        editGenre.font = UIFont.HelTextFont(14)
+        editGenre.textColor = UIColor.textColor()
         editGenre.delegate = self
-        editLabel.tag = 8
         editGenre.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editGenre)
         
         labGenre = UILabel()
         labGenre.text = "Genre"
+        labGenre.font = UIFont.HelTextFont(13)
+        labGenre.textColor = UIColor.textColor()
         labGenre.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labGenre)
         
         editStyle = UITextField()
         editStyle.setMyStyle()
+        editStyle.font = UIFont.HelTextFont(14)
+        editStyle.textColor = UIColor.textColor()
         editStyle.delegate = self
-        editStyle.tag = 9
         editStyle.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editStyle)
         
         labStyle = UILabel()
         labStyle.text = "Style"
+        labStyle.font = UIFont.HelTextFont(13)
+        labStyle.textColor = UIColor.textColor()
         labStyle.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labStyle)
         
         editFormat = UITextField()
         editFormat.setMyStyle()
+        editFormat.font = UIFont.HelTextFont(14)
+        editFormat.textColor = UIColor.textColor()
         editFormat.delegate = self
-        editFormat.tag = 10
         editFormat.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editFormat)
         
         labFormat = UILabel()
         labFormat.text = "Format"
+        labFormat.font = UIFont.HelTextFont(13)
+        labFormat.textColor = UIColor.textColor()
         labFormat.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labFormat)
         
         editCountry = UITextField()
         editCountry.setMyStyle()
+        editCountry.font = UIFont.HelTextFont(13)
+        editCountry.textColor = UIColor.textColor()
         editCountry.delegate = self
-        editCountry.tag = 11
         editCountry.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editCountry)
         
         labCountry = UILabel()
         labCountry.text = "Country"
+        labCountry.font = UIFont.HelTextFont(13)
+        labCountry.textColor = UIColor.textColor()
         labCountry.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labCountry)
         
         editYear = UITextField()
         editYear.setMyStyle()
+        editYear.font = UIFont.HelTextFont(13)
+        editYear.textColor = UIColor.textColor()
         editYear.delegate = self
-        editYear.tag = 12
         editYear.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editYear)
         
         labYear = UILabel()
         labYear.text = "Year"
+        labYear.font = UIFont.HelTextFont(13)
+        labYear.textColor = UIColor.textColor()
         labYear.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labYear)
         
         editCatno = UITextField()
         editCatno.setMyStyle()
-        editCatno.tag = 13
+        editCatno.font = UIFont.HelTextFont(13)
+        editCatno.textColor = UIColor.textColor()
         editCatno.delegate = self
         editCatno.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editCatno)
         
         labCatno = UILabel()
         labCatno.text = "Catno"
+        labCatno.font = UIFont.HelTextFont(13)
+        labCatno.textColor = UIColor.textColor()
         labCatno.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labCatno)
         
         editBarcode = UITextField()
         editBarcode.setMyStyle()
-        editBarcode.tag = 14
+        editBarcode.font = UIFont.HelTextFont(13)
+        editBarcode.textColor = UIColor.textColor()
         editBarcode.delegate = self
         editBarcode.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editBarcode)
         
         labBarcode = UILabel()
         labBarcode.text = "Barcode"
+        labBarcode.font = UIFont.HelTextFont(13)
+        labBarcode.textColor = UIColor.textColor()
         labBarcode.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labBarcode)
         
         editTrack = UITextField()
         editTrack.setMyStyle()
+        editTrack.font = UIFont.HelTextFont(13)
+        editTrack.textColor = UIColor.textColor()
         editTrack.delegate = self
-        editTrack.tag = 15
         editTrack.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editTrack)
         
         labTrack = UILabel()
         labTrack.text = "Track"
+        labTrack.font = UIFont.HelTextFont(13)
+        labTrack.textColor = UIColor.textColor()
         labTrack.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labTrack)
         
         editSubmitter = UITextField()
         editSubmitter.setMyStyle()
+        editSubmitter.font = UIFont.HelTextFont(13)
+        editSubmitter.textColor = UIColor.textColor()
         editSubmitter.delegate = self
-        editSubmitter.tag = 16
         editSubmitter.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editSubmitter)
         
         labSubmitter = UILabel()
         labSubmitter.text = "Submitter"
+        labSubmitter.font = UIFont.HelTextFont(13)
+        labSubmitter.textColor = UIColor.textColor()
         labSubmitter.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labSubmitter)
         
         editContributor = UITextField()
         editContributor.setMyStyle()
+        editContributor.font = UIFont.HelTextFont(13)
+        editContributor.textColor = UIColor.textColor()
         editContributor.delegate = self
-        editContributor.tag = 17
         editContributor.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(editContributor)
         
         labContributor = UILabel()
         labContributor.text = "Contributor"
+        labContributor.font = UIFont.HelTextFont(13)
+        labContributor.textColor = UIColor.textColor()
         labContributor.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(labContributor)
+        createLayuot()
+        NSLayoutConstraint.activateConstraints(compactConstraint)
+        
+        dicParam = ["type": editType,
+                    "title": editTitle,
+                    "release_title": editReleaseTitle,
+                    "credit": editCredit,
+                    "artist": editArtist,
+                    "anv": editAnv,
+                    "label": editLabel,
+                    "genre": editGenre,
+                    "style": editStyle,
+                    "country": editCountry,
+                    "year": editYear,
+                    "format": editFormat,
+                    "catno": editCatno,
+                    "barcode": editBarcode,
+                    "track": editTrack,
+                    "submitter": editSubmitter,
+                    "contributor": editContributor]
+
+        reloadDataEdit()
+    }
+    
+    func reloadDataEdit() {
+       
+        for (key, value) in dicParam {
+         (value as! UITextField).text = SearchParamManager.sharedManager.getParametr(key as! String) }
+    }   
+    
+    func onReset(sender: UIButton) {
+        
+        for (key, _) in dicParam {
+            SearchParamManager.sharedManager.delParametrSearch(key as! String) }
+            reloadDataEdit()
+    }
+    
+    func setContaintsV(dic: NSDictionary) {
+       scrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+            "V:|-[btn]-[Type(30)]-[Title(30)]-[ReleaseTitle(30)]-[Credit(30)]-[Artist(30)]-[Anv(30)]-[Label(30)]-[Genre(30)]-[Style(30)]-[Country(30)]-[Year(30)]-[Format(30)]-[Catno(30)]-[Barcode(30)]-[Track(30)]-[Submitter(30)]-[Contributor(30)]-|", options: [], metrics: nil, views: dic as! [String : AnyObject] ))
+    }
+    
+    func createLayuot(){
         
         setContaintsForTextField(
             [(editType, labType),
@@ -306,60 +392,60 @@ class FullSearchViewController: UIViewController {
                 (editBarcode, labBarcode),
                 (editTrack, labTrack),
                 (editSubmitter, labSubmitter),
-                (editContributor, labContributor)])       
+                (editContributor, labContributor)])
         
-        NSLayoutConstraint(item: scrollView,
+        compactConstraint.append(NSLayoutConstraint(item: scrollView,
                            attribute: NSLayoutAttribute.Width,
                            relatedBy: NSLayoutRelation.Equal,
                            toItem: view,
                            attribute: NSLayoutAttribute.Width,
                            multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: scrollView,
+                           constant: 0))
+        compactConstraint.append(NSLayoutConstraint(item: scrollView,
                            attribute: NSLayoutAttribute.Height,
                            relatedBy: NSLayoutRelation.Equal,
                            toItem: view,
                            attribute: NSLayoutAttribute.Height,
                            multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: scrollView,
+                           constant: 0))
+        compactConstraint.append(NSLayoutConstraint(item: scrollView,
                            attribute: NSLayoutAttribute.Top,
                            relatedBy: NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Top,
+                           toItem: topLayoutGuide,
+                           attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
-                           constant: 0).active = true
+                           constant: 0))
         
-        NSLayoutConstraint(item: btnCloseMenuOverlay,
+        compactConstraint.append(NSLayoutConstraint(item: btnCloseMenuOverlay,
                            attribute: NSLayoutAttribute.Width,
                            relatedBy: NSLayoutRelation.Equal,
                            toItem: nil,
                            attribute: NSLayoutAttribute.NotAnAttribute,
                            multiplier: 1.0,
-                           constant: 100).active = true
-        NSLayoutConstraint(item: btnCloseMenuOverlay,
+                           constant: 100))
+        compactConstraint.append(NSLayoutConstraint(item: btnCloseMenuOverlay,
                            attribute: NSLayoutAttribute.Leading,
                            relatedBy: NSLayoutRelation.Equal,
                            toItem: scrollView,
                            attribute: NSLayoutAttribute.Leading,
                            multiplier: 1.0,
-                           constant: 15).active = true
+                           constant: 15))
         
-        NSLayoutConstraint(item: btnResetAll,
+        compactConstraint.append(NSLayoutConstraint(item: btnResetAll,
                            attribute: NSLayoutAttribute.Width,
                            relatedBy: NSLayoutRelation.Equal,
                            toItem: nil,
                            attribute: NSLayoutAttribute.NotAnAttribute,
                            multiplier: 1.0,
-                           constant: 100).active = true
-        NSLayoutConstraint(item: btnResetAll,
+                           constant: 100))
+        compactConstraint.append(NSLayoutConstraint(item: btnResetAll,
                            attribute: NSLayoutAttribute.Trailing,
                            relatedBy: NSLayoutRelation.Equal,
                            toItem: scrollView,
                            attribute: NSLayoutAttribute.Trailing,
                            multiplier: 1.0,
-                           constant: -15).active = true
-
+                           constant: -15))
+        
         
         setContaintsV(
             [   "btn": btnCloseMenuOverlay,
@@ -400,62 +486,36 @@ class FullSearchViewController: UIViewController {
                 "Track": labTrack,
                 "Submitter": labSubmitter,
                 "Contributor": labContributor])
-        setupLayout()
-        reloadDataEdit()
+
     }
     
-    
-    func reloadDataEdit() {
+    func setContaintsForTextField(arrTextF: [(UITextField, UILabel)]) {
+      
         
-        editType.text = userDef.stringForKey("1")
-        editTitle.text = userDef.stringForKey("2")
-        editReleaseTitle.text = userDef.stringForKey("3")
-        editCredit.text = userDef.stringForKey("4")
-        editArtist.text = userDef.stringForKey("5")
-        editAnv.text = userDef.stringForKey("6")
-        editLabel.text = userDef.stringForKey("7")
-        editLabel.text = userDef.stringForKey("8")
-        editStyle.text = userDef.stringForKey("9")
-        editFormat.text = userDef.stringForKey("10")
-        editCountry.text = userDef.stringForKey("11")
-        editYear.text = userDef.stringForKey("12")
-        editCatno.text = userDef.stringForKey("13")
-        editBarcode.text = userDef.stringForKey("14")
-        editTrack.text = userDef.stringForKey("15")
-        editSubmitter.text = userDef.stringForKey("16")
-        editContributor.text = userDef.stringForKey("17")
-    }
-    
-    
-    func setupLayout() {
-        
-        //if UIDevice.currentDevice().orientation.isPortrait.boolValue  {
-         //   NSLayoutConstraint.deactivateConstraints(regularConstraint)
-            NSLayoutConstraint.activateConstraints(compactConstraint)
-      /*  } else {
-            NSLayoutConstraint.deactivateConstraints(compactConstraint)
-            NSLayoutConstraint.activateConstraints(regularConstraint) }*/
-    }
-    
-   /* override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-       setupLayout()
-    }*/
-    
-    func onReset(sender: UIButton) {
-        for i in 1...17 {
-          userDef.removeObjectForKey(String(i))
-        }
-        reloadDataEdit()
-    }
-    
-    func setContaintsV(dic: NSDictionary){
-        scrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:|-[btn]-[Type(30)]-[Title(30)]-[ReleaseTitle(30)]-[Credit(30)]-[Artist(30)]-[Anv(30)]-[Label(30)]-[Genre(30)]-[Style(30)]-[Country(30)]-[Year(30)]-[Format(30)]-[Catno(30)]-[Barcode(30)]-[Track(30)]-[Submitter(30)]-[Contributor(30)]-|", options: [], metrics: nil, views: dic as! [String : AnyObject] ))
-    }
-    
-    func setContaintsForTextField(arrTextF: [(UITextField, UILabel)]){
-     
         for textF in arrTextF {
+            
+            compactConstraint.append(NSLayoutConstraint(item: textF.0,
+                attribute: NSLayoutAttribute.Trailing,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: scrollView,
+                attribute: NSLayoutAttribute.Trailing,
+                multiplier: 1.0,
+                constant: -15))
+            compactConstraint.append(NSLayoutConstraint(item: textF.0,
+                attribute: NSLayoutAttribute.Leading,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: textF.1,
+                attribute: NSLayoutAttribute.Trailing,
+                multiplier: 1.0,
+                constant: 0))
+            compactConstraint.append(NSLayoutConstraint(item: textF.0,
+                attribute: NSLayoutAttribute.Width,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: scrollView,
+                attribute: NSLayoutAttribute.Width,
+                multiplier: 1.0,
+                constant: -120))
+            
             compactConstraint.append(NSLayoutConstraint(item: textF.1,
                 attribute: NSLayoutAttribute.Leading,
                 relatedBy: NSLayoutRelation.Equal,
@@ -477,73 +537,6 @@ class FullSearchViewController: UIViewController {
                 attribute: NSLayoutAttribute.Leading,
                 multiplier: 1.0,
                 constant: 0))
-            
-            compactConstraint.append(NSLayoutConstraint(item: textF.0,
-                attribute: NSLayoutAttribute.Trailing,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: scrollView,
-                attribute: NSLayoutAttribute.Trailing,
-                multiplier: 1.0,
-                constant: -15))
-            compactConstraint.append(NSLayoutConstraint(item: textF.0,
-                attribute: NSLayoutAttribute.Leading,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: textF.1,
-                attribute: NSLayoutAttribute.Trailing,
-                multiplier: 1.0,
-                constant: 0))
-            compactConstraint.append(NSLayoutConstraint(item: textF.0,
-                attribute: NSLayoutAttribute.Width,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: nil,
-                attribute: NSLayoutAttribute.NotAnAttribute,
-                multiplier: 1.0,
-                constant: scrollView.bounds.width-120))
-            
-            regularConstraint.append(NSLayoutConstraint(item: textF.1,
-                attribute: NSLayoutAttribute.Leading,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: scrollView,
-                attribute: NSLayoutAttribute.Leading,
-                multiplier: 1.0,
-                constant: 15))
-            regularConstraint.append(NSLayoutConstraint(item: textF.1,
-                attribute: NSLayoutAttribute.Width,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: nil,
-                attribute: NSLayoutAttribute.NotAnAttribute,
-                multiplier: 1.0,
-                constant: 100))
-            regularConstraint.append(NSLayoutConstraint(item: textF.1,
-                attribute: NSLayoutAttribute.Trailing,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: textF.0,
-                attribute: NSLayoutAttribute.Leading,
-                multiplier: 1.0,
-                constant: 0))
-            
-            regularConstraint.append(NSLayoutConstraint(item: textF.0,
-                attribute: NSLayoutAttribute.Trailing,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: scrollView,
-                attribute: NSLayoutAttribute.Trailing,
-                multiplier: 1.0,
-                constant: -15))
-            regularConstraint.append(NSLayoutConstraint(item: textF.0,
-                attribute: NSLayoutAttribute.Leading,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: textF.1,
-                attribute: NSLayoutAttribute.Trailing,
-                multiplier: 1.0,
-                constant: 0))
-            regularConstraint.append(NSLayoutConstraint(item: textF.0,
-                attribute: NSLayoutAttribute.Width,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: nil,
-                attribute: NSLayoutAttribute.NotAnAttribute,
-                multiplier: 1.0,
-                constant: scrollView.bounds.width-120))
-        
         }
     }
     
@@ -559,32 +552,15 @@ class FullSearchViewController: UIViewController {
     }
     
     func onCloseMenuClick(button:UIButton!){
-        btnSearch.tag = 0
         
-        if (self.delegate != nil) {
-            
-           delegate?.slideSearchQuery(
-            ["type": editType.text!,
-             "title": editTitle.text!,
-             "release_title": editReleaseTitle.text!,
-             "credit": editCredit.text!,
-             "artist": editArtist.text!,
-             "anv": editAnv.text!,
-             "label": editLabel.text!,
-             "genre": editGenre.text!,
-             "style": editStyle.text!,
-             "country": editCountry.text!,
-             "year": editYear.text!,
-             "format": editFormat.text!,
-             "catno": editCatno.text!,
-             "barcode": editBarcode.text!,
-             "track": editTrack.text!,
-             "submitter": editSubmitter.text!,
-             "contributor": editContributor.text!])
-        }
+    btnSearch.tag = 0
         
+    SearchParamManager.sharedManager.setParametr(dicParam.map { (key, value) -> (String, String) in
+        return (key as! String, (value as! UITextField).text!)
+        })
+    
         UIView.animateWithDuration(0.3, animations: { () -> Void in
-            self.view.frame = CGRectMake(-UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width,UIScreen.mainScreen().bounds.size.height)
+            self.view.frame = CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width,UIScreen.mainScreen().bounds.size.height)
             self.view.layoutIfNeeded()
             self.view.backgroundColor = UIColor.clearColor()
             }, completion: { (finished) -> Void in
@@ -596,11 +572,6 @@ class FullSearchViewController: UIViewController {
 
 extension FullSearchViewController: UITextFieldDelegate {
     
-    func textFieldDidEndEditing(textField: UITextField) {
- 
-        userDef.setValue(textField.text, forKey: String(textField.tag))
-        
-    }
     
 
 }

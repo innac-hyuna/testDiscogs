@@ -143,15 +143,16 @@ class SearchViewController: BaseViewController {
         
     }
     
-    override func slideSearchQuery(dic: NSDictionary) {
+   func slideSearchQuery() {
         fullSearchText = ""
-        for tex in dic {
-            fullSearchText.appendContentsOf((tex.value as! String) != "" ? "&\(tex.key)=\(tex.value)" : "")
+     let dic = SearchParamManager.sharedManager.getAllParametr()
+        for (key, value) in dic {
+            fullSearchText.appendContentsOf((value as! String) != "" ? "&\(key)=\(value)" : "")
         }
     }
     
     func getUrlStr(searchText: String) -> String {
-        
+      slideSearchQuery()  
       return "https://api.discogs.com/database/search?q=\(searchText)\(fullSearchText)&token=\(constApp.token)"
         
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseViewController: UIViewController, SlideMenuDelegate, SlideSearchDelegate {
+class BaseViewController: UIViewController, SlideMenuDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,10 +39,6 @@ class BaseViewController: UIViewController, SlideMenuDelegate, SlideSearchDelega
         default:
             print("default\n", terminator: "")
         }
-    }
-    
-    func slideSearchQuery(dicText: NSDictionary) {
-        
     }
     
     func openViewControllerBasedOnIdentifier(strIdentifier: BaseViewController){
@@ -123,12 +119,12 @@ class BaseViewController: UIViewController, SlideMenuDelegate, SlideSearchDelega
         self.addChildViewController(menuVC)
         menuVC.view.layoutIfNeeded()        
         
-        menuVC.view.frame=CGRectMake(0 - UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height);
+        menuVC.view.frame = CGRectMake(0 - UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height);
         
         UIView.animateWithDuration(0.3, animations: { () -> Void in
-            menuVC.view.frame=CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height);
+            menuVC.view.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height);
             sender.enabled = true
-            }, completion:nil)
+            }, completion: nil)
     }
     
     func onSlideSearchButtonPressed(sender : UIButton){
@@ -156,7 +152,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate, SlideSearchDelega
         
         let searchVC : FullSearchViewController = FullSearchViewController()
         searchVC.btnSearch = sender
-        searchVC.delegate = self
+       // searchVC.delegate = self
         self.view.addSubview(searchVC.view)
         self.addChildViewController(searchVC)
         searchVC.view.layoutIfNeeded()

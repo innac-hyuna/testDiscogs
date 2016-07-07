@@ -274,7 +274,7 @@ class AlbumViewController: UIViewController {
             toItem: view,
             attribute: NSLayoutAttribute.Trailing,
             multiplier: 1.0,
-            constant: 10))
+            constant: -10))
         
         compactConstraint.append(NSLayoutConstraint(
             item: labelLabel,

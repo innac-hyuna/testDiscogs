@@ -106,8 +106,8 @@ class DataManager {
                     iData.country = country }
                 if let catno =  item["catno"].string {
                     iData.catno = catno}
-                if let year =  item["year"].int {
-                    iData.year = year}
+                if let year =  item["year"].string {
+                    iData.year = (year as NSString).integerValue}
                 if let iStyle = item["style"].arrayObject {
                     iData.style = iStyle as! [String] }
                 if let iFormat = item["format"].arrayObject {

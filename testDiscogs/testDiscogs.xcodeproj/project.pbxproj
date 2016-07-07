@@ -39,6 +39,7 @@
 		DAD1ACA91D23FFBA000C992A /* SMSwipeableTabMyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD1ACA81D23FFBA000C992A /* SMSwipeableTabMyViewController.swift */; };
 		DAD4AE6A1D2117A500903E78 /* CollectionFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4AE691D2117A500903E78 /* CollectionFolderViewController.swift */; };
 		DAD4AE6C1D211A1200903E78 /* CollectionFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD4AE6B1D211A1200903E78 /* CollectionFolder.swift */; };
+		DAD61E0E1D2E573200FDDC52 /* SearchParamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD61E0D1D2E573200FDDC52 /* SearchParamManager.swift */; };
 		DAE330731D1A7F61002595FA /* Extantion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE330721D1A7F61002595FA /* Extantion.swift */; };
 		DAE330781D1AB30E002595FA /* WantlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE330771D1AB30E002595FA /* WantlistViewController.swift */; };
 		DAE3307B1D1AB3E1002595FA /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3307A1D1AB3E1002595FA /* CollectionViewController.swift */; };
@@ -104,6 +105,7 @@
 		DAD1ACA81D23FFBA000C992A /* SMSwipeableTabMyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSwipeableTabMyViewController.swift; sourceTree = "<group>"; };
 		DAD4AE691D2117A500903E78 /* CollectionFolderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionFolderViewController.swift; sourceTree = "<group>"; };
 		DAD4AE6B1D211A1200903E78 /* CollectionFolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionFolder.swift; sourceTree = "<group>"; };
+		DAD61E0D1D2E573200FDDC52 /* SearchParamManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchParamManager.swift; sourceTree = "<group>"; };
 		DAE330721D1A7F61002595FA /* Extantion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extantion.swift; sourceTree = "<group>"; };
 		DAE330771D1AB30E002595FA /* WantlistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WantlistViewController.swift; sourceTree = "<group>"; };
 		DAE3307A1D1AB3E1002595FA /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				DAE3307C1D1ABC25002595FA /* WantlistData.swift */,
 				DA838E371D1C477B004E1A01 /* CollectionData.swift */,
 				DAD4AE6B1D211A1200903E78 /* CollectionFolder.swift */,
+				DAD61E0D1D2E573200FDDC52 /* SearchParamManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 				DA8D24E01D17F52E00C02E60 /* MenuTableViewCell.swift in Sources */,
 				DAE3307B1D1AB3E1002595FA /* CollectionViewController.swift in Sources */,
 				DAE330731D1A7F61002595FA /* Extantion.swift in Sources */,
+				DAD61E0E1D2E573200FDDC52 /* SearchParamManager.swift in Sources */,
 				DAE330781D1AB30E002595FA /* WantlistViewController.swift in Sources */,
 				DAD4AE6A1D2117A500903E78 /* CollectionFolderViewController.swift in Sources */,
 				DA4115A61D22AC88003E49D9 /* FloatRatingView.swift in Sources */,
