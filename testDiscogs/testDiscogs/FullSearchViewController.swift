@@ -58,8 +58,8 @@ class FullSearchViewController: UIViewController {
         
       
         scrollView = UIScrollView(frame: UIScreen.mainScreen().bounds)
-        scrollView.showsHorizontalScrollIndicator = false
         scrollView.backgroundColor = UIColor.bgColor()
+        scrollView.alwaysBounceHorizontal = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
         

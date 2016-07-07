@@ -32,8 +32,6 @@ class LoginedViewController: OAuthWebViewController {
        oauthSwift.authorizeWithCallbackURL(
             NSURL(string: "testdiscogs://api.discogs.com")!,
             success: { credential, response, parameters in
-                print(credential.oauth_token)
-                print(credential.oauth_token_secret)
               
                 FileManagerSourse.sharedManager.saveServices(credential.oauth_token, consumerSecret: credential.oauth_token_secret)
                 self.loadSearchViewController()
@@ -47,16 +45,16 @@ class LoginedViewController: OAuthWebViewController {
                             print("no json response")
                         }
                         
-                        
                     }, failure: { error in
                         print(error)
+                        
                 })
             },
             failure: { error in
                 print(error.localizedDescription)
-            }             
-        )
-
+                
+            })
+        
         mainView =  UIWebView()
         mainView.delegate = self
         mainView.scalesPageToFit = true
@@ -72,6 +70,9 @@ class LoginedViewController: OAuthWebViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    /*override func viewDidAppear(animated: Bool) {
+        loadSearchViewController()
+    }*/
     
     func loadSearchViewController() {
         
@@ -79,13 +80,6 @@ class LoginedViewController: OAuthWebViewController {
         presentViewController(SearchViewC, animated: true, completion: nil)
     }
 
-    func loginButtonAction (sender: UIButton) {
-      forLoginButtonAction()
-    }
-    
-    func forLoginButtonAction() {
-      
-    }
     
     func setapLayout() {
         
