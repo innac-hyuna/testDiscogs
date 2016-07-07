@@ -257,13 +257,13 @@
 			isa = PBXGroup;
 			children = (
 				DAC9040A1D0F00800083774F /* DataManager.swift */,
+				DAD61E0D1D2E573200FDDC52 /* SearchParamManager.swift */,
 				DAAEEE6E1D12FBF0005915DC /* ListData.swift */,
 				DAC904101D0F08AC0083774F /* ItemData.swift */,
 				DAA4D0F81D14428F00128979 /* UserData.swift */,
 				DAE3307C1D1ABC25002595FA /* WantlistData.swift */,
 				DA838E371D1C477B004E1A01 /* CollectionData.swift */,
 				DAD4AE6B1D211A1200903E78 /* CollectionFolder.swift */,
-				DAD61E0D1D2E573200FDDC52 /* SearchParamManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";

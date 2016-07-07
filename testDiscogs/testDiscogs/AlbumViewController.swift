@@ -129,7 +129,6 @@ class AlbumViewController: UIViewController {
         countryLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(countryLabel)
         
-        
         labelLabel =  UILabel()
         labelLabel.text = "Label: \(albumData.label.joinWithSeparator(", "))"
         labelLabel.textColor = UIColor.textColor()
@@ -204,8 +203,7 @@ class AlbumViewController: UIViewController {
         } else {
             NSLayoutConstraint.deactivateConstraints(compactConstraint)
             NSLayoutConstraint.activateConstraints(regularConstraint) }
-    }
- 
+    } 
     
     func createLayout() {
 
@@ -299,7 +297,7 @@ class AlbumViewController: UIViewController {
             toItem: view,
             attribute: NSLayoutAttribute.Width,
             multiplier: 1.0,
-            constant: 0))
+            constant: -10))
         
         compactConstraint.append(NSLayoutConstraint(
             item: formatLabel,
@@ -433,7 +431,7 @@ class AlbumViewController: UIViewController {
             toItem: yearLabel,
             attribute: NSLayoutAttribute.Bottom,
             multiplier: 1.0,
-            constant: 20))
+            constant: 10))
         compactConstraint.append(NSLayoutConstraint(
             item: addCollectionButton,
             attribute: NSLayoutAttribute.Left,
@@ -449,7 +447,7 @@ class AlbumViewController: UIViewController {
             toItem: nil,
             attribute: NSLayoutAttribute.NotAnAttribute,
             multiplier: 1.0,
-            constant: view.bounds.width/2 - 10))
+            constant: view.bounds.width/2 - 20))
         compactConstraint.append(NSLayoutConstraint(
             item: addCollectionButton,
             attribute: NSLayoutAttribute.Height,
@@ -467,7 +465,7 @@ class AlbumViewController: UIViewController {
             toItem: yearLabel,
             attribute: NSLayoutAttribute.Bottom,
             multiplier: 1.0,
-            constant: 20))
+            constant: 10))
         compactConstraint.append(NSLayoutConstraint(
             item: addWishlistButton,
             attribute: NSLayoutAttribute.Width,
@@ -475,7 +473,7 @@ class AlbumViewController: UIViewController {
             toItem: nil,
             attribute: NSLayoutAttribute.NotAnAttribute,
             multiplier: 1.0,
-            constant: view.bounds.width/2 - 10))
+            constant: view.bounds.width/2 - 20))
         compactConstraint.append(NSLayoutConstraint(
             item: addWishlistButton,
             attribute: NSLayoutAttribute.Right,

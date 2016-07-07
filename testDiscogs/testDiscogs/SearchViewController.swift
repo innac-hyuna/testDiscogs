@@ -152,8 +152,11 @@ class SearchViewController: BaseViewController {
     }
     
     func getUrlStr(searchText: String) -> String {
-      slideSearchQuery()  
-      return "https://api.discogs.com/database/search?q=\(searchText)\(fullSearchText)&token=\(constApp.token)"
+      slideSearchQuery()
+      let sText = searchText.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+      let fSearchText = fullSearchText.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+      let jUrl = "https://api.discogs.com/database/search?q=\(sText!)\(fSearchText!)&token=\(constApp.token)"
+      return jUrl
         
     }
     

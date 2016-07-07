@@ -81,7 +81,6 @@ class CollectionFolderViewController: BaseViewController {
     }
 }
 
-
 extension CollectionFolderViewController: UITableViewDelegate {
     func  tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 50

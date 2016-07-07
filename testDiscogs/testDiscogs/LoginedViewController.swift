@@ -61,7 +61,7 @@ class LoginedViewController: OAuthWebViewController {
         mainView.userInteractionEnabled = true
         mainView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mainView)
-        setapLayout()
+        setupLayout()
 
     }
     
@@ -81,7 +81,7 @@ class LoginedViewController: OAuthWebViewController {
     }
 
     
-    func setapLayout() {
+    func setupLayout() {
         
         //Compact Constaints
         
@@ -118,10 +118,5 @@ class LoginedViewController: OAuthWebViewController {
 extension LoginedViewController: UIWebViewDelegate {
    
 }
-
-
-
-
-
 
         
