@@ -147,7 +147,8 @@ class SearchViewController: BaseViewController {
         fullSearchText = ""
      let dic = SearchParamManager.sharedManager.getAllParametr()
         for (key, value) in dic {
-            fullSearchText.appendContentsOf((value as! String) != "" ? "&\(key)=\(value)" : "")
+            if (value as? NSString) != nil {
+                fullSearchText.appendContentsOf( (value as! String) != ""  ? "&\(key)=\(value)" : "")}
         }
     }
     

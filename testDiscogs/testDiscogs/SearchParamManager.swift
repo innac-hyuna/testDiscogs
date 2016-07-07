@@ -45,7 +45,7 @@ class SearchParamManager {
     }
     
     func getAllParametr() -> NSDictionary {
-       return userDef.dictionaryWithValuesForKeys(dicParam)
+         return userDef.dictionaryWithValuesForKeys(dicParam)
     }
     
     func delParametrSearch(key: String){
