@@ -89,6 +89,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/MBProgressHUD.framework"
   install_framework "Pods/OAuthSwift.framework"
   install_framework "Pods/SMSwipeableTabView.framework"
+  install_framework "Pods/SnapKit.framework"
   install_framework "Pods/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -97,5 +98,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/MBProgressHUD.framework"
   install_framework "Pods/OAuthSwift.framework"
   install_framework "Pods/SMSwipeableTabView.framework"
+  install_framework "Pods/SnapKit.framework"
   install_framework "Pods/SwiftyJSON.framework"
 fi

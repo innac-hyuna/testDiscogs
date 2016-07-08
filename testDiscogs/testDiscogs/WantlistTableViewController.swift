@@ -49,21 +49,10 @@ class WantlistTableViewController: UIViewController {
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
                            constant: 0).active = true
-        NSLayoutConstraint(item: tableView,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Height,
-                           multiplier: 1.0,
-                           constant: 150).active = true
-        NSLayoutConstraint(item: tableView,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Width,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-    
+        
+        tableView.snp_makeConstraints { (make) -> Void in
+            make.width.equalTo(view).offset(0)
+            make.height.equalTo(view).offset(150) }    
     }
     
     func deleteWantliast(sender: UIButton) {

@@ -49,56 +49,17 @@ class ItemCollectionViewCell: UICollectionViewCell {
     
     func setupLayout () {
         
-        NSLayoutConstraint(item: thumbImg,
-                           attribute: NSLayoutAttribute.TopMargin,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.TopMargin,
-                           multiplier: 1.0,
-                           constant: 10).active = true
-        NSLayoutConstraint(item: thumbImg,
-                           attribute: NSLayoutAttribute.CenterX,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.CenterX,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: thumbImg,
-                           attribute: NSLayoutAttribute.BottomMargin,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.BottomMargin,
-                           multiplier: 1.0,
-                           constant: -30 ).active = true
-        NSLayoutConstraint(item: thumbImg,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 70 ).active = true
+        thumbImg.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(contentView).offset(10)
+            make.centerX.equalTo(contentView).offset(0)
+            make.bottom.equalTo(contentView).offset(-30)
+            make.width.equalTo(70) }
         
-        NSLayoutConstraint(item: titLabel,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: thumbImg,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 5).active = true
-        NSLayoutConstraint(item: titLabel,
-                           attribute: NSLayoutAttribute.CenterX,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.CenterX,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: titLabel,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 80).active = true        
-    }
+        titLabel.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(thumbImg.snp_bottom).offset(5)
+            make.centerX.equalTo(contentView).offset(0)
+            make.width.equalTo(80) }
+        
+           }
 
 }

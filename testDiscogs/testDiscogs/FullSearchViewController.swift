@@ -415,6 +415,7 @@ class FullSearchViewController: UIViewController {
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
                            constant: 0))
+
         
         compactConstraint.append(NSLayoutConstraint(item: btnCloseMenuOverlay,
                            attribute: NSLayoutAttribute.Width,

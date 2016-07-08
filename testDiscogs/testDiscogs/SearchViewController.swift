@@ -9,6 +9,7 @@
 import UIKit
 import SMSwipeableTabView
 import MBProgressHUD
+import SnapKit
 
 class SearchViewController: BaseViewController {
     
@@ -46,51 +47,25 @@ class SearchViewController: BaseViewController {
     
     func setupLayoutSeachBar() {
         
-        NSLayoutConstraint(item: seachBar,
+      NSLayoutConstraint(item: seachBar,
                            attribute: NSLayoutAttribute.Top,
                            relatedBy: NSLayoutRelation.Equal,
                            toItem: topLayoutGuide,
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
                            constant: 0).active = true
-        NSLayoutConstraint(item: seachBar,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Width,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: seachBar,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 44).active = true }
+        
+       seachBar.snp_makeConstraints { (make) -> Void in
+            make.width.equalTo(view).offset(0)
+            make.height.equalTo(35) }
+    }
     
     func setupLayoutSwipeableView() {
         
-        NSLayoutConstraint(item: swipeableView.view,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: seachBar,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 10).active = true
-        NSLayoutConstraint(item: swipeableView.view,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Width,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: swipeableView.view,
-                           attribute: NSLayoutAttribute.Bottom,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 0).active = true
+        swipeableView.view.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(seachBar.snp_bottom).offset(0)
+            make.width.equalTo(view).offset(0)
+            make.bottom.equalTo(view) }
     }
     
     func loadData(urlStr: String) {

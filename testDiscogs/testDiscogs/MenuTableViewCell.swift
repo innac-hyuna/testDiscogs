@@ -6,7 +6,9 @@
 //  Copyright © 2016 courses. All rights reserved.
 //
 
+
 import UIKit
+import SnapKit
 
 class MenuTableViewCell: UITableViewCell {
     
@@ -49,44 +51,14 @@ class MenuTableViewCell: UITableViewCell {
     
     func setupLayout() {
         
-
-        NSLayoutConstraint(item: imgIcon,
-                           attribute: NSLayoutAttribute.CenterY,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.CenterY,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: imgIcon,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.Leading,
-                           multiplier: 1.0,
-                           constant: 10 ).active = true
-        NSLayoutConstraint(item: imgIcon,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 80).active = true
+        imgIcon.snp_makeConstraints { (make) -> Void in
+            make.centerY.equalTo(contentView.snp_centerY).offset(0)
+            make.width.equalTo(80)
+            make.left.equalTo(contentView).offset(10) }
         
-        NSLayoutConstraint(item: lblTitle,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: imgIcon,
-                           attribute: NSLayoutAttribute.Trailing,
-                           multiplier: 1.0,
-                           constant: 5).active = true
-        NSLayoutConstraint(item: lblTitle,
-                           attribute: NSLayoutAttribute.CenterY,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.CenterY,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-
+        lblTitle.snp_makeConstraints { (make) -> Void in
+            make.centerY.equalTo(contentView.snp_centerY).offset(0)
+            make.left.equalTo(imgIcon.snp_right).offset(10) }
  
     }
     

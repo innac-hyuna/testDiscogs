@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import SnapKit
 
 public class SMSimpleListViewController: UIViewController {
 
@@ -46,27 +47,11 @@ public class SMSimpleListViewController: UIViewController {
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
                            constant: 0).active = true
-        NSLayoutConstraint(item: mainTableView,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Width,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: mainTableView,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Leading,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: mainTableView,
-                           attribute: NSLayoutAttribute.Bottom,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 0).active = true        
+        
+        mainTableView.snp_makeConstraints { (make) -> Void in
+            make.width.equalTo(view).offset(0)
+            make.leading.equalTo(view).offset(0)
+            make.bottom.equalTo(view).offset(0) }
     }
     
 }

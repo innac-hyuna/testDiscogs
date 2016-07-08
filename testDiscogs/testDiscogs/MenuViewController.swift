@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol SlideMenuDelegate {
     func slideMenuItemSelectedAtIndex(index : Int32)
@@ -65,6 +66,7 @@ class MenuViewController: UIViewController {
     }
     
     func setupLayout() {
+        
         NSLayoutConstraint(item: btnCloseMenuOverlay,
                            attribute: NSLayoutAttribute.Top,
                            relatedBy: NSLayoutRelation.Equal,
@@ -72,57 +74,19 @@ class MenuViewController: UIViewController {
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
                            constant: 5).active = true
-        NSLayoutConstraint(item: btnCloseMenuOverlay,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Width,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: btnCloseMenuOverlay,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 30).active = true
-        NSLayoutConstraint(item: btnCloseMenuOverlay,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Leading,
-                           multiplier: 1.0,
-                           constant: 0).active = true
         
-        NSLayoutConstraint(item: tblMenuOptions,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: btnCloseMenuOverlay,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 5).active = true
-        NSLayoutConstraint(item: tblMenuOptions,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Width,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: tblMenuOptions,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Leading,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: tblMenuOptions,
-                           attribute: NSLayoutAttribute.Bottom,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-    }
+        btnCloseMenuOverlay.snp_makeConstraints { (make) -> Void in
+            make.width.equalTo(view).offset(0)
+            make.height.equalTo(30)
+            make.left.equalTo(view) }
+        
+        tblMenuOptions.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(btnCloseMenuOverlay.snp_bottom).offset(0)
+            make.width.equalTo(view).offset(0)
+            make.bottom.equalTo(view).offset(0)
+            make.left.equalTo(view).offset(0) } 
+        
+          }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

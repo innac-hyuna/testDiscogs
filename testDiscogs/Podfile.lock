@@ -4,6 +4,7 @@ PODS:
   - MBProgressHUD (0.9.2)
   - OAuthSwift (0.5.2)
   - SMSwipeableTabView (0.1.0)
+  - SnapKit (0.15.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
@@ -12,6 +13,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.9.2)
   - OAuthSwift (~> 0.5.0)
   - SMSwipeableTabView
+  - SnapKit (~> 0.15.0)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
 EXTERNAL SOURCES:
@@ -29,6 +31,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   OAuthSwift: 1ef042d4362e755e24a78f158d817245641a5d24
   SMSwipeableTabView: d6889807d758cccdc34a8a0de586899d4502c9f5
+  SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0

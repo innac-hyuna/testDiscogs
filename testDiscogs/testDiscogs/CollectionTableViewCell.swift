@@ -94,175 +94,47 @@ class CollectionTableViewCell: UITableViewCell  {
         
      if self.reuseIdentifier != folderInd {
         
-        NSLayoutConstraint(item: thumbImg,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.Top,
-                           multiplier: 1.0,
-                           constant: 5).active = true
-        NSLayoutConstraint(item: thumbImg,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.Leading,
-                           multiplier: 1.0,
-                           constant: 10).active = true
-        NSLayoutConstraint(item: thumbImg,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 50).active = true
-        NSLayoutConstraint(item: thumbImg,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 50).active = true
+        thumbImg.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(contentView).offset(5)
+            make.leading.equalTo(contentView).offset(10)
+            make.width.equalTo(50)
+            make.height.equalTo(50) }
         
-        NSLayoutConstraint(item: titleLabel,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: thumbImg,
-                           attribute: NSLayoutAttribute.Trailing,
-                           multiplier: 1.0,
-                           constant: 5).active = true
-        NSLayoutConstraint(item: titleLabel,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.Top,
-                           multiplier: 1.0,
-                           constant: 5).active = true
-        NSLayoutConstraint(item: titleLabel,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.Width,
-                           multiplier: 1.0,
-                           constant: -70).active = true
+        titleLabel.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(contentView).offset(5)
+            make.leading.equalTo(thumbImg.snp_trailing).offset(5)
+            make.width.equalTo(contentView).offset(-70) }
         
-        NSLayoutConstraint(item: textFormat,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: titleLabel,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: textFormat,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: thumbImg,
-                           attribute: NSLayoutAttribute.Trailing,
-                           multiplier: 1.0,
-                           constant: 5).active = true
-        NSLayoutConstraint(item: textFormat,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.Width,
-                           multiplier: 1.0,
-                           constant: -70).active = true
+        textFormat.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(titleLabel.snp_bottom).offset(0)
+            make.leading.equalTo(thumbImg.snp_trailing).offset(5)
+            make.width.equalTo(contentView).offset(-70) }
+        
+        year.snp_makeConstraints { (make) -> Void in
+            make.left.equalTo(contentView).offset(10)
+            make.bottom.equalTo(contentView.snp_bottom).offset(-5)
+            make.width.equalTo(40) }
+        
+        floatRatingView.snp_makeConstraints { (make) -> Void in
+            make.trailing.equalTo(contentView).offset(-10)
+            make.bottom.equalTo(contentView).offset(5)
+            make.height.equalTo(30)
+            make.width.equalTo(60) }
+            
+        deleteButton.snp_makeConstraints { (make) -> Void in
+            make.trailing.equalTo(contentView).offset(-10)
+            make.centerY.equalTo(contentView.snp_centerY).offset(0) }
 
-        
-        NSLayoutConstraint(item: year,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.LeadingMargin,
-                           multiplier: 1.0,
-                           constant: 5).active = true
-        NSLayoutConstraint(item: year,
-                           attribute: NSLayoutAttribute.Bottom,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: -10).active = true
-        NSLayoutConstraint(item: year,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 20).active = true
-        
-        NSLayoutConstraint(item: floatRatingView,
-                           attribute: NSLayoutAttribute.Trailing,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.Trailing,
-                           multiplier: 1.0,
-                           constant: -10).active = true
-        NSLayoutConstraint(item: floatRatingView,
-                           attribute: NSLayoutAttribute.Bottom,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 5).active = true
-        NSLayoutConstraint(item: floatRatingView,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 30).active = true
-        NSLayoutConstraint(item: floatRatingView,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 60).active = true
-        
-        NSLayoutConstraint(item: deleteButton,
-                           attribute: NSLayoutAttribute.Trailing,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.Trailing,
-                           multiplier: 1.0,
-                           constant: -10).active = true
-        NSLayoutConstraint(item: deleteButton,
-                           attribute: NSLayoutAttribute.CenterY,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.CenterY,
-                           multiplier: 1.0,
-                           constant: 0).active = true
+
+ 
      } else {
         
-        NSLayoutConstraint(item: titleLabel,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.LeadingMargin,
-                           multiplier: 1.0,
-                           constant: 10).active = true
-        NSLayoutConstraint(item: titleLabel,
-                           attribute: NSLayoutAttribute.CenterY,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.CenterY,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: titleLabel,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 40).active = true
-        NSLayoutConstraint(item: titleLabel,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: contentView,
-                           attribute: NSLayoutAttribute.Width,
-                           multiplier: 1.0,
-                           constant: 0).active = true }
+        titleLabel.snp_makeConstraints { (make) -> Void in
+            make.leading.equalTo(contentView).offset(10)
+            make.centerY.equalTo(contentView.snp_centerY).offset(0)
+            make.height.equalTo(40)
+            make.width.equalTo(contentView).offset(0) }
+        }
         
-    }    
+   }
 }

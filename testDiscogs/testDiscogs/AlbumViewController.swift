@@ -27,8 +27,6 @@ class AlbumViewController: UIViewController {
     var navigationBar: UINavigationBar!
     var addCollectionButton: UIButton!
     var addWishlistButton: UIButton!
-    var compactConstraint: [NSLayoutConstraint] = []
-    var regularConstraint: [NSLayoutConstraint] = []
     var topBar: UILayoutSupport!
 
     override func viewDidLoad() {
@@ -165,7 +163,7 @@ class AlbumViewController: UIViewController {
         genreLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(genreLabel)
         
-        createLayout()
+        setupLayout()
         
     }
 
@@ -197,587 +195,133 @@ class AlbumViewController: UIViewController {
     }
     
     func setupLayout()  {
-        if UIDevice.currentDevice().orientation.isPortrait.boolValue  {
-            NSLayoutConstraint.deactivateConstraints(regularConstraint)
-            NSLayoutConstraint.activateConstraints(compactConstraint)
-        } else {
-            NSLayoutConstraint.deactivateConstraints(compactConstraint)
-            NSLayoutConstraint.activateConstraints(regularConstraint) }
-    } 
-    
-    func createLayout() {
-
-      //Compact
-        compactConstraint.append(NSLayoutConstraint(
+        
+        NSLayoutConstraint(
             item: thumbImage,
             attribute: NSLayoutAttribute.Top,
             relatedBy: NSLayoutRelation.Equal,
             toItem: topBar,
             attribute: NSLayoutAttribute.Bottom,
             multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: thumbImage,
-            attribute: NSLayoutAttribute.CenterX,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.CenterX,
-            multiplier: 1.0,
-            constant: 0))
-        compactConstraint.append(NSLayoutConstraint(
-            item: thumbImage,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: 150))
-        compactConstraint.append(NSLayoutConstraint(
-            item: thumbImage,
-            attribute: NSLayoutAttribute.Height,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: 150))
+            constant: 10).active = true
         
-        compactConstraint.append(NSLayoutConstraint(
-            item: titleLabel,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: thumbImage,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: titleLabel,
-            attribute: NSLayoutAttribute.Height,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: 30))
-        compactConstraint.append(NSLayoutConstraint(
-            item: titleLabel,
-            attribute: NSLayoutAttribute.Leading,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Leading,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: titleLabel,
-            attribute: NSLayoutAttribute.Trailing,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Trailing,
-            multiplier: 1.0,
-            constant: -10))
-        
-        compactConstraint.append(NSLayoutConstraint(
-            item: labelLabel,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: titleLabel,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: labelLabel,
-            attribute: NSLayoutAttribute.Leading,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Leading,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: labelLabel,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Width,
-            multiplier: 1.0,
-            constant: -10))
-        
-        compactConstraint.append(NSLayoutConstraint(
-            item: formatLabel,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: labelLabel,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: formatLabel,
-            attribute: NSLayoutAttribute.Leading,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Leading,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: formatLabel,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Width,
-            multiplier: 1.0,
-            constant: 0))
-        
-        compactConstraint.append(NSLayoutConstraint(
-            item: countryLabel,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: formatLabel,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: countryLabel,
-            attribute: NSLayoutAttribute.Leading,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Leading,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: countryLabel,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Width,
-            multiplier: 1.0,
-            constant: 0))
-        
-        compactConstraint.append(NSLayoutConstraint(
-            item: genreLabel,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: countryLabel,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: genreLabel,
-            attribute: NSLayoutAttribute.Leading,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Leading,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: genreLabel,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Width,
-            multiplier: 1.0,
-            constant: 0))
-        
-        compactConstraint.append(NSLayoutConstraint(
-            item: styleLabel,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: genreLabel,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: styleLabel,
-            attribute: NSLayoutAttribute.Leading,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Leading,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: styleLabel,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Width,
-            multiplier: 1.0,
-            constant: 0))
-        
-        compactConstraint.append(NSLayoutConstraint(
-            item: yearLabel,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: styleLabel,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: yearLabel,
-            attribute: NSLayoutAttribute.Leading,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Leading,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: yearLabel,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Width,
-            multiplier: 1.0,
-            constant: 0))
-        
-        compactConstraint.append(NSLayoutConstraint(
-            item: addCollectionButton,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: yearLabel,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: addCollectionButton,
-            attribute: NSLayoutAttribute.Left,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Left,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: addCollectionButton,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: view.bounds.width/2 - 20))
-        compactConstraint.append(NSLayoutConstraint(
-            item: addCollectionButton,
-            attribute: NSLayoutAttribute.Height,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: 44))
-        
-        
-        compactConstraint.append(NSLayoutConstraint(
-            item: addWishlistButton,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: yearLabel,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: addWishlistButton,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: view.bounds.width/2 - 20))
-        compactConstraint.append(NSLayoutConstraint(
-            item: addWishlistButton,
-            attribute: NSLayoutAttribute.Right,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Right,
-            multiplier: 1.0,
-            constant: -10))
-        compactConstraint.append(NSLayoutConstraint(
-            item: addWishlistButton,
-            attribute: NSLayoutAttribute.Height,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: 44))
-        
-        //Regular
-        
-        regularConstraint.append(NSLayoutConstraint(
-            item: thumbImage,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: topBar,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: thumbImage,
-            attribute: NSLayoutAttribute.Leading,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Leading,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: thumbImage,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: 150))
-        regularConstraint.append(NSLayoutConstraint(
-            item: thumbImage,
-            attribute: NSLayoutAttribute.Height,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: 150))
-        
-        regularConstraint.append(NSLayoutConstraint(
-            item: titleLabel,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: topBar,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: titleLabel,
-            attribute: NSLayoutAttribute.Height,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: 30))
-        regularConstraint.append(NSLayoutConstraint(
-            item: titleLabel,
-            attribute: NSLayoutAttribute.Leading,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: thumbImage,
-            attribute: NSLayoutAttribute.Trailing,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: titleLabel,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Width,
-            multiplier: 1.0,
-            constant: -150))
-        
-        regularConstraint.append(NSLayoutConstraint(
-            item: labelLabel,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: titleLabel,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: labelLabel,
-            attribute: NSLayoutAttribute.Leading,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: thumbImage,
-            attribute: NSLayoutAttribute.Trailing,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: labelLabel,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Width,
-            multiplier: 1.0,
-            constant: -160))
-        
-        regularConstraint.append(NSLayoutConstraint(
-            item: formatLabel,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: labelLabel,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: formatLabel,
-            attribute: NSLayoutAttribute.Leading,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: thumbImage,
-            attribute: NSLayoutAttribute.Trailing,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: formatLabel,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Width,
-            multiplier: 1.0,
-            constant: -160))
-        
-        regularConstraint.append(NSLayoutConstraint(
-            item: countryLabel,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: formatLabel,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: countryLabel,
-            attribute: NSLayoutAttribute.Leading,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: thumbImage,
-            attribute: NSLayoutAttribute.Trailing,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: countryLabel,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Width,
-            multiplier: 1.0,
-            constant: -160))
-        
-        regularConstraint.append(NSLayoutConstraint(
-            item: genreLabel,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: countryLabel,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: genreLabel,
-            attribute: NSLayoutAttribute.Leading,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: thumbImage,
-            attribute: NSLayoutAttribute.Trailing,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: genreLabel,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Width,
-            multiplier: 1.0,
-            constant: -160))
-        
-        regularConstraint.append(NSLayoutConstraint(
-            item: styleLabel,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: genreLabel,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: styleLabel,
-            attribute: NSLayoutAttribute.Leading,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: thumbImage,
-            attribute: NSLayoutAttribute.Trailing,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: styleLabel,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Width,
-            multiplier: 1.0,
-            constant: -160))
-        
-        regularConstraint.append(NSLayoutConstraint(
-            item: yearLabel,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: styleLabel,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: yearLabel,
-            attribute: NSLayoutAttribute.Leading,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Leading,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: yearLabel,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Width,
-            multiplier: 1.0,
-            constant: 0))
-        
-        regularConstraint.append(NSLayoutConstraint(
-            item: addCollectionButton,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: yearLabel,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 20))
-        regularConstraint.append(NSLayoutConstraint(
-            item: addCollectionButton,
-            attribute: NSLayoutAttribute.Left,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Left,
-            multiplier: 1.0,
-            constant: 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: addCollectionButton,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: view.bounds.width/2-10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: addCollectionButton,
-            attribute: NSLayoutAttribute.Height,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: 44))
-        
-        regularConstraint.append(NSLayoutConstraint(
-            item: addWishlistButton,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: yearLabel,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 20))
-        regularConstraint.append(NSLayoutConstraint(
-            item: addWishlistButton,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: view.bounds.width/2 - 10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: addWishlistButton,
-            attribute: NSLayoutAttribute.Right,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Right,
-            multiplier: 1.0,
-            constant: -10))
-        regularConstraint.append(NSLayoutConstraint(
-            item: addWishlistButton,
-            attribute: NSLayoutAttribute.Height,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1.0,
-            constant: 44))
-        
-        setupLayout()
-
+        //if UIDevice.currentDevice().orientation.isPortrait.boolValue  {
+            compactLayout()
+     //   } else {
+      //      regularLayout()
+          
+      //  }
     }
     
+    func compactLayout() {
+        
+        thumbImage.snp_remakeConstraints { (make) -> Void in
+            make.centerX.equalTo(view).offset(0)
+            make.width.equalTo(150)
+            make.height.equalTo(150) }
+        
+        titleLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(thumbImage.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.trailing.equalTo(view).offset(-10) }
+        
+        labelLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(titleLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        formatLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(labelLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+
+        countryLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(formatLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        genreLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(countryLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        styleLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(genreLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        yearLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(styleLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        addCollectionButton.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(yearLabel.snp_bottom).offset(10)
+            make.left.equalTo(view).offset(10)
+            make.width.equalTo(view.bounds.width/2 - 20)
+            make.height.equalTo(44) }
+        
+        addWishlistButton.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(yearLabel.snp_bottom).offset(10)
+            make.right.equalTo(view).offset(-10)
+            make.width.equalTo(view.bounds.width/2 - 20)
+            make.height.equalTo(44) }
+    }
+    
+    func regularLayout() {
+        
+        thumbImage.snp_remakeConstraints { (make) -> Void in
+            make.centerX.equalTo(view).offset(0)
+            make.width.equalTo(150)
+            make.height.equalTo(150) }
+        
+        titleLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(view).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.trailing.equalTo(view).offset(-10) }
+        
+        labelLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(titleLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        formatLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(labelLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        countryLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(formatLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        genreLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(countryLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        styleLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(genreLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        yearLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(styleLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        addCollectionButton.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(yearLabel.snp_bottom).offset(10)
+            make.left.equalTo(view).offset(10)
+            make.width.equalTo(view.bounds.width/2 - 20)
+            make.height.equalTo(44) }
+        
+        addWishlistButton.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(yearLabel.snp_bottom).offset(10)
+            make.right.equalTo(view).offset(-10)
+            make.width.equalTo(view.bounds.width/2 - 20)
+            make.height.equalTo(44) }
+
+        }
     
 }

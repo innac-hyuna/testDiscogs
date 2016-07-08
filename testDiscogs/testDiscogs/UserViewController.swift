@@ -67,95 +67,27 @@ class UserViewController: BaseViewController {
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
                            constant: 10).active = true
-        NSLayoutConstraint(item: avatarImg,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 150).active = true
-        NSLayoutConstraint(item: avatarImg,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 150).active = true
-        NSLayoutConstraint(item: avatarImg,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Leading,
-                           multiplier: 1.0,
-                           constant: 15).active = true
-        
-        NSLayoutConstraint(item: nameLabel,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: avatarImg,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: nameLabel,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 30).active = true
-        NSLayoutConstraint(item: nameLabel,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Leading,
-                           multiplier: 1.0,
-                           constant: 15).active = true
-        
-        NSLayoutConstraint(item: profileLabel,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: nameLabel,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: profileLabel,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 30).active = true
-        NSLayoutConstraint(item: profileLabel,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Leading,
-                           multiplier: 1.0,
-                           constant: 15).active = true
-        
-        
-        NSLayoutConstraint(item: locationLabel,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: profileLabel,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: locationLabel,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 30).active = true
-        NSLayoutConstraint(item: locationLabel,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Leading,
-                           multiplier: 1.0,
-                           constant: 15).active = true
 
+        avatarImg.snp_makeConstraints { (make) -> Void in
+            make.height.equalTo(150)
+            make.width.equalTo(150)
+            make.leading.equalTo(view).offset(15) }
+        
+        nameLabel.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(avatarImg.snp_bottom).offset(0)
+            make.height.equalTo(30)
+            make.leading.equalTo(view).offset(15) }
+        
+        profileLabel.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(nameLabel.snp_bottom).offset(0)
+            make.height.equalTo(30)
+            make.leading.equalTo(view).offset(15) }
+        
+        profileLabel.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(profileLabel.snp_bottom).offset(0)
+            make.height.equalTo(30)
+            make.leading.equalTo(view).offset(15) }
+  
     }
     
     func reloadData() {

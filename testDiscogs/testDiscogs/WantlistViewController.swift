@@ -41,20 +41,11 @@ class WantlistViewController: BaseViewController {
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
                            constant: 0).active = true
-        NSLayoutConstraint(item: swipeableView.view,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Width,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        NSLayoutConstraint(item: swipeableView.view,
-                           attribute: NSLayoutAttribute.Bottom,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 0).active = true
+        
+        swipeableView.view.snp_makeConstraints { (make) -> Void in
+            make.width.equalTo(view).offset(0)
+            make.bottom.equalTo(view).offset(0) }        
+
     }
     
     func loadData(urlStr: String, lodFirst: Bool) {

@@ -5,3 +5,4 @@ pod 'MBProgressHUD', '~> 0.9.2'
 pod "SMSwipeableTabView"
 pod 'Kingfisher', '~> 2.4'
 pod 'OAuthSwift', '~> 0.5.0'
+pod 'SnapKit', '~> 0.15.0'

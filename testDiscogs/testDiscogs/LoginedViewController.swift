@@ -79,40 +79,23 @@ class LoginedViewController: OAuthWebViewController {
         let SearchViewC = UINavigationController(rootViewController: SearchViewController())
         presentViewController(SearchViewC, animated: true, completion: nil)
     }
-
     
     func setupLayout() {
         
-        //Compact Constaints
-        
-        compactConstraint.append(NSLayoutConstraint(
+        NSLayoutConstraint(
             item: mainView,
             attribute: NSLayoutAttribute.Top,
             relatedBy: NSLayoutRelation.Equal,
             toItem: topLayoutGuide,
             attribute: NSLayoutAttribute.Bottom,
             multiplier: 1.0,
-            constant: 20))
-        compactConstraint.append(NSLayoutConstraint(
-            item: mainView,
-            attribute: NSLayoutAttribute.Height,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Height,
-            multiplier: 1.0,
-            constant: 0 ))
-        compactConstraint.append(NSLayoutConstraint(
-            item: mainView,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.Width,
-            multiplier: 1.0,
-            constant: 0))
+            constant: 20).active = true
         
-      NSLayoutConstraint.activateConstraints(compactConstraint)
+        mainView.snp_makeConstraints { (make) -> Void in
+            make.width.equalTo(view).offset(0)
+            make.height.equalTo(view).offset(0) }
+
     }
-    
 }
 
 extension LoginedViewController: UIWebViewDelegate {
