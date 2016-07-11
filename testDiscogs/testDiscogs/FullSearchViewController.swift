@@ -395,58 +395,26 @@ class FullSearchViewController: UIViewController {
                 (editContributor, labContributor)])
         
         compactConstraint.append(NSLayoutConstraint(item: scrollView,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Width,
-                           multiplier: 1.0,
-                           constant: 0))
-        compactConstraint.append(NSLayoutConstraint(item: scrollView,
-                           attribute: NSLayoutAttribute.Height,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.Height,
-                           multiplier: 1.0,
-                           constant: 0))
-        compactConstraint.append(NSLayoutConstraint(item: scrollView,
                            attribute: NSLayoutAttribute.Top,
                            relatedBy: NSLayoutRelation.Equal,
                            toItem: topLayoutGuide,
                            attribute: NSLayoutAttribute.Bottom,
                            multiplier: 1.0,
                            constant: 0))
+        
+        scrollView.snp_remakeConstraints { (make) -> Void in
+            make.width.equalTo(view).offset(0)
+            make.height.equalTo(view).offset(0) }
+        
+        btnCloseMenuOverlay.snp_remakeConstraints { (make) -> Void in
+            make.width.equalTo(100)
+            make.leading.equalTo(scrollView).offset(15) }
+        
+        btnResetAll.snp_remakeConstraints { (make) -> Void in
+            make.width.equalTo(100)
+            make.trailing.equalTo(scrollView).offset(-15) }
+        
 
-        
-        compactConstraint.append(NSLayoutConstraint(item: btnCloseMenuOverlay,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 100))
-        compactConstraint.append(NSLayoutConstraint(item: btnCloseMenuOverlay,
-                           attribute: NSLayoutAttribute.Leading,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: scrollView,
-                           attribute: NSLayoutAttribute.Leading,
-                           multiplier: 1.0,
-                           constant: 15))
-        
-        compactConstraint.append(NSLayoutConstraint(item: btnResetAll,
-                           attribute: NSLayoutAttribute.Width,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: nil,
-                           attribute: NSLayoutAttribute.NotAnAttribute,
-                           multiplier: 1.0,
-                           constant: 100))
-        compactConstraint.append(NSLayoutConstraint(item: btnResetAll,
-                           attribute: NSLayoutAttribute.Trailing,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: scrollView,
-                           attribute: NSLayoutAttribute.Trailing,
-                           multiplier: 1.0,
-                           constant: -15))
-        
         
         setContaintsV(
             [   "btn": btnCloseMenuOverlay,
@@ -494,50 +462,17 @@ class FullSearchViewController: UIViewController {
       
         
         for textF in arrTextF {
+        
             
-            compactConstraint.append(NSLayoutConstraint(item: textF.0,
-                attribute: NSLayoutAttribute.Trailing,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: scrollView,
-                attribute: NSLayoutAttribute.Trailing,
-                multiplier: 1.0,
-                constant: -15))
-            compactConstraint.append(NSLayoutConstraint(item: textF.0,
-                attribute: NSLayoutAttribute.Leading,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: textF.1,
-                attribute: NSLayoutAttribute.Trailing,
-                multiplier: 1.0,
-                constant: 0))
-            compactConstraint.append(NSLayoutConstraint(item: textF.0,
-                attribute: NSLayoutAttribute.Width,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: scrollView,
-                attribute: NSLayoutAttribute.Width,
-                multiplier: 1.0,
-                constant: -120))
+            textF.1.snp_remakeConstraints { (make) -> Void in
+                make.leading.equalTo(scrollView).offset(15)
+                make.width.equalTo(100)
+                make.trailing.equalTo(textF.0.snp_leading).offset(0) }
             
-            compactConstraint.append(NSLayoutConstraint(item: textF.1,
-                attribute: NSLayoutAttribute.Leading,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: scrollView,
-                attribute: NSLayoutAttribute.Leading,
-                multiplier: 1.0,
-                constant: 15))
-            compactConstraint.append(NSLayoutConstraint(item: textF.1,
-                attribute: NSLayoutAttribute.Width,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: nil,
-                attribute: NSLayoutAttribute.NotAnAttribute,
-                multiplier: 1.0,
-                constant: 100))
-            compactConstraint.append(NSLayoutConstraint(item: textF.1,
-                attribute: NSLayoutAttribute.Trailing,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: textF.0,
-                attribute: NSLayoutAttribute.Leading,
-                multiplier: 1.0,
-                constant: 0))
+            textF.0.snp_remakeConstraints { (make) -> Void in
+                make.trailing.equalTo(scrollView).offset(-15)
+                make.leading.equalTo(textF.1.snp_trailing).offset(0)
+                make.width.equalTo(scrollView).offset(-120) }
         }
     }
     
