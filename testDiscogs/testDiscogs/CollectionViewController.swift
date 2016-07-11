@@ -9,6 +9,7 @@
 import UIKit
 import SMSwipeableTabView
 import MBProgressHUD
+import SnapKit
 
 class CollectionViewController: BaseViewController {
 

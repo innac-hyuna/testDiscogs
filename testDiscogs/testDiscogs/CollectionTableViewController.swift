@@ -9,6 +9,7 @@
 import UIKit
 import Kingfisher
 
+
 class CollectionTableViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!

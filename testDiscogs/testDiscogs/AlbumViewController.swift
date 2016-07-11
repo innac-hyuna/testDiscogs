@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import SnapKit
 
 class AlbumViewController: UIViewController {
     
@@ -185,32 +186,32 @@ class AlbumViewController: UIViewController {
         labelLabel.snp_remakeConstraints { (make) -> Void in
             make.top.equalTo(titleLabel.snp_bottom).offset(10)
             make.leading.equalTo(view).offset(10)
-            make.width.equalTo(view).offset(-10) }
+            make.trailing.equalTo(view).offset(-10) }
         
         formatLabel.snp_remakeConstraints { (make) -> Void in
             make.top.equalTo(labelLabel.snp_bottom).offset(10)
             make.leading.equalTo(view).offset(10)
-            make.width.equalTo(view).offset(-10) }
+            make.trailing.equalTo(view).offset(-10) }
 
         countryLabel.snp_remakeConstraints { (make) -> Void in
             make.top.equalTo(formatLabel.snp_bottom).offset(10)
             make.leading.equalTo(view).offset(10)
-            make.width.equalTo(view).offset(-10) }
+            make.trailing.equalTo(view).offset(-10) }
         
         genreLabel.snp_remakeConstraints { (make) -> Void in
             make.top.equalTo(countryLabel.snp_bottom).offset(10)
             make.leading.equalTo(view).offset(10)
-            make.width.equalTo(view).offset(-10) }
+            make.trailing.equalTo(view).offset(-10) }
         
         styleLabel.snp_remakeConstraints { (make) -> Void in
             make.top.equalTo(genreLabel.snp_bottom).offset(10)
             make.leading.equalTo(view).offset(10)
-            make.width.equalTo(view).offset(-10) }
+            make.trailing.equalTo(view).offset(-10) }
         
         yearLabel.snp_remakeConstraints { (make) -> Void in
             make.top.equalTo(styleLabel.snp_bottom).offset(10)
             make.leading.equalTo(view).offset(10)
-            make.width.equalTo(view).offset(-10) }
+            make.trailing.equalTo(view).offset(-10) }
         
         addCollectionButton.snp_remakeConstraints { (make) -> Void in
             make.top.equalTo(yearLabel.snp_bottom).offset(10)
@@ -240,41 +241,41 @@ class AlbumViewController: UIViewController {
         labelLabel.snp_remakeConstraints { (make) -> Void in
             make.top.equalTo(titleLabel.snp_bottom).offset(10)
             make.leading.equalTo(thumbImage.snp_trailing).offset(10)
-            make.width.equalTo(view).offset(-160) }
+            make.trailing.equalTo(view).offset(-160) }
         
         formatLabel.snp_remakeConstraints { (make) -> Void in
             make.top.equalTo(labelLabel.snp_bottom).offset(10)
             make.leading.equalTo(thumbImage.snp_trailing).offset(10)
-            make.width.equalTo(view).offset(-160) }
+            make.trailing.equalTo(view).offset(-160)  }
         
         countryLabel.snp_remakeConstraints { (make) -> Void in
             make.top.equalTo(formatLabel.snp_bottom).offset(10)
             make.leading.equalTo(thumbImage.snp_trailing).offset(10)
-            make.width.equalTo(view).offset(-160) }
+            make.trailing.equalTo(view).offset(-160)  }
         
         genreLabel.snp_remakeConstraints { (make) -> Void in
             make.top.equalTo(countryLabel.snp_bottom).offset(10)
             make.leading.equalTo(thumbImage.snp_trailing).offset(10)
-            make.width.equalTo(view).offset(-160) }
+            make.trailing.equalTo(view).offset(-160) }
         
         styleLabel.snp_remakeConstraints { (make) -> Void in
             make.top.equalTo(genreLabel.snp_bottom).offset(10)
             make.leading.equalTo(thumbImage.snp_trailing).offset(10)
-            make.width.equalTo(view).offset(-160) }
+            make.trailing.equalTo(view).offset(-160)  }
         
         yearLabel.snp_remakeConstraints { (make) -> Void in
             make.top.equalTo(styleLabel.snp_bottom).offset(10)
             make.leading.equalTo(thumbImage.snp_trailing).offset(10)
-            make.width.equalTo(view).offset(-160) }
+            make.trailing.equalTo(view).offset(-160)  }
         
         addCollectionButton.snp_remakeConstraints { (make) -> Void in
-            make.top.equalTo(yearLabel.snp_bottom).offset(10)
+            make.top.equalTo(yearLabel.snp_bottom).offset(5)
             make.left.equalTo(view).offset(10)
             make.width.equalTo(44)
             make.height.equalTo(44) }
         
         addWishlistButton.snp_remakeConstraints { (make) -> Void in
-            make.top.equalTo(yearLabel.snp_bottom).offset(10)
+            make.top.equalTo(yearLabel.snp_bottom).offset(5)
             make.left.equalTo(addCollectionButton.snp_right).offset(10)
             make.width.equalTo(44)
             make.height.equalTo(44) }
