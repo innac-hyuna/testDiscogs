@@ -125,8 +125,6 @@ class CollectionTableViewCell: UITableViewCell  {
         deleteButton.snp_makeConstraints { (make) -> Void in
             make.trailing.equalTo(contentView).offset(-10)
             make.centerY.equalTo(contentView.snp_centerY).offset(0) }
-
-
  
      } else {
         

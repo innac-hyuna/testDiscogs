@@ -24,44 +24,35 @@ class DataManager {
     
     func getData(urlStr: String, controller: control , callback: ((AnyObject) -> ())?) {
         
+        
         let url = NSURL(string: urlStr)
         
         print(urlStr)
         
-        if let ul = url {
-        let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-        let task = session.dataTaskWithURL(ul) { [unowned self] (data, response, error) -> Void in
-            if error != nil {
-                print("Error: \(error?.localizedDescription)")
-                return
-            }
-            
-            if let httpResponse = response as? NSHTTPURLResponse {// where httpResponse.statusCode == 200 {
-                print(httpResponse.statusCode)
-                 if httpResponse.statusCode == 200 {
-                   
-                    var parsedData: AnyObject!
-                    
-                    switch (controller) {
-                    case .SearchViewController:
-                        parsedData = self.getListDataFromJson(data!) as ListData
-                    case .UserViewController:
-                        parsedData = self.getUserDataFromJson(data!) as UserData
-                    case .WantlistViewController:
-                        parsedData = self.getWantlistDataFromJson(data!) as ListData
-                    case .CollectionViewController:
-                        parsedData = self.getCollectionDataFromJson(data!) as ListData
-                    case .CollectionFolderViewController:
-                        parsedData = self.getCollectionFolderFromJson(data!)  as [CollectionFolder]
-                    }
-                    dispatch_async(dispatch_get_main_queue()) {
-                        callback?(parsedData)
-                                             
-                    }
+        Alamofire.request(.GET, urlStr, parameters: ["": ""])
+            .validate()
+            .response { request, response, data, error in
+                
+                var parsedData: AnyObject!
+                
+                switch (controller) {
+                case .SearchViewController:
+                    parsedData = self.getListDataFromJson(data!) as ListData
+                case .UserViewController:
+                    parsedData = self.getUserDataFromJson(data!) as UserData
+                case .WantlistViewController:
+                    parsedData = self.getWantlistDataFromJson(data!) as ListData
+                case .CollectionViewController:
+                    parsedData = self.getCollectionDataFromJson(data!) as ListData
+                case .CollectionFolderViewController:
+                    parsedData = self.getCollectionFolderFromJson(data!)  as [CollectionFolder]
+                }
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    callback?(parsedData)
                 }
             }
-        }
-        task.resume()}
+      
     }
     
     func delData(urlStr: String) {

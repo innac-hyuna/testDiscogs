@@ -44,20 +44,10 @@ class CollectionTableViewController: UIViewController {
     
     func setupLayout() {
         
-        
-        
-        NSLayoutConstraint(item: tableView,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: topLayoutGuide,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        
         tableView.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(self.snp_topLayoutGuideBottom).offset(0)
             make.width.equalTo(view).offset(0)
             make.height.equalTo(view).offset(150) }
-        
     }
     
     func deleteWantliast(sender: UIButton) {
@@ -99,9 +89,7 @@ class CollectionTableViewController: UIViewController {
             self.tableView.reloadData()
         }))
         presentViewController(refreshAlert, animated: true, completion: nil)
-    }
-    
-    
+    }   
 }
 
 extension CollectionTableViewController: UITableViewDelegate {
@@ -119,7 +107,7 @@ extension CollectionTableViewController: UITableViewDataSource {
             
             if let URL = NSURL(string: dataSource[indexPath.row].thumb) {
                 let resource = Resource(downloadURL: URL, cacheKey: dataSource[indexPath.row].thumb)
-                cell.thumbImg.kf_setImageWithResource(resource, placeholderImage: UIImage(named:"placeholder")) }
+            cell.thumbImg.kf_setImageWithResource(resource, placeholderImage: UIImage(named:"placeholder")) }
             
             cell.deleteButton.tag = indexPath.row
             cell.deleteButton.addTarget(self, action: #selector(WantlistTableViewController.deleteWantliast(_:)), forControlEvents: .TouchUpInside)

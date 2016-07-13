@@ -70,10 +70,6 @@ class LoginedViewController: OAuthWebViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    /*override func viewDidAppear(animated: Bool) {
-        loadSearchViewController()
-    }*/
-    
     func loadSearchViewController() {
         
         let SearchViewC = UINavigationController(rootViewController: SearchViewController())

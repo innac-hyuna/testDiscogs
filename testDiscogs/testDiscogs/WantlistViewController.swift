@@ -71,16 +71,11 @@ class WantlistViewController: BaseViewController {
         
         swipeableView?.removeFromParentViewController()
         swipeableView?.view.removeFromSuperview()
-        
         swipeableView?.delegate = nil
-        
         swipeableView = SMSwipeableTabMyViewController()
-        
         swipeableView.titleBarDataSource = Array(1 ... wData.pages).map { iElement -> String in
             NSNumberFormatter.localizedStringFromNumber(iElement, numberStyle: .DecimalStyle) }
-        
-        swipeableView.segmentBarAttributes = [SMBackgroundColorAttribute: UIColor.buttonColor()]
-        
+        swipeableView.segmentBarAttributes = [SMBackgroundColorAttribute: UIColor.buttonColor()]        
         swipeableView.delegate = self
         
         addChildViewController(swipeableView)

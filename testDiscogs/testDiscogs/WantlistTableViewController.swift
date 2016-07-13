@@ -62,7 +62,6 @@ class WantlistTableViewController: UIViewController {
          presentViewController(refreshAlert, animated: true, completion: nil)
         
     }   
-   
 }
 
 extension WantlistTableViewController: UITableViewDelegate {
