@@ -82,16 +82,8 @@ class LoginedViewController: OAuthWebViewController {
     
     func setupLayout() {
         
-        NSLayoutConstraint(
-            item: mainView,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: topLayoutGuide,
-            attribute: NSLayoutAttribute.Bottom,
-            multiplier: 1.0,
-            constant: 20).active = true
-        
         mainView.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(self.snp_topLayoutGuideBottom).offset(0)
             make.width.equalTo(view).offset(0)
             make.height.equalTo(view).offset(0) }
 

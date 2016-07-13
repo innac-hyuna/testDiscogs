@@ -41,16 +41,9 @@ class WantlistTableViewController: UIViewController {
     }
     
     func setupLayout() {
-        
-        NSLayoutConstraint(item: tableView,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: topLayoutGuide,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        
+      
         tableView.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(self.snp_topLayoutGuideBottom).offset(0)
             make.width.equalTo(view).offset(0)
             make.height.equalTo(view).offset(150) }    
     }
@@ -68,8 +61,7 @@ class WantlistTableViewController: UIViewController {
         
          presentViewController(refreshAlert, animated: true, completion: nil)
         
-    }
-    
+    }   
    
 }
 

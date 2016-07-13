@@ -61,15 +61,9 @@ class UserViewController: BaseViewController {
     
     func setupLayout() {
         
-        NSLayoutConstraint(item: avatarImg,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy:  NSLayoutRelation.Equal,
-                           toItem: topLayoutGuide,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 10).active = true
-
+  
         avatarImg.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(self.snp_topLayoutGuideBottom).offset(0)
             make.height.equalTo(150)
             make.width.equalTo(150)
             make.leading.equalTo(view).offset(15) }

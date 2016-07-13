@@ -43,15 +43,8 @@ class CollectionFolderViewController: BaseViewController {
     
     func setupLayoutSwipeableView() {
         
-        NSLayoutConstraint(item: listVC,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: topLayoutGuide,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 0).active = true
-        
         listVC.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(self.snp_topLayoutGuideBottom).offset(0)
             make.width.equalTo(view).offset(0)
             make.bottom.equalTo(view).offset(0) }
       
