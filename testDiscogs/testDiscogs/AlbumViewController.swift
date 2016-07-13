@@ -8,7 +8,7 @@
 
 import UIKit
 import Kingfisher
-import Neon
+import Cartography
 
 class AlbumViewController: UIViewController {
     
@@ -25,23 +25,19 @@ class AlbumViewController: UIViewController {
     var addCollectionButton: UIButton!
     var addWishlistButton: UIButton!
     var topBar: UILayoutSupport!
-    var viewAdd: UIView!
-    var viewL: UIView!
+    var isLandscape = false
+    var group: ConstraintGroup!
+    var group1: ConstraintGroup!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewL = UIView()
-        view.addSubview(viewL)
         
         thumbImage = UIImageView()
         if let URL = NSURL(string: albumData.thumb) {
             let resource = Resource(downloadURL: URL, cacheKey: albumData.thumb)
             thumbImage.kf_setImageWithResource(resource, placeholderImage: UIImage(named:"placeholder")) }
-        viewL.addSubview(thumbImage)
-        
-        viewAdd = UIView()
-        viewL.addSubview(viewAdd)
+        view.addSubview(thumbImage)
+        isLandscape = UIDevice.currentDevice().orientation.isLandscape.boolValue
         
         addWishlistButton = UIButton(type: .Custom) as UIButton
         addWishlistButton.setImage(UIImage(named: "addToCollection"), forState: .Normal)
@@ -49,7 +45,7 @@ class AlbumViewController: UIViewController {
         addWishlistButton.backgroundColor = UIColor.buttonColor()
         addWishlistButton.layer.cornerRadius = 3
         addWishlistButton.addTarget(self, action: #selector(AlbumViewController.addWishlistAction(_:)), forControlEvents: .TouchUpInside)
-        viewAdd.addSubview(addWishlistButton)
+        view.addSubview(addWishlistButton)
      
         addCollectionButton = UIButton(type: .Custom) as UIButton
         addCollectionButton.setImage(UIImage(named: "addToFavor"), forState: .Normal)
@@ -57,7 +53,7 @@ class AlbumViewController: UIViewController {
         addCollectionButton.backgroundColor = UIColor.buttonColor()
         addCollectionButton.layer.cornerRadius = 3
         addCollectionButton.addTarget(self, action: #selector(AlbumViewController.addCollectionAction(_:)), forControlEvents: .TouchUpInside)
-        viewAdd.addSubview(addCollectionButton)
+        view.addSubview(addCollectionButton)
         
         titleLabel =  UILabel()
         titleLabel.text = albumData.title
@@ -125,8 +121,8 @@ class AlbumViewController: UIViewController {
     }
     
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-    
-        setupLayout()
+        isLandscape = UIDevice.currentDevice().orientation.isLandscape.boolValue
+        reloadLayout()
     }
     
     func addWishlistAction(sender: UIButton) {
@@ -149,21 +145,65 @@ class AlbumViewController: UIViewController {
     
     func setupLayout()  {
         
-        let isLandscape : Bool = UIDevice.currentDevice().orientation.isLandscape.boolValue
-        let avSize =  CGFloat(isLandscape ? 100 : 150)
-        let paddingSize = CGFloat(isLandscape ? 30 : 60)
-        let paddingySize = CGFloat(isLandscape ? -10 : 0)
-        let padSize = CGFloat(10)
-        let sizeButton = CGFloat(44)
+        constrain(thumbImage, addWishlistButton, addCollectionButton) {
+            thumbImage, addWishlistButton, addCollectionButton in
+            thumbImage.top == thumbImage.superview!.top + 65
+            thumbImage.left == thumbImage.superview!.left + 10
+            thumbImage.width == 150
+            thumbImage.height == 150
+            addWishlistButton.top ==  addWishlistButton.superview!.top + 65
+            addWishlistButton.left == thumbImage.right + 10
+            addWishlistButton.width == 44
+            addWishlistButton.height == 44
+            addCollectionButton.top == addCollectionButton.superview!.top + 65
+            addCollectionButton.left == addWishlistButton.right + 10
+            addCollectionButton.width == 44
+            addCollectionButton.height == 44
+        }
         
-        viewL.anchorAndFillEdge(.Top, xPad: padSize, yPad: padSize, otherSize: avSize + paddingSize)
-        view.groupAndAlign(group: .Vertical, andAlign: .UnderCentered, views: [titleLabel, labelLabel, formatLabel, countryLabel, genreLabel, styleLabel, yearLabel], relativeTo: viewL, padding: 5, width: view.width - 20, height: 20)        
-        viewL.groupInCorner(group: .Horizontal, views: [thumbImage, viewAdd], inCorner: .TopLeft, padding: 10, width: avSize, height: avSize)
-        thumbImage.anchorInCorner(.TopLeft, xPad: padSize, yPad: paddingSize, width: avSize, height: avSize)
-        viewAdd.groupAndFill(group: .Horizontal, views: [addCollectionButton, addWishlistButton], padding: 10)
-        addCollectionButton.anchorInCorner(.TopLeft, xPad: padSize, yPad: paddingSize-5, width: sizeButton, height: sizeButton)
-        addWishlistButton.anchorInCorner(.BottomLeft, xPad: padSize, yPad: paddingySize-5, width: sizeButton, height: sizeButton)
+        group = ConstraintGroup()
+        group1 = ConstraintGroup()
+        reloadLayout()
+    }
+    
+    func reloadLayout() {
         
+        constrain(thumbImage, titleLabel, labelLabel, formatLabel, replace:  group) {
+            thumbImage, titleLabel, labelLabel, formatLabel in
+            
+            labelLabel.top == titleLabel.bottom + 10
+            if isLandscape {
+                titleLabel.top == titleLabel.superview!.top + 135
+                titleLabel.left == thumbImage.right + 10
+            } else {
+                titleLabel.top == thumbImage.bottom + 10
+                titleLabel.left == titleLabel.superview!.left + 10 }
+            
+            titleLabel.width == titleLabel.superview!.width - (isLandscape ? 185 : 20)
+            labelLabel.left == labelLabel.superview!.left + (isLandscape ? 170 : 10)
+            labelLabel.width == labelLabel.superview!.width - (isLandscape ? 160 : 20)
+            formatLabel.top == labelLabel.bottom + 10
+        }
+        
+        constrain(formatLabel, countryLabel, genreLabel, styleLabel, yearLabel, replace:  group1) {
+            formatLabel, countryLabel, genreLabel, styleLabel, yearLabel in
+          
+            formatLabel.left == formatLabel.superview!.left + (isLandscape ? 170 : 10)
+            formatLabel.width == formatLabel.superview!.width - (isLandscape ? 185 : 20)
+            countryLabel.top == formatLabel.bottom + 10
+            countryLabel.left == countryLabel.superview!.left + (isLandscape ? 164 : 10)
+            countryLabel.width == countryLabel.superview!.width - (isLandscape ? 185 : 20)
+            genreLabel.top == countryLabel.bottom + 10
+            genreLabel.left == genreLabel.superview!.left +  (isLandscape ? 170 : 10)
+            genreLabel.width == genreLabel.superview!.width - (isLandscape ? 185 : 20)
+            styleLabel.top == genreLabel.bottom + 10
+            styleLabel.left == styleLabel.superview!.left +  (isLandscape ? 170 : 10)
+            styleLabel.width == styleLabel.superview!.width - (isLandscape ? 185 : 20)
+            yearLabel.top == styleLabel.bottom + 10
+            yearLabel.left == yearLabel.superview!.left +  (isLandscape ? 170 : 10)
+            yearLabel.width == yearLabel.superview!.width - (isLandscape ? 185 : 20)
+        }
+
     }
     
  }

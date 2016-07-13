@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '043AF9F9FE7919430C229EF8'
+               BlueprintIdentifier = '6F85E808DB0C9743AE67B62A'
                BlueprintName = 'SMSwipeableTabView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'SMSwipeableTabView.framework'>

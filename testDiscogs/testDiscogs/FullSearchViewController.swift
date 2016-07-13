@@ -508,7 +508,6 @@ class FullSearchViewController: UIViewController {
   }
 
 extension FullSearchViewController: UITextFieldDelegate {
-    
-    
 
 }
+
