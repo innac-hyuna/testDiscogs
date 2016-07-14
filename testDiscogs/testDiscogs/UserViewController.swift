@@ -48,8 +48,8 @@ class UserViewController: BaseViewController {
        
         let userUrl = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())"
       
-        DataManager.sharedManager.getData(userUrl, controller: control.UserViewController) { (UserD) in
-             self.uData =  UserD as! UserData
+        DataManager.sharedManager.getData(userUrl, controller: control.UserViewController) { [unowned self] (UserD) in
+            self.uData =  UserD as! UserData
             self.reloadData()
         }
     
@@ -63,24 +63,27 @@ class UserViewController: BaseViewController {
         
   
         avatarImg.snp_makeConstraints { (make) -> Void in
-            make.top.equalTo(self.snp_topLayoutGuideBottom).offset(0)
+            make.top.equalTo(self.snp_topLayoutGuideBottom).offset(10)
             make.height.equalTo(150)
             make.width.equalTo(150)
             make.leading.equalTo(view).offset(15) }
         
         nameLabel.snp_makeConstraints { (make) -> Void in
-            make.top.equalTo(avatarImg.snp_bottom).offset(0)
+            make.top.equalTo(avatarImg.snp_bottom).offset(10)
             make.height.equalTo(30)
+            make.width.equalTo(self.view).offset(0)
             make.leading.equalTo(view).offset(15) }
         
         profileLabel.snp_makeConstraints { (make) -> Void in
-            make.top.equalTo(nameLabel.snp_bottom).offset(0)
+            make.top.equalTo(nameLabel.snp_bottom).offset(10)
             make.height.equalTo(30)
+            make.width.equalTo(self.view).offset(0)
             make.leading.equalTo(view).offset(15) }
         
-        profileLabel.snp_makeConstraints { (make) -> Void in
+        locationLabel.snp_makeConstraints { (make) -> Void in
             make.top.equalTo(profileLabel.snp_bottom).offset(0)
             make.height.equalTo(30)
+            make.width.equalTo(self.view).offset(0)
             make.leading.equalTo(view).offset(15) }
   
     }

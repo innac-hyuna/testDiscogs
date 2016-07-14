@@ -52,7 +52,7 @@ class WantlistViewController: BaseViewController {
         
         progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         progressHUD.labelText = "Loading..."
-        DataManager.sharedManager.getData(urlStr, controller: control.WantlistViewController) { (ListD) in
+        DataManager.sharedManager.getData(urlStr, controller: control.WantlistViewController) { [unowned self] (ListD) in
             
             self.wData =  ListD as! ListData
             if lodFirst {

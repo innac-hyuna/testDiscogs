@@ -26,7 +26,8 @@ class SMSwipeableTabMyViewController: SMSwipeableTabViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+   override func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+  
      return nil
     
     }

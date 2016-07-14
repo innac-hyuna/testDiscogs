@@ -51,8 +51,7 @@ class LoginedViewController: OAuthWebViewController {
                 })
             },
             failure: { error in
-                print(error.localizedDescription)
-                
+                print(error.localizedDescription)                
             })
         
         mainView =  UIWebView()

@@ -53,6 +53,8 @@ class FullSearchViewController: UIViewController {
     var regularConstraint: [NSLayoutConstraint] = []
     var compactConstraint: [NSLayoutConstraint] = []
     var dicParam: NSDictionary!
+    var leadingSize = 15
+    var widthSize = 100
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -395,25 +397,19 @@ class FullSearchViewController: UIViewController {
                 (editSubmitter, labSubmitter),
                 (editContributor, labContributor)])
         
-        compactConstraint.append(NSLayoutConstraint(item: scrollView,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: topLayoutGuide,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 0))
         
         scrollView.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(self.snp_topLayoutGuideBottom).offset(0)
             make.width.equalTo(view).offset(0)
             make.height.equalTo(view).offset(0) }
         
         btnCloseMenuOverlay.snp_remakeConstraints { (make) -> Void in
-            make.width.equalTo(100)
-            make.leading.equalTo(scrollView).offset(15) }
+            make.width.equalTo(widthSize)
+            make.leading.equalTo(scrollView).offset(leadingSize) }
         
         btnResetAll.snp_remakeConstraints { (make) -> Void in
-            make.width.equalTo(100)
-            make.trailing.equalTo(scrollView).offset(-15) }
+            make.width.equalTo(widthSize)
+            make.trailing.equalTo(scrollView).offset(-leadingSize) }
         
 
         
@@ -460,23 +456,22 @@ class FullSearchViewController: UIViewController {
     }
     
     func setContaintsForTextField(arrTextF: [(UITextField, UILabel)]) {
-      
+        
         
         for textF in arrTextF {
         
             
             textF.1.snp_remakeConstraints { (make) -> Void in
-                make.leading.equalTo(scrollView).offset(15)
-                make.width.equalTo(100)
+                make.leading.equalTo(scrollView).offset(leadingSize)
+                make.width.equalTo(widthSize)
                 make.trailing.equalTo(textF.0.snp_leading).offset(0) }
             
             textF.0.snp_remakeConstraints { (make) -> Void in
-                make.trailing.equalTo(scrollView).offset(-15)
+                make.trailing.equalTo(scrollView).offset(-leadingSize)
                 make.leading.equalTo(textF.1.snp_trailing).offset(0)
                 make.width.equalTo(scrollView).offset(-120) }
         }
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -492,15 +487,15 @@ class FullSearchViewController: UIViewController {
         
     btnSearch.tag = 0
         
-    SearchParamManager.sharedManager.setParametr(dicParam.map { (key, value) -> (String, String) in
+    SearchParamManager.sharedManager.setParametr(dicParam.map {  (key, value) -> (String, String) in
         return (key as! String, (value as! UITextField).text!)
         })
     
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, animations: { [unowned self]() -> Void in
             self.view.frame = CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width,UIScreen.mainScreen().bounds.size.height)
             self.view.layoutIfNeeded()
             self.view.backgroundColor = UIColor.clearColor()
-            }, completion: { (finished) -> Void in
+            }, completion: {[unowned self] (finished) -> Void in
                 self.view.removeFromSuperview()
                 self.removeFromParentViewController()
       })

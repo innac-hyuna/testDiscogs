@@ -48,7 +48,6 @@ class MenuViewController: UIViewController {
         tblMenuOptions.delegate = self
         tblMenuOptions.dataSource = self
         tblMenuOptions.registerClass(MenuTableViewCell.self, forCellReuseIdentifier: "cellMenu")
-       // tblMenuOptions.frame = CGRectMake(0, 0 , view.bounds.width, view.bounds.height)
         tblMenuOptions.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tblMenuOptions)
         tblMenuOptions.tableFooterView = UIView()
@@ -58,7 +57,6 @@ class MenuViewController: UIViewController {
         btnCloseMenuOverlay.titleLabel?.font = UIFont.HelTextFont(14)
         btnCloseMenuOverlay.backgroundColor = UIColor.buttonColor()
         btnCloseMenuOverlay.addTarget(self, action: #selector(MenuViewController.onCloseMenuClick(_:)), forControlEvents: .TouchUpInside)
-       // btnCloseMenuOverlay.frame = CGRectMake(0, 0 , view.bounds.width, 20)
         btnCloseMenuOverlay.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(btnCloseMenuOverlay)
         
@@ -67,15 +65,8 @@ class MenuViewController: UIViewController {
     
     func setupLayout() {
         
-        NSLayoutConstraint(item: btnCloseMenuOverlay,
-                           attribute: NSLayoutAttribute.Top,
-                           relatedBy: NSLayoutRelation.Equal,
-                           toItem: topLayoutGuide,
-                           attribute: NSLayoutAttribute.Bottom,
-                           multiplier: 1.0,
-                           constant: 5).active = true
-        
-        btnCloseMenuOverlay.snp_makeConstraints { (make) -> Void in
+        btnCloseMenuOverlay.snp_makeConstraints {  (make) -> Void in
+            make.top.equalTo(snp_topLayoutGuideBottom).offset(0)
             make.width.equalTo(view).offset(0)
             make.height.equalTo(30)
             make.left.equalTo(view) }
@@ -135,7 +126,6 @@ extension MenuViewController: UITableViewDataSource {
         cell.layoutMargins = UIEdgeInsetsZero
         cell.preservesSuperviewLayoutMargins = false
         cell.backgroundColor = UIColor.clearColor()
-        
         cell.imgIcon.image = UIImage(named: arrayMenuOptions[indexPath.row]["icon"]!)
         cell.lblTitle.text = arrayMenuOptions[indexPath.row]["title"]!
     

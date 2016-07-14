@@ -54,7 +54,7 @@ class CollectionTableViewController: UIViewController {
         print(sender.tag)
         let refreshAlert = UIAlertController(title: "Delete", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         
-        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { [unowned self] (action: UIAlertAction!) in
             let urlStr = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/\(self.folderId)/releases/\(self.dataSource[sender.tag].id)/instances/\(self.dataSource[sender.tag].instanceId)"
             DataManager.sharedManager.delData(urlStr)
         }))

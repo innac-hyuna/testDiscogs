@@ -24,14 +24,9 @@ class DataManager {
     
     func getData(urlStr: String, controller: control , callback: ((AnyObject) -> ())?) {
         
-        
-        let url = NSURL(string: urlStr)
-        
-        print(urlStr)
-        
         Alamofire.request(.GET, urlStr, parameters: ["": ""])
             .validate()
-            .response { request, response, data, error in
+            .response {request, response, data, error in
                 
                 var parsedData: AnyObject!
                 
@@ -46,13 +41,11 @@ class DataManager {
                     parsedData = self.getCollectionDataFromJson(data!) as ListData
                 case .CollectionFolderViewController:
                     parsedData = self.getCollectionFolderFromJson(data!)  as [CollectionFolder]
-                }
-                
+                }                
                 dispatch_async(dispatch_get_main_queue()) {
                     callback?(parsedData)
                 }
-            }
-      
+            }      
     }
     
     func delData(urlStr: String) {

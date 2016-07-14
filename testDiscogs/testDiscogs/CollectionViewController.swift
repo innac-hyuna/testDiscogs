@@ -48,7 +48,7 @@ class CollectionViewController: BaseViewController {
     func loadData(urlStr: String, loadFirst: Bool) {
         progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         progressHUD.labelText = "Loading..."
-        DataManager.sharedManager.getData(urlStr, controller: control.CollectionViewController) { (ListD) in
+        DataManager.sharedManager.getData(urlStr, controller: control.CollectionViewController) { [unowned self] (ListD) in
             
             self.wData =  ListD as! ListData
             if loadFirst { self.reloadSwipeableTabView() }

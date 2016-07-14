@@ -87,7 +87,7 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
         return defaultMenuImage;
     }
     
-    func onSlideMenuButtonPressed(sender : UIButton){
+    func onSlideMenuButtonPressed(sender : UIButton) {
         if (sender.tag == 10)
         {
             // To Hide Menu If it already there

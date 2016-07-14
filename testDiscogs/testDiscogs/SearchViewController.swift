@@ -47,9 +47,9 @@ class SearchViewController: BaseViewController {
     
     func setupLayoutSeachBar() {
         
-       seachBar.snp_makeConstraints { (make) -> Void in
+       seachBar.snp_makeConstraints {[unowned self] (make) -> Void in
             make.top.equalTo(self.snp_topLayoutGuideBottom).offset(0)
-            make.width.equalTo(view).offset(0)
+            make.width.equalTo(self.view).offset(0)
             make.height.equalTo(35) }
     }
     
@@ -65,7 +65,7 @@ class SearchViewController: BaseViewController {
         
         progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         progressHUD.labelText = "Loading..."
-        DataManager.sharedManager.getData(urlStr, controller: control.SearchViewController) {  (listData) in
+        DataManager.sharedManager.getData(urlStr, controller: control.SearchViewController) { [unowned self] (listData) in
             
             self.searchData = listData as! ListData
             if self.searchActive {
@@ -73,8 +73,7 @@ class SearchViewController: BaseViewController {
                 self.reloadPage()
                 self.activePage = self.listVC.view.tag
                 print(self.searchData.page)
-                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-            
+                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)            
         }
     }
     

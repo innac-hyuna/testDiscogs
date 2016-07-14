@@ -53,7 +53,7 @@ class CollectionFolderViewController: BaseViewController {
     func loadData(urlStr: String) {
         progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         progressHUD.labelText = "Loading..."
-        DataManager.sharedManager.getData(urlStr, controller: control.CollectionFolderViewController) { (ListF) in
+        DataManager.sharedManager.getData(urlStr, controller: control.CollectionFolderViewController) { [unowned self] (ListF) in
             self.fData =  ListF as! [CollectionFolder]
             self.listVC.reloadData()
              MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
