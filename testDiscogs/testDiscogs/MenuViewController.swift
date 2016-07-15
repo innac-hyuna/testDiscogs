@@ -70,13 +70,11 @@ class MenuViewController: UIViewController {
             make.width.equalTo(view).offset(0)
             make.height.equalTo(30)
             make.left.equalTo(view) }
-        
         tblMenuOptions.snp_makeConstraints { (make) -> Void in
             make.top.equalTo(btnCloseMenuOverlay.snp_bottom).offset(0)
             make.width.equalTo(view).offset(0)
             make.bottom.equalTo(view).offset(0)
-            make.left.equalTo(view).offset(0) } 
-        
+            make.left.equalTo(view).offset(0) }         
           }
     
     override func didReceiveMemoryWarning() {

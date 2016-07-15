@@ -24,7 +24,6 @@ class SearchViewController: BaseViewController {
     var activePage = 0
     var fullSearchText: String!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         fullSearchText = ""
@@ -47,9 +46,9 @@ class SearchViewController: BaseViewController {
     
     func setupLayoutSeachBar() {
         
-       seachBar.snp_makeConstraints {[unowned self] (make) -> Void in
-            make.top.equalTo(self.snp_topLayoutGuideBottom).offset(0)
-            make.width.equalTo(self.view).offset(0)
+       seachBar.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(snp_topLayoutGuideBottom).offset(0)
+            make.width.equalTo(view).offset(0)
             make.height.equalTo(35) }
     }
     

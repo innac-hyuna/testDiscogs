@@ -53,9 +53,9 @@ class WantlistTableViewCell: UITableViewCell {
         floatRatingView.contentMode = UIViewContentMode.ScaleAspectFit
         floatRatingView.maxRating = 5
         floatRatingView.minRating = 1
-        self.floatRatingView.editable = false
-        self.floatRatingView.halfRatings = false
-        self.floatRatingView.floatRatings = false
+        floatRatingView.editable = false
+        floatRatingView.halfRatings = false
+        floatRatingView.floatRatings = false
         floatRatingView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(floatRatingView)
     

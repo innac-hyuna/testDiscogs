@@ -24,8 +24,7 @@ class LoginedViewController: OAuthWebViewController {
             consumerSecret: constApp.secret as String,
             requestTokenUrl: "https://api.discogs.com/oauth/request_token",
             authorizeUrl: "https://www.discogs.com/oauth/authorize",
-            accessTokenUrl: "https://api.discogs.com/oauth/access_token"
-        )
+            accessTokenUrl: "https://api.discogs.com/oauth/access_token")
         
        oauthSwift.authorize_url_handler = SafariURLHandler(viewController: self)
         
