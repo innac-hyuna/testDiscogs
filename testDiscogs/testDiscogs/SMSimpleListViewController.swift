@@ -35,7 +35,6 @@ public class SMSimpleListViewController: UIViewController {
         preheatController.handler = { [weak self] in
             self?.preheatWindowChanged(addedIndexPaths: $0, removedIndexPaths: $1)
         }
-        
         mainTableView?.registerClass(ItemCollectionViewCell.self, forCellWithReuseIdentifier: cellInd)
         mainTableView?.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(mainTableView)
@@ -111,7 +110,7 @@ public class SMSimpleListViewController: UIViewController {
             let items = indexPaths.map{ return "\($0.item)" }.joinWithSeparator(" ")
             return "[\(items)]"
         }
-        print("did change preheat rect with added indexes \(stringForIndexPaths(addedIndexPath)), removed indexes \(stringForIndexPaths(removedIndexPaths))")
+       // print("did change preheat rect with added indexes \(stringForIndexPaths(addedIndexPath)), removed indexes \(stringForIndexPaths(removedIndexPaths))")
     }
 }
 

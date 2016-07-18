@@ -27,7 +27,7 @@ class SMSwipeableTabMyViewController: SMSwipeableTabViewController {
     }
     
    override func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-  
+     
      return nil
     
     }
