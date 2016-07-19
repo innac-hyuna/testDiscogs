@@ -47,9 +47,21 @@ extension LeftMenuViewController: UITableViewDelegate {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         switch (indexPath.row) {
             case 0:
-                var topController: SearchViewController!
-                 topController = SearchViewController()
-                    self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: topController!), animated: true)
+                var topController: SearchViewController?
+                let vBool = sideMenuViewController?.childViewControllers.filter({ vController -> Bool in
+                    if  vController.classForCoder.description() == "UINavigationController" {
+                        let vMain = (vController as? UINavigationController)!.topViewController
+                        if vMain?.classForCoder.description().componentsSeparatedByString(".").last! == "SearchViewController" {
+                            return true
+                        } else {
+                            return false}
+                    }
+                    return false })
+                
+                if (vBool?.count == 0) {
+                    topController = SearchViewController()
+                    self.sideMenuViewController!.setContentViewController(UINavigationController(rootViewController: topController!), animated: true) }
+                
                 self.sideMenuViewController!.hideMenuViewController()
                 break
             case 1:
