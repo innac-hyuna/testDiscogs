@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3CE26FE7FD75DFA27990CF1A /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAAFB745D2F92A20DE16E6EA /* Pods.framework */; };
+		DA156F061D3D2A3900E5DB8A /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA156F051D3D2A3900E5DB8A /* LeftMenuViewController.swift */; };
+		DA156F081D3D336200E5DB8A /* RightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA156F071D3D336200E5DB8A /* RightMenuViewController.swift */; };
 		DA3767FC1D104DF800131D77 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3767FB1D104DF800131D77 /* ItemCollectionViewCell.swift */; };
 		DA4115A61D22AC88003E49D9 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4115A51D22AC88003E49D9 /* FloatRatingView.swift */; };
 		DA81039C1D19760C00081503 /* Services.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA81039B1D19760C00081503 /* Services.plist */; };
@@ -17,11 +19,11 @@
 		DA838E361D1C45DD004E1A01 /* CollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA838E351D1C45DC004E1A01 /* CollectionTableViewCell.swift */; };
 		DA838E381D1C477B004E1A01 /* CollectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA838E371D1C477B004E1A01 /* CollectionData.swift */; };
 		DA8D24DA1D17E4AC00C02E60 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D24D91D17E4AC00C02E60 /* BaseViewController.swift */; };
-		DA8D24DE1D17E50F00C02E60 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D24DD1D17E50F00C02E60 /* MenuViewController.swift */; };
-		DA8D24E01D17F52E00C02E60 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8D24DF1D17F52E00C02E60 /* MenuTableViewCell.swift */; };
 		DAA4D0F51D141FCE00128979 /* LoginedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4D0F41D141FCE00128979 /* LoginedViewController.swift */; };
 		DAA4D0F91D14428F00128979 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA4D0F81D14428F00128979 /* UserData.swift */; };
 		DAAD2F511D2C1DA70087CC01 /* FullSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAD2F501D2C1DA70087CC01 /* FullSearchViewController.swift */; };
+		DAADC0131D3E1CAA00C95567 /* AKSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADC0111D3E1CAA00C95567 /* AKSideMenu.swift */; };
+		DAADC0141D3E1CAA00C95567 /* UIViewController+AKSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAADC0121D3E1CAA00C95567 /* UIViewController+AKSideMenu.swift */; };
 		DAAEEE6F1D12FBF0005915DC /* ListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAEEE6E1D12FBF0005915DC /* ListData.swift */; };
 		DAB4B6A11D102A5300F85ED1 /* Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB4B6A01D102A5300F85ED1 /* Design.swift */; };
 		DAC821CC1D11B89700C6F00C /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC821CB1D11B89700C6F00C /* AlbumViewController.swift */; };
@@ -67,6 +69,8 @@
 /* Begin PBXFileReference section */
 		9B329AF24D136002D901A6CF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CAAFB745D2F92A20DE16E6EA /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA156F051D3D2A3900E5DB8A /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
+		DA156F071D3D336200E5DB8A /* RightMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightMenuViewController.swift; sourceTree = "<group>"; };
 		DA3767FB1D104DF800131D77 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		DA4115A51D22AC88003E49D9 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		DA81039B1D19760C00081503 /* Services.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Services.plist; sourceTree = "<group>"; };
@@ -76,11 +80,11 @@
 		DA838E351D1C45DC004E1A01 /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
 		DA838E371D1C477B004E1A01 /* CollectionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionData.swift; sourceTree = "<group>"; };
 		DA8D24D91D17E4AC00C02E60 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		DA8D24DD1D17E50F00C02E60 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		DA8D24DF1D17F52E00C02E60 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		DAA4D0F41D141FCE00128979 /* LoginedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginedViewController.swift; sourceTree = "<group>"; };
 		DAA4D0F81D14428F00128979 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		DAAD2F501D2C1DA70087CC01 /* FullSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullSearchViewController.swift; sourceTree = "<group>"; };
+		DAADC0111D3E1CAA00C95567 /* AKSideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSideMenu.swift; path = AKSideMenu/AKSideMenu.swift; sourceTree = "<group>"; };
+		DAADC0121D3E1CAA00C95567 /* UIViewController+AKSideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+AKSideMenu.swift"; path = "AKSideMenu/UIViewController+AKSideMenu.swift"; sourceTree = "<group>"; };
 		DAAEEE6E1D12FBF0005915DC /* ListData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListData.swift; sourceTree = "<group>"; };
 		DAB4B6A01D102A5300F85ED1 /* Design.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Design.swift; sourceTree = "<group>"; };
 		DAC821CB1D11B89700C6F00C /* AlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
@@ -150,8 +154,8 @@
 		DA81039F1D199CA800081503 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				DA8D24DD1D17E50F00C02E60 /* MenuViewController.swift */,
-				DA8D24DF1D17F52E00C02E60 /* MenuTableViewCell.swift */,
+				DA156F071D3D336200E5DB8A /* RightMenuViewController.swift */,
+				DA156F051D3D2A3900E5DB8A /* LeftMenuViewController.swift */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -212,6 +216,8 @@
 		DAC903DA1D0EE52C0083774F /* testDiscogs */ = {
 			isa = PBXGroup;
 			children = (
+				DAADC0111D3E1CAA00C95567 /* AKSideMenu.swift */,
+				DAADC0121D3E1CAA00C95567 /* UIViewController+AKSideMenu.swift */,
 				DA8D24D91D17E4AC00C02E60 /* BaseViewController.swift */,
 				DA81039F1D199CA800081503 /* Menu */,
 				DAA4D0F31D141F4700128979 /* Logined */,
@@ -484,24 +490,26 @@
 				DAC9040B1D0F00800083774F /* DataManager.swift in Sources */,
 				DA8103A21D199E2700081503 /* UserViewController.swift in Sources */,
 				DAE3307F1D1AD6FA002595FA /* WantlistTableViewCell.swift in Sources */,
-				DA8D24DE1D17E50F00C02E60 /* MenuViewController.swift in Sources */,
 				DAE330811D1ADBA7002595FA /* WantlistTableViewController.swift in Sources */,
+				DAADC0141D3E1CAA00C95567 /* UIViewController+AKSideMenu.swift in Sources */,
 				DAB4B6A11D102A5300F85ED1 /* Design.swift in Sources */,
 				DAC9040D1D0F017F0083774F /* Const.swift in Sources */,
 				DAC821CC1D11B89700C6F00C /* AlbumViewController.swift in Sources */,
 				DA838E361D1C45DD004E1A01 /* CollectionTableViewCell.swift in Sources */,
 				DA838E381D1C477B004E1A01 /* CollectionData.swift in Sources */,
+				DAADC0131D3E1CAA00C95567 /* AKSideMenu.swift in Sources */,
 				DA81039E1D1983A500081503 /* FileManagerSourse.swift in Sources */,
 				DAC904151D0F1D000083774F /* SMSimpleListViewController.swift in Sources */,
 				DA8D24DA1D17E4AC00C02E60 /* BaseViewController.swift in Sources */,
 				DA3767FC1D104DF800131D77 /* ItemCollectionViewCell.swift in Sources */,
 				DAA4D0F51D141FCE00128979 /* LoginedViewController.swift in Sources */,
-				DA8D24E01D17F52E00C02E60 /* MenuTableViewCell.swift in Sources */,
 				DAE3307B1D1AB3E1002595FA /* CollectionViewController.swift in Sources */,
 				DAD61E0E1D2E573200FDDC52 /* SearchParamManager.swift in Sources */,
 				DAE330781D1AB30E002595FA /* WantlistViewController.swift in Sources */,
+				DA156F061D3D2A3900E5DB8A /* LeftMenuViewController.swift in Sources */,
 				DAD4AE6A1D2117A500903E78 /* CollectionFolderViewController.swift in Sources */,
 				DA4115A61D22AC88003E49D9 /* FloatRatingView.swift in Sources */,
+				DA156F081D3D336200E5DB8A /* RightMenuViewController.swift in Sources */,
 				DAAD2F511D2C1DA70087CC01 /* FullSearchViewController.swift in Sources */,
 				DAA4D0F91D14428F00128979 /* UserData.swift in Sources */,
 				DAD1ACA91D23FFBA000C992A /* SMSwipeableTabMyViewController.swift in Sources */,

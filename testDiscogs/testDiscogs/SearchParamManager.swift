@@ -51,5 +51,25 @@ class SearchParamManager {
     func delParametrSearch(key: String){
          userDef.removeObjectForKey(key)
     }
-
+    
+    func saveSearchtext(text: String)  {
+       userDef.setValue(text, forKey: "searchtext")
+    }
+    
+    func getSearchText() -> String {
+        if let searchtext = userDef.stringForKey("searchtext") {
+            return searchtext}
+        return ""
+    }
+    
+    func saveSearchNumberPage(text: String)  {
+        userDef.setValue(text, forKey: "snamberpage")
+    }
+    
+    func getSearchNumberPage() -> String {
+        if let searchtext = userDef.stringForKey("snamberpage") {
+            return searchtext}
+        return ""
+    }
+    
 }

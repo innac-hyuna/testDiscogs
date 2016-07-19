@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'D82C69014E680DC61A0C88CB'
+               BlueprintIdentifier = 'EDCEF9072AF2BF7D5D6E0838'
                BlueprintName = 'Preheat'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Preheat.framework'>

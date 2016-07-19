@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '34B67F1A2AEEE528F9BC386D'
+               BlueprintIdentifier = 'D531BF5B45D88FD8B12C8FF9'
                BlueprintName = 'Nuke-Alamofire-Plugin'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'NukeAlamofirePlugin.framework'>

@@ -42,7 +42,7 @@ class FileManagerSourse {
         data.setObject(username, forKey: "username")
         data.writeToFile(path, atomically: true)
         print(path)
-    }
+    }    
     
     func getServices() -> (String, String) {
         let path = setManager()
@@ -55,4 +55,6 @@ class FileManagerSourse {
         let data : NSMutableDictionary = NSMutableDictionary(contentsOfFile: path)!
         return  data["username"] as! String
     }
+    
+
 }

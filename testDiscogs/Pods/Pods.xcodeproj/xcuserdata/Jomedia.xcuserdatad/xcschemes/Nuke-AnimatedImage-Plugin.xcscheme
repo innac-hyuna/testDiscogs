@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '0B7EFCDFABF0EBADF824A44B'
+               BlueprintIdentifier = '66770D3627AD533523482968'
                BlueprintName = 'Nuke-AnimatedImage-Plugin'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'NukeAnimatedImagePlugin.framework'>

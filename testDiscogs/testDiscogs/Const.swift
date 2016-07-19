@@ -9,7 +9,7 @@
 import Foundation
 
 struct constApp {
-   static let key = "KnbgEsaySyycOTssdHtb"
-   static let secret = "fuMvCEACbnpWflLkrstXUSmjJUuUFHto"
-   static let token = "tQXjBRZwRpShoMnbsfnLVIuMMGtjNnntRoDKDicF"
+   static let key = "ADgeyHloUsKnZWbqBejl"
+   static let secret = "OyBfcFixqnrHfzAxjtbeKqLIwAegtrsz"
+   static let token = "JTmFFQvqhkXoEMqUYvwgFaUafYYzrpXfSKJQlocc"
 }

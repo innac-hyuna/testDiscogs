@@ -8,6 +8,7 @@
 
 import WebKit
 import OAuthSwift
+import AKSideMenu
 
 
 class LoginedViewController: OAuthWebViewController {
@@ -71,7 +72,21 @@ class LoginedViewController: OAuthWebViewController {
     func loadSearchViewController() {
         
         let SearchViewC = UINavigationController(rootViewController: SearchViewController())
-        presentViewController(SearchViewC, animated: true, completion: nil)
+        let leftMenuViewController: LeftMenuViewController = LeftMenuViewController()
+        let rightMenuViewController: RightMenuViewController = RightMenuViewController()
+        
+        // Create side menu controller
+        let sideMenuViewController: AKSideMenu =  AKSideMenu(contentViewController: SearchViewC, leftMenuViewController: leftMenuViewController, rightMenuViewController: rightMenuViewController)
+        sideMenuViewController.backgroundImage = UIImage(named: "Stars")!
+        sideMenuViewController.menuPreferredStatusBarStyle = UIStatusBarStyle.LightContent
+        sideMenuViewController.delegate = self
+        sideMenuViewController.contentViewShadowColor = UIColor.blackColor()
+        sideMenuViewController.contentViewShadowOffset = CGSizeMake(0, 0)
+        sideMenuViewController.contentViewShadowOpacity = 0.4
+        sideMenuViewController.contentViewShadowRadius = 12
+        sideMenuViewController.contentViewShadowEnabled = true
+        
+        presentViewController(sideMenuViewController, animated: true, completion: nil)
     }
     
     func setupLayout() {
@@ -84,8 +99,28 @@ class LoginedViewController: OAuthWebViewController {
     }
 }
 
+extension LoginedViewController: AKSideMenuDelegate {
+    
+    func sideMenu(sideMenu: AKSideMenu, willShowMenuViewController menuViewController: UIViewController) {
+        print("willShowMenuViewController")
+    }
+    
+    func sideMenu(sideMenu: AKSideMenu, didShowMenuViewController menuViewController: UIViewController) {
+        print("didShowMenuViewController")
+    }
+    
+    func sideMenu(sideMenu: AKSideMenu, willHideMenuViewController menuViewController: UIViewController) {
+        print("willHideMenuViewController")
+    }
+    
+    func sideMenu(sideMenu: AKSideMenu, didHideMenuViewController menuViewController: UIViewController) {
+        print("didHideMenuViewController")
+    }
+
+}
+
 extension LoginedViewController: UIWebViewDelegate {
-   
+    
 }
 
         

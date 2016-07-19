@@ -21,7 +21,8 @@ class WantlistViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addSlideMenuButton()
+        
+        setButtonLeft() 
         loadData("\(getUrlStr())", lodFirst: true)
         title = "Wantlist"
        

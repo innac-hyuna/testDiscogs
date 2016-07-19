@@ -20,7 +20,7 @@ class UserViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-         addSlideMenuButton()
+        setButtonLeft() 
         
         avatarImg = UIImageView()
         avatarImg.translatesAutoresizingMaskIntoConstraints = false

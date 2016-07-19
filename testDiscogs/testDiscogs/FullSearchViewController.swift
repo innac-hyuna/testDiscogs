@@ -12,7 +12,7 @@ import SnapKit
 
 class FullSearchViewController: UIViewController {
 
-    var btnCloseMenuOverlay: UIButton!
+    var btnAddToSeaerch: UIButton!
     var btnResetAll: UIButton!
     var editType: UITextField!
     var editTitle: UITextField!
@@ -66,13 +66,13 @@ class FullSearchViewController: UIViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
         
-        btnCloseMenuOverlay = UIButton(type: .Custom) as UIButton
-        btnCloseMenuOverlay.setTitle("ADD to search", forState: .Normal)
-        btnCloseMenuOverlay.titleLabel?.font = UIFont.HelTextFont(14)
-        btnCloseMenuOverlay.backgroundColor = UIColor.buttonColor()
-        btnCloseMenuOverlay.addTarget(self, action: #selector(FullSearchViewController.onCloseMenuClick(_:)), forControlEvents: .TouchUpInside)
-        btnCloseMenuOverlay.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(btnCloseMenuOverlay)
+        btnAddToSeaerch = UIButton(type: .Custom) as UIButton
+        btnAddToSeaerch.setTitle("ADD to search", forState: .Normal)
+        btnAddToSeaerch.titleLabel?.font = UIFont.HelTextFont(14)
+        btnAddToSeaerch.backgroundColor = UIColor.buttonColor()
+        btnAddToSeaerch.addTarget(self, action: #selector(FullSearchViewController.addToSearchClick(_:)), forControlEvents: .TouchUpInside)
+        btnAddToSeaerch.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(btnAddToSeaerch)
         
         btnResetAll = UIButton(type: .Custom) as UIButton
         btnResetAll.setTitle("RESET", forState: .Normal)
@@ -369,6 +369,10 @@ class FullSearchViewController: UIViewController {
         for (key, _) in dicParam {
             SearchParamManager.sharedManager.delParametrSearch(key as! String) }
             reloadDataEdit()
+        let refreshAlert = UIAlertController(title: "Reset all", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        refreshAlert.addAction(UIAlertAction(title: "ok", style: .Cancel, handler: { (action: UIAlertAction!) in  }))        
+        presentViewController(refreshAlert, animated: true, completion: nil)
+
     }
     
     func setContaintsV(dic: NSDictionary) {
@@ -403,7 +407,7 @@ class FullSearchViewController: UIViewController {
             make.width.equalTo(view).offset(0)
             make.height.equalTo(view).offset(0) }
         
-        btnCloseMenuOverlay.snp_remakeConstraints { (make) -> Void in
+        btnAddToSeaerch.snp_remakeConstraints { (make) -> Void in
             make.width.equalTo(widthSize)
             make.leading.equalTo(scrollView).offset(leadingSize) }
         
@@ -414,7 +418,7 @@ class FullSearchViewController: UIViewController {
 
         
         setContaintsV(
-            [   "btn": btnCloseMenuOverlay,
+            [   "btn": btnAddToSeaerch,
                 "Type": editType,
                 "Title": editTitle,
                 "ReleaseTitle": editReleaseTitle,
@@ -458,8 +462,7 @@ class FullSearchViewController: UIViewController {
     func setContaintsForTextField(arrTextF: [(UITextField, UILabel)]) {
         
         
-        for textF in arrTextF {
-        
+        for textF in arrTextF {        
             
             textF.1.snp_remakeConstraints { (make) -> Void in
                 make.leading.equalTo(scrollView).offset(leadingSize)
@@ -483,24 +486,17 @@ class FullSearchViewController: UIViewController {
         
     }
     
-    func onCloseMenuClick(button:UIButton!){
-        
-    btnSearch.tag = 0
+    func addToSearchClick(button:UIButton!){
+  
         
     SearchParamManager.sharedManager.setParametr(dicParam.map {  (key, value) -> (String, String) in
-        return (key as! String, (value as! UITextField).text!)
-        })
-    
-        UIView.animateWithDuration(0.3, animations: { [unowned self]() -> Void in
-            self.view.frame = CGRectMake(UIScreen.mainScreen().bounds.size.width, 0, UIScreen.mainScreen().bounds.size.width,UIScreen.mainScreen().bounds.size.height)
-            self.view.layoutIfNeeded()
-            self.view.backgroundColor = UIColor.clearColor()
-            }, completion: {[unowned self] (finished) -> Void in
-                self.view.removeFromSuperview()
-                self.removeFromParentViewController()
-      })
-    }
-  }
+        return (key as! String, (value as! UITextField).text!)  })
+        
+        let refreshAlert = UIAlertController(title: "Added to search", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        refreshAlert.addAction(UIAlertAction(title: "ok", style: .Cancel, handler: { (action: UIAlertAction!) in  }))
+        presentViewController(refreshAlert, animated: true, completion: nil)
+   }
+}
 
 extension FullSearchViewController: UITextFieldDelegate {
 

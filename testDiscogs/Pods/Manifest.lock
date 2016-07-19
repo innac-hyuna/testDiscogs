@@ -1,10 +1,10 @@
 PODS:
+  - AKSideMenu (1.1)
   - Alamofire (3.4.1)
   - Cartography (0.5.0)
   - FLAnimatedImage (1.0.12)
   - Kingfisher (2.4.1)
   - MBProgressHUD (0.9.2)
-  - Neon (0.2.0)
   - Nuke (3.1.2)
   - Nuke-Alamofire-Plugin (0.6.0):
     - Alamofire (~> 3.0)
@@ -19,11 +19,11 @@ PODS:
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
+  - AKSideMenu
   - Alamofire (~> 3.0)
   - Cartography (from `https://github.com/robb/Cartography.git`)
   - Kingfisher (~> 2.4)
   - MBProgressHUD (~> 0.9.2)
-  - Neon
   - Nuke
   - Nuke-Alamofire-Plugin
   - Nuke-AnimatedImage-Plugin
@@ -48,12 +48,12 @@ CHECKOUT OPTIONS:
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
+  AKSideMenu: c69c87f5169e53f57d8da0d40e4412655c606f06
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   Cartography: de3e85d2fc2d7288a2e7c89e1ac6cad08599d75e
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   Kingfisher: 41aed5b6c1ed8fa98cf6d75283ce89cf7890f517
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
-  Neon: c7de6b6186c31870a0cacab6e018d0641bd12dca
   Nuke: 1bd8041158757ca586b1a1644e092cc37a72a656
   Nuke-Alamofire-Plugin: 410bdb98360c586f8ca736e04dbba78fa1294aae
   Nuke-AnimatedImage-Plugin: 5a35f5a38dcd6c9559225de1c80ac7e758bd0ef8

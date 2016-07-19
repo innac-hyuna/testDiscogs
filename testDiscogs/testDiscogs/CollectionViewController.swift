@@ -26,7 +26,7 @@ class CollectionViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addSlideMenuButton()
+        setButtonLeft() 
         loadData("\(getUrlStr())", loadFirst: true)
         title = "Collection"
     }

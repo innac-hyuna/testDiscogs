@@ -20,7 +20,7 @@ class SearchViewController: BaseViewController {
     var swipeableView: SMSwipeableTabMyViewController!
     var listVC: SMSimpleListViewController!
     var searchQ = ""
-    var searchActive = false
+    var searchActive = true
     var activePage = 0
     var fullSearchText: String!
     
@@ -28,17 +28,18 @@ class SearchViewController: BaseViewController {
         super.viewDidLoad()
         fullSearchText = ""
         title = "Search"
-        addSlideSearchButton()
-        addSlideMenuButton()
         seachBar = UISearchBar()
         seachBar.delegate = self
+        seachBar.text = SearchParamManager.sharedManager.getSearchText()
+        loadData(getUrlStr())
         seachBar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(seachBar)
         searchData = ListData()
         setupLayoutSeachBar()
+        setButtonsBar()
         
     }
-    
+   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -77,7 +78,7 @@ class SearchViewController: BaseViewController {
     }
     
     func reloadPage() {
-        
+      
          listVC.dSource = searchData.itemsData as? [ItemData]
          listVC.title = String(listVC.dSource?.count)
          listVC.mainTableView.reloadData()
@@ -88,23 +89,16 @@ class SearchViewController: BaseViewController {
         
         swipeableView?.removeFromParentViewController()
         swipeableView?.view.removeFromSuperview()
-        
         swipeableView?.delegate = nil
-        
         swipeableView = SMSwipeableTabMyViewController()
-       
         swipeableView.titleBarDataSource = Array(1 ... searchData.pages).map { iElement -> String in
             NSNumberFormatter.localizedStringFromNumber(iElement, numberStyle: .DecimalStyle) }
-        
         swipeableView.segmentBarAttributes = [SMBackgroundColorAttribute: UIColor.buttonColor()]
-        
-        swipeableView.delegate = self
-        
+        swipeableView.delegate = self    
         addChildViewController(swipeableView)
         view.addSubview(swipeableView.view)
         swipeableView.view.translatesAutoresizingMaskIntoConstraints = false
         swipeableView.didMoveToParentViewController(self)
-        
         setupLayoutSwipeableView()
         
     }
@@ -118,16 +112,16 @@ class SearchViewController: BaseViewController {
         }
     }
     
-    func getUrlStr(searchText: String) -> String {
+    func getUrlStr() -> String {
       slideSearchQuery()
-       
+      let searchText = SearchParamManager.sharedManager.getSearchText()
       let sText = searchText.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
       let fSearchText = fullSearchText.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
       let jUrl = "https://api.discogs.com/database/search?q=\(sText!)\(fSearchText!)&token=\(constApp.token)"
       return jUrl
         
     }
-    
+   
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         
        swipeableView?.loadTab()
@@ -140,11 +134,11 @@ extension SearchViewController: SMSwipeableTabViewControllerDelegate {
     func didLoadViewControllerAtIndex(index: Int) -> UIViewController {
         
         listVC = SMSimpleListViewController()
-        loadData("\(getUrlStr(searchQ))&page=\(index+1)")
+        loadData("\(getUrlStr())&page=\(index+1)")
+        //SearchParamManager.sharedManager.saveSearchNumberPage(String(index+1 ))
         searchActive = false
         return listVC
     }
-
 }
 
 extension SearchViewController: UISearchBarDelegate {
@@ -164,7 +158,8 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchQ = searchBar.text!.stringByReplacingOccurrencesOfString(" ", withString: "%20", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        loadData(getUrlStr(searchQ))
+        SearchParamManager.sharedManager.saveSearchtext(searchBar.text!)
+        loadData(getUrlStr())
         searchActive = true
         view.endEditing(true)
     }

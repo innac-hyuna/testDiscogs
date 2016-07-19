@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AKSideMenu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -25,11 +30,6 @@
 			<false/>
 		</dict>
 		<key>MBProgressHUD.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Neon.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -87,17 +87,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2620F12C1176436B3B3784520F311BC7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>45935B91DF0442390E2CA6DEEF68AE99</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5C08AF85F693A35AD3C28245C7A4706A</key>
+		<key>51A2F006138E262A25904869BC05F0F2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6B4ED359A16F708FCEB580875039EFE4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,27 +112,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>808843824BA772F02910AAEB7A0D7304</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>8F21E8D0CF87BE5407DBB09F1AC3D43F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>90F2D0F249D8DE569509BCED86C40FD1</key>
+		<key>AF111653B2B7928998D405A385A184CE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>98C93A3B4ACF401333B185F056C785B9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AE25D432C5ED591AA187A79ABC7E6572</key>
+		<key>BCFC7BBFA65669A62FDAAFD5B691DC34</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -147,7 +137,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DBF9807F80D28E1679B759881625D544</key>
+		<key>C7273A8945AF5B18D89B9A0AA820AD74</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D2745126EA8EBC49C2534EDE07EC6F56</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D5C9B1FD8A9F366CB83AA15E0E45B381</key>
 		<dict>
 			<key>primary</key>
 			<true/>

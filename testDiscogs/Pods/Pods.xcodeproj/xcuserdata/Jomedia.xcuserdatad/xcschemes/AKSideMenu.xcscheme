@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '3E409FE6DA0C270192270351'
-               BlueprintName = 'Neon'
+               BlueprintIdentifier = '26336953364D57B2A9815AE7'
+               BlueprintName = 'AKSideMenu'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'Neon.framework'>
+               BuildableName = 'AKSideMenu.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

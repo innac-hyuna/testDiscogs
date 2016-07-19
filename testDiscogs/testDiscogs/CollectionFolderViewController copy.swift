@@ -23,7 +23,7 @@ class CollectionFolderViewController: BaseViewController {
         
         title = "CollectionFolder"
         cellInd = "cellFolder"
-       
+        addSlideMenuButton()
         loadData("\(getUrlStr())")
         listVC = UITableView()
         listVC.backgroundColor = UIColor.bgColor()
@@ -55,8 +55,7 @@ class CollectionFolderViewController: BaseViewController {
         progressHUD.labelText = "Loading..."
         DataManager.sharedManager.getData(urlStr, controller: control.CollectionFolderViewController) { [unowned self] (ListF) in
             self.fData =  ListF as! [CollectionFolder]
-            if (self.fData.count != 0) {
-                self.listVC.reloadData() }
+            self.listVC.reloadData()
              MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
            
         }
