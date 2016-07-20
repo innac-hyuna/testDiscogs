@@ -37,7 +37,7 @@ class CollectionViewController: BaseViewController {
     }
     
     func setupLayoutSwipeableView() {
-        
+       
         swipeableView.view.snp_makeConstraints { (make) -> Void in
             make.top.equalTo(self.snp_topLayoutGuideBottom).offset(0)
             make.width.equalTo(view).offset(0)
@@ -67,23 +67,16 @@ class CollectionViewController: BaseViewController {
         
         swipeableView?.removeFromParentViewController()
         swipeableView?.view.removeFromSuperview()
-        
         swipeableView?.delegate = nil
-        
-        swipeableView = SMSwipeableTabMyViewController()
-        
+        swipeableView = SMSwipeableTabMyViewController()        
         swipeableView.titleBarDataSource = Array(1 ... wData.pages).map { iElement -> String in
             NSNumberFormatter.localizedStringFromNumber(iElement, numberStyle: .DecimalStyle) }
-        
         swipeableView.segmentBarAttributes = [SMBackgroundColorAttribute: UIColor.buttonColor()]
-        
         swipeableView.delegate = self
-        
         addChildViewController(swipeableView)
         view.addSubview(swipeableView.view)
         swipeableView.view.translatesAutoresizingMaskIntoConstraints = false
         swipeableView.didMoveToParentViewController(self)
-        
         setupLayoutSwipeableView()
     }
     

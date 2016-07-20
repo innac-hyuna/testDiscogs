@@ -47,7 +47,7 @@ class CollectionTableViewController: UIViewController {
         tableView.snp_makeConstraints { (make) -> Void in
             make.top.equalTo(self.snp_topLayoutGuideBottom).offset(0)
             make.width.equalTo(view).offset(0)
-            make.height.equalTo(view).offset(150) }
+            make.height.equalTo(view).offset(0) }
     }
     
     func deleteWantliast(sender: UIButton) {
@@ -55,8 +55,10 @@ class CollectionTableViewController: UIViewController {
         let refreshAlert = UIAlertController(title: "Delete", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { [unowned self] (action: UIAlertAction!) in
-            let urlStr = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/\(self.folderId)/releases/\(self.dataSource[sender.tag].id)/instances/\(self.dataSource[sender.tag].instanceId)"
+            let urlStr = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/\(self.folderId)/releases/\(self.dataSource[sender.tag].id)/instances/\(self.dataSource[sender.tag].instanceId)?token=\(constApp.token)"
             DataManager.sharedManager.delData(urlStr)
+            self.dataSource.removeAtIndex(sender.tag)
+            self.tableView.reloadData()
         }))
      
         refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action: UIAlertAction!) in
@@ -73,20 +75,18 @@ class CollectionTableViewController: UIViewController {
         
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
             self.dataSource[index].rating = raiting
-            let urlStr = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/\(self.folderId)/releases/\(self.dataSource[index].id)/instances/\(self.dataSource[index].instanceId)?rating=\(self.dataSource[index].rating)"
+            let urlStr = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/\(self.folderId)/releases/\(self.dataSource[index].id)/instances/\(self.dataSource[index].instanceId)?token=\(constApp.token)"
        
-            let param: NSDictionary = [
-                "username": "innablack",
+            let param: NSDictionary = [              
                 "folder_id": String(self.folderId),
-                "release_id": String(self.dataSource[index].id),
-                "rating_id": String(self.dataSource[index].rating),
-                "instance_id": String(self.dataSource[index].rating)]
+                 "rating": "5"]
             
             DataManager.sharedManager.updateData(urlStr, parameters: param )
+             self.tableView.reloadData()
         }))
         refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action: UIAlertAction!) in
-            print("Handle Cancel Logic here")
             self.tableView.reloadData()
+            print("Handle Cancel Logic here")           
         }))
         presentViewController(refreshAlert, animated: true, completion: nil)
     }   
@@ -96,6 +96,7 @@ extension CollectionTableViewController: UITableViewDelegate {
     func  tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 90
     }
+    
 }
 
 extension CollectionTableViewController: UITableViewDataSource {
@@ -108,7 +109,6 @@ extension CollectionTableViewController: UITableViewDataSource {
             if let URL = NSURL(string: dataSource[indexPath.row].thumb) {
                 let resource = Resource(downloadURL: URL, cacheKey: dataSource[indexPath.row].thumb)
             cell.thumbImg.kf_setImageWithResource(resource, placeholderImage: UIImage(named:"placeholder")) }
-            
             cell.deleteButton.tag = indexPath.row
             cell.deleteButton.addTarget(self, action: #selector(WantlistTableViewController.deleteWantliast(_:)), forControlEvents: .TouchUpInside)
             cell.year.text = String(dataSource[indexPath.row].year)
@@ -116,6 +116,7 @@ extension CollectionTableViewController: UITableViewDataSource {
             cell.floatRatingView.rating = Float(dataSource[indexPath.row].rating)
             cell.floatRatingView.delegate = self
             cell.floatRatingView.tag = indexPath.row
+        
         return cell
     }
     
@@ -129,7 +130,11 @@ extension CollectionTableViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
-    }    
+    }
+    
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {        
+
+    }
     
 }
 

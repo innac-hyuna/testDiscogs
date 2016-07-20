@@ -52,9 +52,11 @@ class WantlistTableViewController: UIViewController {
         let refreshAlert = UIAlertController(title: "Delete", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            let urlStr = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/wants/\(sender.tag)"
+            let urlStr = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/wants/\(sender.tag)?token=\(constApp.token)"
             DataManager.sharedManager.delData(urlStr)
-             }))
+            self.dataSource?.removeAtIndex(sender.tag)
+            self.tableView.reloadData()
+        }))
         refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action: UIAlertAction!) in
             print("Handle Cancel Logic here")
         }))

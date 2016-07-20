@@ -118,6 +118,7 @@ class SearchViewController: BaseViewController {
       let sText = searchText.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
       let fSearchText = fullSearchText.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
       let jUrl = "https://api.discogs.com/database/search?q=\(sText!)\(fSearchText!)&token=\(constApp.token)"
+      
       return jUrl
         
     }

@@ -52,7 +52,7 @@ class DataManager {
         Alamofire.request(.DELETE, urlStr)
             .response { (request, response, data, error) in
                 print(request)
-                print(response)               
+                print(response)
         }
     }
     
@@ -60,8 +60,8 @@ class DataManager {
         
        Alamofire.request(.POST, urlStr, parameters: parameters as? [String : AnyObject])
             .response { (request, response, data, error) in
-                print(request)
                 print(response)
+                print(JSON(data!))
         }
     }
     

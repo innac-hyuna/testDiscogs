@@ -104,12 +104,12 @@ class CollectionTableViewCell: UITableViewCell  {
         titleLabel.snp_makeConstraints { (make) -> Void in
             make.top.equalTo(contentView).offset(5)
             make.leading.equalTo(thumbImg.snp_trailing).offset(5)
-            make.width.equalTo(contentView).offset(-70) }
+            make.width.equalTo(contentView).offset(-110) }
         
         textFormat.snp_makeConstraints { (make) -> Void in
             make.top.equalTo(titleLabel.snp_bottom).offset(0)
             make.leading.equalTo(thumbImg.snp_trailing).offset(5)
-            make.width.equalTo(contentView).offset(-70) }
+            make.width.equalTo(contentView).offset(-110) }
         
         year.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(contentView).offset(10)
@@ -117,14 +117,14 @@ class CollectionTableViewCell: UITableViewCell  {
             make.width.equalTo(40) }
         
         floatRatingView.snp_makeConstraints { (make) -> Void in
-            make.trailing.equalTo(contentView).offset(-10)
+            make.trailing.equalTo(contentView).offset(-25)
             make.bottom.equalTo(contentView).offset(5)
             make.height.equalTo(30)
             make.width.equalTo(60) }
             
         deleteButton.snp_makeConstraints { (make) -> Void in
             make.trailing.equalTo(contentView).offset(-10)
-            make.centerY.equalTo(contentView.snp_centerY).offset(0) }
+            make.top.equalTo(contentView.snp_top).offset(5) }
  
      } else {
         
