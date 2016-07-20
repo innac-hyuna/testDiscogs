@@ -52,17 +52,21 @@ class WantlistTableViewController: UIViewController {
         let refreshAlert = UIAlertController(title: "Delete", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-            let urlStr = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/wants/\(sender.tag)?token=\(constApp.token)"
-            DataManager.sharedManager.delData(urlStr)
-            self.dataSource?.removeAtIndex(sender.tag)
-            self.tableView.reloadData()
+           
+            let urlStr: String!
+            
+            if let wantsD = self.dataSource {
+                let wants = wantsD[sender.tag]
+                 urlStr = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/wants/\(wants.id)?token=\(constApp.token)"
+                 DataManager.sharedManager.delData(urlStr)
+                 self.dataSource?.removeAtIndex(sender.tag)
+                 self.tableView.reloadData() }
         }))
         refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action: UIAlertAction!) in
             print("Handle Cancel Logic here")
         }))
         
          presentViewController(refreshAlert, animated: true, completion: nil)
-        
     }   
 }
 
@@ -83,7 +87,7 @@ extension WantlistTableViewController: UITableViewDataSource {
             if let URL = NSURL(string: data[indexPath.row].thumb) {
                 let resource = Resource(downloadURL: URL, cacheKey: data[indexPath.row].thumb)
                 cell.thumbImg.kf_setImageWithResource(resource, placeholderImage: UIImage(named:"placeholder")) }
-             cell.deleteButton.tag = data[indexPath.row].id
+             cell.deleteButton.tag = indexPath.row
              cell.deleteButton.addTarget(self, action: #selector(WantlistTableViewController.deleteWantliast(_:)), forControlEvents: .TouchUpInside)
              cell.year.text = data[indexPath.row].year != 0 ? String(data[indexPath.row].year) : ""
              cell.textFormat.text = "\(data[indexPath.row].textFormat) \(data[indexPath.row].descriptionsFormat)"

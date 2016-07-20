@@ -58,10 +58,10 @@ class DataManager {
     
     func updateData(urlStr: String, parameters: NSDictionary) {
         
-       Alamofire.request(.POST, urlStr, parameters: parameters as? [String : AnyObject])
+        Alamofire.request(.POST, urlStr, parameters: parameters as? [String : AnyObject])
             .response { (request, response, data, error) in
                 print(response)
-                print(JSON(data!))
+                print(data)
         }
     }
     

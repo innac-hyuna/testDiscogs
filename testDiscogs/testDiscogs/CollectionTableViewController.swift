@@ -77,9 +77,13 @@ class CollectionTableViewController: UIViewController {
             self.dataSource[index].rating = raiting
             let urlStr = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/\(self.folderId)/releases/\(self.dataSource[index].id)/instances/\(self.dataSource[index].instanceId)?token=\(constApp.token)"
        
-            let param: NSDictionary = [              
-                "folder_id": String(self.folderId),
-                 "rating": "5"]
+            let param: NSDictionary = [
+                "username": FileManagerSourse.sharedManager.getUserName(),
+                "folder_id": "self.folderId",
+                "release_id": String(self.dataSource[index].id),
+                "rating_id": String(self.dataSource[index].rating),
+                "instance_id": String(self.dataSource[index].rating),
+                "rating": "1" ]
             
             DataManager.sharedManager.updateData(urlStr, parameters: param )
              self.tableView.reloadData()

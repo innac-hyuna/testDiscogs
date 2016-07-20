@@ -98,7 +98,7 @@ class WantlistTableViewCell: UITableViewCell {
         titleLabel.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(thumbImg.snp_right).offset(10)
             make.top.equalTo(contentView).offset(5)
-            make.width.equalTo(contentView).offset(-70) }
+            make.width.equalTo(contentView).offset(-100) }
         
         textFormat.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(thumbImg.snp_right).offset(10)
@@ -111,13 +111,13 @@ class WantlistTableViewCell: UITableViewCell {
             make.width.equalTo(40) }
         
         floatRatingView.snp_makeConstraints { (make) -> Void in
-            make.trailing.equalTo(contentView.snp_trailing).offset(-5)
+            make.trailing.equalTo(contentView.snp_trailing).offset(-25)
             make.bottom.equalTo(contentView.snp_bottom).offset(10)
             make.height.equalTo(30)
             make.width.equalTo(60) }
         
         deleteButton.snp_makeConstraints { (make) -> Void in
-            make.centerY.equalTo(contentView.snp_centerY).offset(0)
+            make.top.equalTo(contentView.snp_top).offset(0)
             make.trailing.equalTo(contentView.snp_trailing).offset(-10)  }
 
     }
