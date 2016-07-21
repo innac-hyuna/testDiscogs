@@ -136,7 +136,6 @@ extension SearchViewController: SMSwipeableTabViewControllerDelegate {
         
         listVC = SMSimpleListViewController()
         loadData("\(getUrlStr())&page=\(index+1)")
-        //SearchParamManager.sharedManager.saveSearchNumberPage(String(index+1 ))
         searchActive = false
         return listVC
     }

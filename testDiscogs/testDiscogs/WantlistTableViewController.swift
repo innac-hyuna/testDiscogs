@@ -45,7 +45,7 @@ class WantlistTableViewController: UIViewController {
         tableView.snp_makeConstraints { (make) -> Void in
             make.top.equalTo(self.snp_topLayoutGuideBottom).offset(0)
             make.width.equalTo(view).offset(0)
-            make.height.equalTo(view).offset(150) }    
+            make.height.equalTo(view).offset(0) }
     }
     
     func deleteWantliast(sender: UIButton) {

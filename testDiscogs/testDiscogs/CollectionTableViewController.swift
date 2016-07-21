@@ -78,20 +78,17 @@ class CollectionTableViewController: UIViewController {
             let urlStr = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/\(self.folderId)/releases/\(self.dataSource[index].id)/instances/\(self.dataSource[index].instanceId)?token=\(constApp.token)"
        
             let param: NSDictionary = [
-                "username": FileManagerSourse.sharedManager.getUserName(),
-                "folder_id": "self.folderId",
-                "release_id": String(self.dataSource[index].id),
-                "rating_id": String(self.dataSource[index].rating),
-                "instance_id": String(self.dataSource[index].rating),
-                "rating": "1" ]
+                "release_id": self.dataSource[index].id,
+                "rating_id": self.dataSource[index].rating,
+                "instance_id": self.dataSource[index].rating,
+                "rating": raiting]
             
             DataManager.sharedManager.updateData(urlStr, parameters: param )
-             self.tableView.reloadData()
-        }))
+             self.tableView.reloadData()  }))
         refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action: UIAlertAction!) in
             self.tableView.reloadData()
-            print("Handle Cancel Logic here")           
-        }))
+            print("Handle Cancel Logic here")  }))
+        
         presentViewController(refreshAlert, animated: true, completion: nil)
     }   
 }
