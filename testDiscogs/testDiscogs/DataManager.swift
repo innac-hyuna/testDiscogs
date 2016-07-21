@@ -57,14 +57,26 @@ class DataManager {
     }
     
     func updateData(urlStr: String, parameters: NSDictionary) {        
-        
+       
         Alamofire.request(.POST, urlStr, parameters: parameters as? [String : AnyObject],  encoding: .JSON)
-            .response { request, response, data, error in                
+             .response { request, response, data, error in
              print(request)
              print(response)
              print(data)
          }
     }
+    
+    
+    func updateDataPut(urlStr: String, parameters: NSDictionary) {
+        
+        Alamofire.request(.PUT, urlStr, parameters: parameters as? [String : AnyObject],  encoding: .JSON)
+            .response { request, response, data, error in
+                print(request)
+                print(response)
+                
+        }
+    }
+    
     
  private func getListDataFromJson(data: NSData) -> ListData {
         

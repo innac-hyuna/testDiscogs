@@ -23,7 +23,7 @@ class AlbumViewController: UIViewController {
     var genreLabel: UILabel!
     var navigationBar: UINavigationBar!
     var addCollectionButton: UIButton!
-    var addWishlistButton: UIButton!
+    var addWantlistButton: UIButton!
     var topBar: UILayoutSupport!
     var isLandscape = false
     var group: ConstraintGroup!
@@ -39,20 +39,22 @@ class AlbumViewController: UIViewController {
         view.addSubview(thumbImage)
         isLandscape = UIDevice.currentDevice().orientation.isLandscape.boolValue
         
-        addWishlistButton = UIButton(type: .Custom) as UIButton
-        addWishlistButton.setImage(UIImage(named: "addToCollection"), forState: .Normal)
-        addWishlistButton.setImage(UIImage(named: "pressAddToCol"), forState: .Selected)
-        addWishlistButton.backgroundColor = UIColor.buttonColor()
-        addWishlistButton.layer.cornerRadius = 3
-        addWishlistButton.addTarget(self, action: #selector(AlbumViewController.addWishlistAction(_:)), forControlEvents: .TouchUpInside)
-        view.addSubview(addWishlistButton)
+        addWantlistButton = UIButton(type: .Custom) as UIButton
+        addWantlistButton.setImage(UIImage(named: "addToCollection"), forState: .Normal)
+        addWantlistButton.setImage(UIImage(named: "pressAddToCol"), forState: .Selected)
+        addWantlistButton.backgroundColor = UIColor.buttonColor()
+        addWantlistButton.layer.cornerRadius = 3
+        addWantlistButton.tag = 1
+        addWantlistButton.addTarget(self, action: #selector(AlbumViewController.addAction(_:)), forControlEvents: .TouchUpInside)
+        view.addSubview(addWantlistButton)
      
         addCollectionButton = UIButton(type: .Custom) as UIButton
         addCollectionButton.setImage(UIImage(named: "addToFavor"), forState: .Normal)
         addCollectionButton.setImage(UIImage(named: "pressAddToFa"), forState: .Selected)
         addCollectionButton.backgroundColor = UIColor.buttonColor()
         addCollectionButton.layer.cornerRadius = 3
-        addCollectionButton.addTarget(self, action: #selector(AlbumViewController.addCollectionAction(_:)), forControlEvents: .TouchUpInside)
+        addCollectionButton.tag = 2
+        addCollectionButton.addTarget(self, action: #selector(AlbumViewController.addAction(_:)), forControlEvents: .TouchUpInside)
         view.addSubview(addCollectionButton)
         
         titleLabel =  UILabel()
@@ -125,38 +127,36 @@ class AlbumViewController: UIViewController {
         reloadLayout()
     }
     
-    func addWishlistAction(sender: UIButton) {
-        
-        let param = [
-            "username": "innablack" ]
-        
-        DataManager.sharedManager.updateData("https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/wants/\(albumData.id)", parameters: param )
-    }
+    func addAction(sender: UIButton) {
     
-    func addCollectionAction(sender: UIButton) {
-        
-        let param = [
-            "username": "innablack" ,
-            "folder_id": "1",
-            "release_id": String(albumData.id)]
-       
-        DataManager.sharedManager.updateData("https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/1/releases/\(albumData.id)", parameters: param )
+        if sender.tag == 2  {
+            let param = [ "username" : FileManagerSourse.sharedManager.getUserName(),
+                          "release_id" : albumData.id]
+            
+            DataManager.sharedManager.updateDataPut("https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/wants/\(albumData.id)?token=\(constApp.token)", parameters: param )
+        } else {
+            let param = [
+                "username": FileManagerSourse.sharedManager.getUserName(),
+                "folder_id": 1,
+                "release_id": albumData.id]
+            
+            DataManager.sharedManager.updateData("https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/1/releases/\(albumData.id)?token=\(constApp.token)", parameters: param ) }
     }
-    
+
     func setupLayout()  {
         
-        constrain(thumbImage, addWishlistButton, addCollectionButton) {
-            thumbImage, addWishlistButton, addCollectionButton in
+        constrain(thumbImage, addWantlistButton, addCollectionButton) {
+            thumbImage, addWantlistButton, addCollectionButton in
             thumbImage.top == thumbImage.superview!.top + 65
             thumbImage.left == thumbImage.superview!.left + 10
             thumbImage.width == 150
             thumbImage.height == 150
-            addWishlistButton.top ==  addWishlistButton.superview!.top + 65
-            addWishlistButton.left == thumbImage.right + 10
-            addWishlistButton.width == 44
-            addWishlistButton.height == 44
+            addWantlistButton.top ==  addWantlistButton.superview!.top + 65
+            addWantlistButton.left == thumbImage.right + 10
+            addWantlistButton.width == 44
+            addWantlistButton.height == 44
             addCollectionButton.top == addCollectionButton.superview!.top + 65
-            addCollectionButton.left == addWishlistButton.right + 10
+            addCollectionButton.left == addWantlistButton.right + 10
             addCollectionButton.width == 44
             addCollectionButton.height == 44
         }

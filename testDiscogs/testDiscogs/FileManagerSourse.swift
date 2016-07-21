@@ -56,5 +56,16 @@ class FileManagerSourse {
         return  data["username"] as! String
     }
     
+    func getKey() -> String {
+        let path = setManager()
+        let data : NSMutableDictionary = NSMutableDictionary(contentsOfFile: path)!
+        return  data["consumerKey"] as! String
+    }
+    
+    func getSecret() -> String {
+        let path = setManager()
+        let data : NSMutableDictionary = NSMutableDictionary(contentsOfFile: path)!
+        return  data["consumerSecret"] as! String
+    }
 
 }

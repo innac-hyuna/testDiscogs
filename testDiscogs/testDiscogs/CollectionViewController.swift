@@ -28,6 +28,8 @@ class CollectionViewController: BaseViewController {
         
         setButtonLeft() 
         loadData("\(getUrlStr())", loadFirst: true)
+        print(getUrlStr())
+
         title = "Collection"
     }
     
@@ -81,7 +83,7 @@ class CollectionViewController: BaseViewController {
     }
     
     func getUrlStr() -> String {
-        return "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/\(idFolder)/releases"
+        return "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/\(idFolder)/releases"        
     }
     
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {

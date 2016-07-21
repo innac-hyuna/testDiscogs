@@ -51,7 +51,7 @@ class CollectionTableViewController: UIViewController {
     }
     
     func deleteWantliast(sender: UIButton) {
-        print(sender.tag)
+       
         let refreshAlert = UIAlertController(title: "Delete", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { [unowned self] (action: UIAlertAction!) in
@@ -76,7 +76,6 @@ class CollectionTableViewController: UIViewController {
         refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
             self.dataSource[index].rating = raiting
             let urlStr = "https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/\(self.folderId)/releases/\(self.dataSource[index].id)/instances/\(self.dataSource[index].instanceId)?token=\(constApp.token)"
-       
             let param: NSDictionary = [
                 "release_id": self.dataSource[index].id,
                 "rating_id": self.dataSource[index].rating,
@@ -108,7 +107,7 @@ extension CollectionTableViewController: UITableViewDataSource {
             cell.titleLabel.text = "\(dataSource[indexPath.row].nameArtists) \(dataSource[indexPath.row].title) \(dataSource[indexPath.row].catno)"
             
             if let URL = NSURL(string: dataSource[indexPath.row].thumb) {
-                let resource = Resource(downloadURL: URL, cacheKey: dataSource[indexPath.row].thumb)
+                let resource = Resource(downloadURL: URL, cacheKey: "\(dataSource[indexPath.row].thumb)")
             cell.thumbImg.kf_setImageWithResource(resource, placeholderImage: UIImage(named:"placeholder")) }
             cell.deleteButton.tag = indexPath.row
             cell.deleteButton.addTarget(self, action: #selector(WantlistTableViewController.deleteWantliast(_:)), forControlEvents: .TouchUpInside)

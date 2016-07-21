@@ -40,7 +40,8 @@ class LoginedViewController: OAuthWebViewController {
                     success: {
                         data, response in
                         if let jsonDict = try? NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) , dico = jsonDict as? [String: AnyObject] {
-                            FileManagerSourse.sharedManager.saveUserName(dico["username"] as! String)  }
+                            FileManagerSourse.sharedManager.saveUserName(dico["username"] as! String)
+                        }
                         else {
                             print("no json response")
                         }
