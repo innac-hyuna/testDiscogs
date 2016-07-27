@@ -18,6 +18,8 @@ class WantlistTableViewController: UIViewController {
     var dataSource: [WantlistData]?
     var pageIndex = 0
     var buttonDataSource: [String]?
+    var pickerView: UIPickerView!
+    var rowK = ["Row1","Row2","Row3"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,13 @@ class WantlistTableViewController: UIViewController {
         tableView?.dataSource = self
         tableView?.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
+        
+        pickerView = UIPickerView()
+        pickerView.backgroundColor = UIColor.bgColor()
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        pickerView.hidden = true
+        view.addSubview(pickerView)
         
         setupLayout()
     }
@@ -46,6 +55,12 @@ class WantlistTableViewController: UIViewController {
             make.top.equalTo(self.snp_topLayoutGuideBottom).offset(0)
             make.width.equalTo(view).offset(0)
             make.height.equalTo(view).offset(0) }
+        
+         pickerView.snp_makeConstraints { (make) -> Void in
+            make.width.equalTo(200)
+            make.height.equalTo(200)
+            make.centerX.equalTo(view.snp_centerX)
+            make.centerY.equalTo(view.snp_centerY) }
     }
     
     func deleteWantliast(sender: UIButton) {
@@ -99,7 +114,9 @@ extension WantlistTableViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-       
+        
+       pickerView.hidden = false
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -108,6 +125,31 @@ extension WantlistTableViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
+    }
+    
+}
+
+extension WantlistTableViewController: UIPickerViewDelegate {
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+        print(rowK[row])
+       self.view.endEditing(true)
+        pickerView.hidden = true
+    }
+}
+
+extension WantlistTableViewController: UIPickerViewDataSource {
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return rowK.count
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String {
+        return rowK[row]
     }
     
 }

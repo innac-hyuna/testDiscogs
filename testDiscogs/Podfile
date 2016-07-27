@@ -11,5 +11,5 @@ pod "Preheat"
 pod 'OAuthSwift', '~> 0.5.0'
 pod 'SnapKit', '~> 0.15.0'
 #pod 'Neon'
-#pod 'AKSideMenu'
+pod 'AKSideMenu'
 pod 'Cartography',  :git => 'https://github.com/robb/Cartography.git' # AlbumViewController
