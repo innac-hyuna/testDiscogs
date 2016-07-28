@@ -20,6 +20,8 @@ class WantlistTableViewController: UIViewController {
     var buttonDataSource: [String]?
     var pickerView: UIPickerView!
     var rowK = ["Row1","Row2","Row3"]
+    var textField: UITextField!
+    var indP: NSIndexPath!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,12 +40,31 @@ class WantlistTableViewController: UIViewController {
         pickerView.backgroundColor = UIColor.bgColor()
         pickerView.delegate = self
         pickerView.dataSource = self
-        pickerView.hidden = true
-        view.addSubview(pickerView)
+        //  textField.addSubview(pickerView)
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.Default
+        toolBar.translucent = true
+        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Bordered, target: self, action: #selector(WantlistTableViewController.donePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Bordered, target: self, action: #selector(WantlistTableViewController.canclePicker))
+        
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.userInteractionEnabled = true
+        
+        textField = UITextField()
+        textField.inputView = pickerView
+        textField.inputAccessoryView = toolBar
+        textField.hidden = true
+        textField.delegate = self
+        view.addSubview(textField)
         
         setupLayout()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -56,11 +77,12 @@ class WantlistTableViewController: UIViewController {
             make.width.equalTo(view).offset(0)
             make.height.equalTo(view).offset(0) }
         
-         pickerView.snp_makeConstraints { (make) -> Void in
+        textField.snp_makeConstraints { (make) -> Void in
             make.width.equalTo(200)
-            make.height.equalTo(200)
+            make.height.equalTo(44)
             make.centerX.equalTo(view.snp_centerX)
             make.centerY.equalTo(view.snp_centerY) }
+       
     }
     
     func deleteWantliast(sender: UIButton) {
@@ -82,7 +104,20 @@ class WantlistTableViewController: UIViewController {
         }))
         
          presentViewController(refreshAlert, animated: true, completion: nil)
-    }   
+    }
+    
+    func donePicker() {
+      print(rowK[pickerView.selectedRowInComponent(0)])
+        if let data = dataSource {
+            print(data[indP.row].nameArtists) }
+      textField.endEditing(true)
+        
+    }
+    
+    func canclePicker() {
+      textField.endEditing(true)
+       
+    }
 }
 
 extension WantlistTableViewController: UITableViewDelegate {
@@ -107,16 +142,14 @@ extension WantlistTableViewController: UITableViewDataSource {
              cell.year.text = data[indexPath.row].year != 0 ? String(data[indexPath.row].year) : ""
              cell.textFormat.text = "\(data[indexPath.row].textFormat) \(data[indexPath.row].descriptionsFormat)"
              cell.floatRatingView.rating = Float(data[indexPath.row].rating)
-
         }
        
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-       pickerView.hidden = false
-        
+       indP = indexPath
+       textField.becomeFirstResponder()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -132,9 +165,7 @@ extension WantlistTableViewController: UITableViewDataSource {
 extension WantlistTableViewController: UIPickerViewDelegate {
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
-        print(rowK[row])
-       self.view.endEditing(true)
-        pickerView.hidden = true
+      
     }
 }
 
@@ -152,5 +183,9 @@ extension WantlistTableViewController: UIPickerViewDataSource {
         return rowK[row]
     }
     
+}
+
+extension WantlistTableViewController: UITextFieldDelegate {
+
 }
 
