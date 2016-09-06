@@ -23,7 +23,7 @@ class DataManager {
     static let sharedManager = DataManager()
     
     func getData(urlStr: String, controller: control , callback: ((AnyObject) -> ())?) {
-        
+        print(urlStr)
         Alamofire.request(.GET, urlStr, parameters: ["": ""])
             .validate()
             .response {request, response, data, error in

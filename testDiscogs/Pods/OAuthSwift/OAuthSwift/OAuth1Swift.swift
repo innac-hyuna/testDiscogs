@@ -70,11 +70,10 @@ public class OAuth1Swift: OAuthSwift {
                 if let token = responseParameters["token"] {
                     responseParameters["oauth_token"] = token
                 }
-         
                 if (responseParameters["oauth_token"] != nil && (self.allowMissingOauthVerifier || responseParameters["oauth_verifier"] != nil)) {
                     //var credential: OAuthSwiftCredential = self.client.credential
                     self.client.credential.oauth_token = responseParameters["oauth_token"]!.safeStringByRemovingPercentEncoding
-                   if (responseParameters["oauth_verifier"] != nil) {
+                    if (responseParameters["oauth_verifier"] != nil) {
                         self.client.credential.oauth_verifier = responseParameters["oauth_verifier"]!.safeStringByRemovingPercentEncoding
                     }
                     self.postOAuthAccessTokenWithRequestToken(success, failure: failure)
@@ -121,7 +120,6 @@ public class OAuth1Swift: OAuthSwift {
         var parameters = Dictionary<String, AnyObject>()
         parameters["oauth_token"] = self.client.credential.oauth_token
         parameters["oauth_verifier"] = self.client.credential.oauth_verifier
-     
         self.client.post(self.access_token_url, parameters: parameters, success: {
             data, response in
             let responseString = NSString(data: data, encoding: NSUTF8StringEncoding) as String!

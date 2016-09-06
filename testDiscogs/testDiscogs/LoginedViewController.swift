@@ -47,7 +47,8 @@ class LoginedViewController: OAuthWebViewController {
                         }
                         
                     }, failure: { error in
-                        print(error)                        
+                        print(error)
+                        
                 })
             },
             failure: { error in

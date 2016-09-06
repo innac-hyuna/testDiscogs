@@ -8,7 +8,6 @@
 
 import UIKit
 import Kingfisher
-import Cartography
 
 class AlbumViewController: UIViewController {
     
@@ -23,38 +22,39 @@ class AlbumViewController: UIViewController {
     var genreLabel: UILabel!
     var navigationBar: UINavigationBar!
     var addCollectionButton: UIButton!
-    var addWantlistButton: UIButton!
+    var addWishlistButton: UIButton!
     var topBar: UILayoutSupport!
-    var isLandscape = false
-    var group: ConstraintGroup!
-    var group1: ConstraintGroup!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        topBar = self.topLayoutGuide
+        
         thumbImage = UIImageView()
+        
         if let URL = NSURL(string: albumData.thumb) {
             let resource = Resource(downloadURL: URL, cacheKey: albumData.thumb)
             thumbImage.kf_setImageWithResource(resource, placeholderImage: UIImage(named:"placeholder")) }
-        view.addSubview(thumbImage)
-        isLandscape = UIDevice.currentDevice().orientation.isLandscape.boolValue
         
-        addWantlistButton = UIButton(type: .Custom) as UIButton
-        addWantlistButton.setImage(UIImage(named: "addToCollection"), forState: .Normal)
-        addWantlistButton.setImage(UIImage(named: "pressAddToCol"), forState: .Selected)
-        addWantlistButton.backgroundColor = UIColor.buttonColor()
-        addWantlistButton.layer.cornerRadius = 3
-        addWantlistButton.tag = 1
-        addWantlistButton.addTarget(self, action: #selector(AlbumViewController.addAction(_:)), forControlEvents: .TouchUpInside)
-        view.addSubview(addWantlistButton)
-     
+        thumbImage.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(thumbImage)
+        
+        addWishlistButton = UIButton(type: .Custom) as UIButton
+        addWishlistButton.setImage(UIImage(named: "addToCollection"), forState: .Normal)
+        addWishlistButton.setImage(UIImage(named: "pressAddToCol"), forState: .Selected)
+        addWishlistButton.backgroundColor = UIColor.buttonColor()
+        addWishlistButton.layer.cornerRadius = 3
+        addWishlistButton.addTarget(self, action: #selector(AlbumViewController.addWishlistAction(_:)), forControlEvents: .TouchUpInside)
+        addWishlistButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(addWishlistButton)
+        
         addCollectionButton = UIButton(type: .Custom) as UIButton
         addCollectionButton.setImage(UIImage(named: "addToFavor"), forState: .Normal)
         addCollectionButton.setImage(UIImage(named: "pressAddToFa"), forState: .Selected)
         addCollectionButton.backgroundColor = UIColor.buttonColor()
         addCollectionButton.layer.cornerRadius = 3
-        addCollectionButton.tag = 2
-        addCollectionButton.addTarget(self, action: #selector(AlbumViewController.addAction(_:)), forControlEvents: .TouchUpInside)
+        addCollectionButton.addTarget(self, action: #selector(AlbumViewController.addCollectionAction(_:)), forControlEvents: .TouchUpInside)
+        addCollectionButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(addCollectionButton)
         
         titleLabel =  UILabel()
@@ -64,6 +64,7 @@ class AlbumViewController: UIViewController {
         titleLabel.textAlignment = .Center
         titleLabel.numberOfLines = 2
         titleLabel.lineBreakMode = .ByTruncatingTail
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
         
         styleLabel =  UILabel()
@@ -72,6 +73,7 @@ class AlbumViewController: UIViewController {
         styleLabel.font = UIFont.HelTextFont(12)
         styleLabel.numberOfLines = 2
         styleLabel.lineBreakMode = .ByTruncatingTail
+        styleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(styleLabel)
         
         formatLabel =  UILabel()
@@ -80,6 +82,7 @@ class AlbumViewController: UIViewController {
         formatLabel.font = UIFont.HelTextFont(12)
         formatLabel.numberOfLines = 2
         formatLabel.lineBreakMode = .ByTruncatingTail
+        formatLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(formatLabel)
         
         countryLabel =  UILabel()
@@ -88,6 +91,7 @@ class AlbumViewController: UIViewController {
         countryLabel.font = UIFont.HelTextFont(12)
         countryLabel.numberOfLines = 2
         countryLabel.lineBreakMode = .ByTruncatingTail
+        countryLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(countryLabel)
         
         labelLabel =  UILabel()
@@ -96,6 +100,7 @@ class AlbumViewController: UIViewController {
         labelLabel.font = UIFont.HelTextFont(12)
         labelLabel.numberOfLines = 2
         labelLabel.lineBreakMode = .ByTruncatingTail
+        labelLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(labelLabel)
         
         yearLabel =  UILabel()
@@ -104,6 +109,7 @@ class AlbumViewController: UIViewController {
         yearLabel.font = UIFont.HelTextFont(12)
         yearLabel.numberOfLines = 2
         yearLabel.lineBreakMode = .ByTruncatingTail
+        yearLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(yearLabel)
         
         genreLabel =  UILabel()
@@ -112,98 +118,166 @@ class AlbumViewController: UIViewController {
         genreLabel.font = UIFont.HelTextFont(12)
         genreLabel.numberOfLines = 2
         genreLabel.lineBreakMode = .ByTruncatingTail
+        genreLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(genreLabel)
+        
         setupLayout()
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        isLandscape = UIDevice.currentDevice().orientation.isLandscape.boolValue
-        reloadLayout()
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        setupLayout()
     }
     
-    func addAction(sender: UIButton) {
-    
-        if sender.tag == 2  {
-            let param = [ "username" : FileManagerSourse.sharedManager.getUserName(),
-                          "release_id" : albumData.id]
-            
-            DataManager.sharedManager.updateDataPut("https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/wants/\(albumData.id)?token=\(constApp.token)", parameters: param )
-        } else {
-            let param = [
-                "username": FileManagerSourse.sharedManager.getUserName(),
-                "folder_id": 1,
-                "release_id": albumData.id]
-            
-            DataManager.sharedManager.updateData("https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/1/releases/\(albumData.id)?token=\(constApp.token)", parameters: param ) }
+    func addWishlistAction(sender: UIButton) {
+        
+        let param = [
+            "username": "innablack" ]
+        
+        DataManager.sharedManager.updateData("https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/wants/\(albumData.id)", parameters: param )
     }
-
+    
+    func addCollectionAction(sender: UIButton) {
+        
+        let param = [
+            "username": "innablack" ,
+            "folder_id": "1",
+            "release_id": String(albumData.id)]
+        
+        DataManager.sharedManager.updateData("https://api.discogs.com/users/\(FileManagerSourse.sharedManager.getUserName())/collection/folders/1/releases/\(albumData.id)", parameters: param )
+    }
+    
     func setupLayout()  {
         
-        constrain(thumbImage, addWantlistButton, addCollectionButton) {
-            thumbImage, addWantlistButton, addCollectionButton in
-            thumbImage.top == thumbImage.superview!.top + 65
-            thumbImage.left == thumbImage.superview!.left + 10
-            thumbImage.width == 150
-            thumbImage.height == 150
-            addWantlistButton.top ==  addWantlistButton.superview!.top + 65
-            addWantlistButton.left == thumbImage.right + 10
-            addWantlistButton.width == 44
-            addWantlistButton.height == 44
-            addCollectionButton.top == addCollectionButton.superview!.top + 65
-            addCollectionButton.left == addWantlistButton.right + 10
-            addCollectionButton.width == 44
-            addCollectionButton.height == 44
-        }
+        NSLayoutConstraint(
+            item: thumbImage,
+            attribute: NSLayoutAttribute.Top,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: topBar,
+            attribute: NSLayoutAttribute.Bottom,
+            multiplier: 1.0,
+            constant: 20).active = true
         
-        group = ConstraintGroup()
-        group1 = ConstraintGroup()
-        reloadLayout()
+        if UIDevice.currentDevice().orientation.isPortrait.boolValue  {
+            compactLayout()
+        } else {
+            regularLayout()
+        }
     }
     
-    func reloadLayout() {
+    func compactLayout() {
         
-        constrain(thumbImage, titleLabel, labelLabel, formatLabel, replace:  group) {
-            thumbImage, titleLabel, labelLabel, formatLabel in
-            
-            labelLabel.top == titleLabel.bottom + 10
-            if isLandscape {
-                titleLabel.top == titleLabel.superview!.top + 135
-                titleLabel.left == thumbImage.right + 10
-            } else {
-                titleLabel.top == thumbImage.bottom + 10
-                titleLabel.left == titleLabel.superview!.left + 10 }
-            
-            titleLabel.width == titleLabel.superview!.width - (isLandscape ? 185 : 20)
-            labelLabel.left == labelLabel.superview!.left + (isLandscape ? 170 : 10)
-            labelLabel.width == labelLabel.superview!.width - (isLandscape ? 160 : 20)
-            formatLabel.top == labelLabel.bottom + 10
-        }
+        thumbImage.snp_remakeConstraints { (make) -> Void in
+            make.centerX.equalTo(view).offset(0)
+            make.width.equalTo(150)
+            make.height.equalTo(150) }
         
-        constrain(formatLabel, countryLabel, genreLabel, styleLabel, yearLabel, replace:  group1) {
-            formatLabel, countryLabel, genreLabel, styleLabel, yearLabel in
-          
-            formatLabel.left == formatLabel.superview!.left + (isLandscape ? 170 : 10)
-            formatLabel.width == formatLabel.superview!.width - (isLandscape ? 185 : 20)
-            countryLabel.top == formatLabel.bottom + 10
-            countryLabel.left == countryLabel.superview!.left + (isLandscape ? 164 : 10)
-            countryLabel.width == countryLabel.superview!.width - (isLandscape ? 185 : 20)
-            genreLabel.top == countryLabel.bottom + 10
-            genreLabel.left == genreLabel.superview!.left +  (isLandscape ? 170 : 10)
-            genreLabel.width == genreLabel.superview!.width - (isLandscape ? 185 : 20)
-            styleLabel.top == genreLabel.bottom + 10
-            styleLabel.left == styleLabel.superview!.left +  (isLandscape ? 170 : 10)
-            styleLabel.width == styleLabel.superview!.width - (isLandscape ? 185 : 20)
-            yearLabel.top == styleLabel.bottom + 10
-            yearLabel.left == yearLabel.superview!.left +  (isLandscape ? 170 : 10)
-            yearLabel.width == yearLabel.superview!.width - (isLandscape ? 185 : 20)
-        }
-
+        titleLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(thumbImage.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.trailing.equalTo(view).offset(-10) }
+        
+        labelLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(titleLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        formatLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(labelLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        countryLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(formatLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        genreLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(countryLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        styleLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(genreLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        yearLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(styleLabel.snp_bottom).offset(10)
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(view).offset(-10) }
+        
+        addCollectionButton.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(yearLabel.snp_bottom).offset(10)
+            make.left.equalTo(view).offset(10)
+            make.width.equalTo(44)
+            make.height.equalTo(44) }
+        
+        addWishlistButton.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(yearLabel.snp_bottom).offset(10)
+            make.left.equalTo(addCollectionButton.snp_right).offset(10)
+            make.width.equalTo(44)
+            make.height.equalTo(44) }
     }
     
- }
+    func regularLayout() {
+        
+        thumbImage.snp_remakeConstraints { (make) -> Void in
+            make.leading.equalTo(view).offset(10)
+            make.width.equalTo(150)
+            make.height.equalTo(150) }
+        
+        titleLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(view).offset(60)
+            make.leading.equalTo(thumbImage.snp_trailing).offset(10)
+            make.trailing.equalTo(view).offset(-10) }
+        
+        labelLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(titleLabel.snp_bottom).offset(10)
+            make.leading.equalTo(thumbImage.snp_trailing).offset(10)
+            make.width.equalTo(view).offset(-160) }
+        
+        formatLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(labelLabel.snp_bottom).offset(10)
+            make.leading.equalTo(thumbImage.snp_trailing).offset(10)
+            make.width.equalTo(view).offset(-160) }
+        
+        countryLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(formatLabel.snp_bottom).offset(10)
+            make.leading.equalTo(thumbImage.snp_trailing).offset(10)
+            make.width.equalTo(view).offset(-160) }
+        
+        genreLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(countryLabel.snp_bottom).offset(10)
+            make.leading.equalTo(thumbImage.snp_trailing).offset(10)
+            make.width.equalTo(view).offset(-160) }
+        
+        styleLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(genreLabel.snp_bottom).offset(10)
+            make.leading.equalTo(thumbImage.snp_trailing).offset(10)
+            make.width.equalTo(view).offset(-160) }
+        
+        yearLabel.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(styleLabel.snp_bottom).offset(10)
+            make.leading.equalTo(thumbImage.snp_trailing).offset(10)
+            make.width.equalTo(view).offset(-160) }
+        
+        addCollectionButton.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(yearLabel.snp_bottom).offset(10)
+            make.left.equalTo(view).offset(10)
+            make.width.equalTo(44)
+            make.height.equalTo(44) }
+        
+        addWishlistButton.snp_remakeConstraints { (make) -> Void in
+            make.top.equalTo(yearLabel.snp_bottom).offset(10)
+            make.left.equalTo(addCollectionButton.snp_right).offset(10)
+            make.width.equalTo(44)
+            make.height.equalTo(44) }
+        
+    }    
+}

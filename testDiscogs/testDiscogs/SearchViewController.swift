@@ -65,6 +65,7 @@ class SearchViewController: BaseViewController {
         
         progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         progressHUD.labelText = "Loading..."
+       // RDataManager.sharedManager.getData("https://bitbucket.org/hyphe/blog-examples/raw/master/fetchData/demoapi/books", controller: control.SearchViewController)
         DataManager.sharedManager.getData(urlStr, controller: control.SearchViewController) { [unowned self] (listData) in
             
             self.searchData = listData as! ListData
@@ -75,6 +76,11 @@ class SearchViewController: BaseViewController {
                 print(self.searchData.page)
                 MBProgressHUD.hideAllHUDsForView(self.view, animated: true)            
         }
+        
+        
+        
+        
+        
     }
     
     func reloadPage() {

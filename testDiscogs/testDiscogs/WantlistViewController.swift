@@ -27,7 +27,7 @@ class WantlistViewController: BaseViewController {
         title = "Wantlist"
        
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
