@@ -32,11 +32,11 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
     
     public let defaultSegmentBarBgColor = UIColor.blueColor()
     public let defaultSelectionBarBgColor = UIColor.redColor()
-    
+
     public var buttonAttributes: [String : AnyObject]?
     public var segmentBarAttributes: [String : AnyObject]?
     public var selectionAttributes: [String : AnyObject]?
-    
+
     public var delegate: SMSwipeableTabViewControllerDelegate?
     
     private var pageViewController: UIPageViewController?
@@ -71,6 +71,7 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
             
             self.pageViewController!.didMoveToParentViewController(self)
             
+            // Add the page view controller's gesture recognizers to the book view controller's view so that the gestures are started more easily.
             self.view.gestureRecognizers = self.pageViewController!.gestureRecognizers
         }
         else {
@@ -89,15 +90,17 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
         segmentBarView.scrollEnabled = true
         segmentBarView.showsHorizontalScrollIndicator = false
         segmentBarView.backgroundColor = defaultSegmentBarBgColor
-        
+
         if let attributes = segmentBarAttributes {
             if let bgColor = attributes[SMBackgroundColorAttribute] as? UIColor {
                 segmentBarView.backgroundColor = bgColor
             }
+            
             if let bgImage = attributes[SMBackgroundImageAttribute] as? UIImage {
-                segmentBarView.backgroundColor = UIColor(patternImage: bgImage) }
+                segmentBarView.backgroundColor = UIColor(patternImage: bgImage)
+            }
         }
-        
+       
         setupSegmentBarButtons()
         self.view.addSubview(segmentBarView)
         setupSelectionBar()
@@ -196,7 +199,6 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
         }
     }
     
-    
     private func getWidthForText(text: String) -> CGFloat {
         return buttonWidth ?? ceil((text as NSString).sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(17.0)]).width)
     }
@@ -222,34 +224,33 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
     
     //MARK: Page View Controller Data Source
     public func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-         var index = viewController.view.tag
-         if index == 0 || index == NSNotFound {
-         return nil
-         }
-         index--
-         return viewControllerAtIndex(index)
-      
+        var index = viewController.view.tag
+        if index == 0 || index == NSNotFound {
+            return nil
+        }
+        
+        index--
+        return viewControllerAtIndex(index)
     }
     
     public func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        var index = currentPageIndex
+        var index = viewController.view.tag
         if index == NSNotFound {
-         return nil
-         }
-         index++
-         if index == titleBarDataSource?.count {
-         return nil
-         }
-        return viewControllerAtIndex(index)
+            return nil
+        }
         
+        index++
+        if index == titleBarDataSource?.count {
+            return nil
+        }
+        
+        return viewControllerAtIndex(index)
     }
     
     public func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        
         if completed {
-            
             if let lastVC = pageViewController.viewControllers?.last {
-                self.currentPageIndex = lastVC.view.tag
+                currentPageIndex = lastVC.view.tag
             }
             setupSelectionBarFrame(currentPageIndex)
             segmentBarView.scrollRectToVisible(CGRectMake(buttonsFrameArray[currentPageIndex].origin.x, 0.0,  buttonsFrameArray[currentPageIndex].size.width, 44.0), animated: true)
@@ -273,6 +274,6 @@ public class SMSwipeableTabViewController: UIViewController, UIPageViewControlle
         let xFromCenter:CGFloat = self.view.frame.size.width-scrollView.contentOffset.x
         let xCoor = buttonsFrameArray[currentPageIndex].origin.x;
         selectionBar.frame = CGRectMake(xCoor-xFromCenter/CGFloat(titleBarDataSource?.count ?? 0), selectionBar.frame.origin.y, buttonsFrameArray[currentPageIndex].size.width, selectionBar.frame.size.height)
-        setupSelectionBarFrame(currentPageIndex)
+//        setupSelectionBarFrame(currentPageIndex)
     }
 }

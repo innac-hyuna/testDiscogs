@@ -1,0 +1,6 @@
+framework module Pods_testDiscogs_testDiscogsUITests {
+  umbrella header "Pods-testDiscogs-testDiscogsUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

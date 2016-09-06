@@ -21,8 +21,8 @@ class WantlistTableViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        cellInd = "CellWantlist"
-               
+        
+        cellInd = "CellWantlist"               
         tableView = UITableView()
         tableView?.backgroundColor = UIColor.bgColor()
         tableView?.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))
