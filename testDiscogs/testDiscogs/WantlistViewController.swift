@@ -8,13 +8,12 @@
 
 import UIKit
 import SMSwipeableTabView
-import MBProgressHUD
+import PKHUD
 
 class WantlistViewController: BaseViewController {
     
     var tableView: UITableView!
     var cellInd: String!
-    var progressHUD: MBProgressHUD!
     var wData: ListData!
     var swipeableView: SMSwipeableTabMyViewController!
     var listVC: WantlistTableViewController!
@@ -44,15 +43,16 @@ class WantlistViewController: BaseViewController {
     
     func loadData(urlStr: String, lodFirst: Bool) {
         
-        progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        progressHUD.labelText = "Loading..."
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show()
+        
         DataManager.sharedManager.getData(urlStr, controller: control.WantlistViewController) { [unowned self] (ListD) in
             
             self.wData =  ListD as! ListData
             if lodFirst {
                 self.reloadSwipeableTabView()}
             self.reloadPage()
-            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+            PKHUD.sharedHUD.hide(afterDelay: 1.0)
         }
     }
     

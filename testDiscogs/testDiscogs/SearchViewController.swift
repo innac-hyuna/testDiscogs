@@ -8,13 +8,12 @@
 
 import UIKit
 import SMSwipeableTabView
-import MBProgressHUD
+import PKHUD
 import SnapKit
 
 class SearchViewController: BaseViewController {
     
     var userName = ""
-    var progressHUD: MBProgressHUD!
     var searchData: ListData!
     var seachBar: UISearchBar!
     var swipeableView: SMSwipeableTabMyViewController!
@@ -62,9 +61,10 @@ class SearchViewController: BaseViewController {
     }
     
     func loadData(urlStr: String) {
-        
-        progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        progressHUD.labelText = "Loading..."
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show()
+      
+       
        // RDataManager.sharedManager.getData("https://bitbucket.org/hyphe/blog-examples/raw/master/fetchData/demoapi/books", controller: control.SearchViewController)
         DataManager.sharedManager.getData(urlStr, controller: control.SearchViewController) { [unowned self] (listData) in
             
@@ -74,7 +74,7 @@ class SearchViewController: BaseViewController {
                 self.reloadPage()
                 self.activePage = self.listVC.view.tag
                 print(self.searchData.page)
-                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)            
+              PKHUD.sharedHUD.hide(afterDelay: 1.0)
         }
         
         

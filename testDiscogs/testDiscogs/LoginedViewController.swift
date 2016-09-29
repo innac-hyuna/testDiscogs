@@ -8,7 +8,6 @@
 
 import WebKit
 import OAuthSwift
-import AKSideMenu
 
 
 class LoginedViewController: OAuthWebViewController {

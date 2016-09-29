@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>AlamofireNetworkActivityIndicator.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>AlamofireObjectMapper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -19,17 +24,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>MBProgressHUD.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>OAuthSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>ObjectMapper.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PKHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -87,12 +92,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>181CFFFA1C550078EDA576A18BE12CB3</key>
+		<key>1F4C8B12BD3608D8694BCD4B76308754</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3807F4BB3BDE14832A4FF6ADB9F5B9A1</key>
+		<key>228FFC4E78F899B58C33C57F31513A8E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>301ECDD19441ADE31A8384C7C964D2A6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3B069C0C6784E90F95FA136E8FD87744</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,12 +117,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6CCE4A5D46EA7EA9A9F0EB8EA33F4437</key>
+		<key>63B11B4E1930322786E20A80BE12C476</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>74DA3B19DF19929ABF5DDA76087AA6A2</key>
+		<key>6D0F16DCF882E179CEB4973C66AF5A72</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -117,17 +132,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>820DB610FB086B002A38C9F347D8C1BE</key>
+		<key>858CA08960F98C16E9F32BD1AD1068CB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8DED065B47BABAA20FB7542F761E9A69</key>
+		<key>87859FB60D9FA2AB3CFEC594BA377A2D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B5D5B94E40FEDA8E3125B3E546FA7514</key>
+		<key>BF04A5643A2C49C770CCCAC03EBDCCA9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -137,27 +152,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C8C4ABDC2260C9E4DF1A15ABA0C9C6FC</key>
+		<key>D2F2F8057F2034B449D4F0C1CF97CED1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D5DC6D519AD18DCBBBC87C7E74C0FFAB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E61CE3B6DFA1FE6B3E296965C76C0E10</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E7DA1D759B0F23CBC09BBCF899C98AED</key>
+		<key>DFDEA330C236EF5EA0ADDB6AA2ED3CB9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>E96E13C4D3B5B5FC0651440734C2BF4D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F6F0516F82D07656D12F1C0716898F73</key>
 		<dict>
 			<key>primary</key>
 			<true/>

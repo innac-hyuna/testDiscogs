@@ -8,7 +8,7 @@
 
 import UIKit
 import SMSwipeableTabView
-import MBProgressHUD
+import PKHUD
 import SnapKit
 
 class CollectionViewController: BaseViewController {
@@ -16,9 +16,7 @@ class CollectionViewController: BaseViewController {
     
     var tableView: UITableView!
     var cellInd: String!
-    var wData: ListData!
-    var progressHUD: MBProgressHUD!
-    var floatRatingView: FloatRatingView!
+    var wData: ListData!   
     var idFolder: Int!
     var swipeableView: SMSwipeableTabMyViewController!
     var listVC: CollectionTableViewController!
@@ -48,15 +46,17 @@ class CollectionViewController: BaseViewController {
     }
     
     func loadData(urlStr: String, loadFirst: Bool) {
-        progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        progressHUD.labelText = "Loading..."
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show()
+      
+        
         DataManager.sharedManager.getData(urlStr, controller: control.CollectionViewController) { [unowned self] (ListD) in
             
             self.wData =  ListD as! ListData
             if loadFirst { self.reloadSwipeableTabView() }
             self.reloadPage()
             self.listVC.folderId  = self.idFolder
-            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+            PKHUD.sharedHUD.hide(afterDelay: 1.0)
         }
     }   
     

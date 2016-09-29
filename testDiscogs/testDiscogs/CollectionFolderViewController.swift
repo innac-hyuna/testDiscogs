@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import MBProgressHUD
+import PKHUD
 import SnapKit
 
 class CollectionFolderViewController: BaseViewController {
     
     var tableView: UITableView!
     var cellInd: String!
-    var progressHUD: MBProgressHUD!
     var fData: [CollectionFolder]!
     var listVC: UITableView!
     
@@ -51,14 +50,14 @@ class CollectionFolderViewController: BaseViewController {
     }
     
     func loadData(urlStr: String) {
-        progressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        progressHUD.labelText = "Loading..."
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show()
+
         DataManager.sharedManager.getData(urlStr, controller: control.CollectionFolderViewController) { [unowned self] (ListF) in
             self.fData =  ListF as! [CollectionFolder]
             if (self.fData.count != 0) {
                 self.listVC.reloadData() }
-             MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-           
+            PKHUD.sharedHUD.hide(afterDelay: 1.0)
         }
     }
     

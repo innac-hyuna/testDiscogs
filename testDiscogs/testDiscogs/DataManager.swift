@@ -9,6 +9,7 @@
 import Foundation
 import SwiftyJSON
 import Alamofire
+import AlamofireNetworkActivityIndicator
 
 
 enum control: String {
@@ -24,6 +25,9 @@ class DataManager {
     
     func getData(urlStr: String, controller: control , callback: ((AnyObject) -> ())?) {
         print(urlStr)
+        
+        NetworkActivityIndicatorManager.sharedManager.isEnabled = true
+        
         Alamofire.request(.GET, urlStr, parameters: ["": ""])
             .validate()
             .response {request, response, data, error in
